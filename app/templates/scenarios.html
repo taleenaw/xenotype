@@ -1,7 +1,39 @@
 {% extends "base.html" %}
+
 {% block content %}
+
 <h1>Scenarios</h1>
-<p style="color: var(--xt-text3);">Coming soon.</p>
+
+
+<div style="margin-bottom: 20px;">
+    <a class="btn" href="{{ url_for('scenario.generate_scenario') }}">
+        + Generate Random Scenario
+    </a>
+</div>
+
+
+{% if scenarios %}
+
+    {% for scenario in scenarios %}
+
+        <div class="card" style="margin-bottom: 20px;">
+
+            <h2>{{ scenario.title }}</h2>
+
+            <p>{{ scenario.genre }} | {{ scenario.difficulty }}</p>
+
+            <p>{{ scenario.intro_text }}</p>
+
+            <a class="btn" href="{{ url_for('game.play_scenario', scenario_id=scenario.id) }}">Start Mission</a>
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No scenarios available.</p>
+
+{% endif %}
+
 {% endblock %}
-
-

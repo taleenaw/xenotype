@@ -1,5 +1,38 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h1>Profile — {{ username }}</h1>
-<p style="color: var(--xt-text3);">Coming soon.</p>
+<h1>Profile — {{ user.username }}</h1>
+
+<p><strong>Best WPM:</strong> {{ best_wpm }}</p>
+<p><strong>Average Accuracy:</strong> {{ avg_accuracy }}%</p>
+<p><strong>Total Runs:</strong> {{ runs|length }}</p>
+
+<h2>Recent Runs</h2>
+
+{% if runs %}
+<table>
+    <thead>
+        <tr>
+            <th>Scenario</th>
+            <th>WPM</th>
+            <th>Accuracy</th>
+            <th>Grade</th>
+            <th>Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for run in runs %}
+        <tr>
+            <td>{{ run.scenario.title }}</td>
+            <td>{{ run.wpm }}</td>
+            <td>{{ run.accuracy }}%</td>
+            <td>{{ run.grade }}</td>
+            <td>{{ run.completed_at.strftime('%Y-%m-%d %H:%M') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No runs yet.</p>
+{% endif %}
 {% endblock %}

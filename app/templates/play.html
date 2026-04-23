@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ scenario.title }}</h1>
+<p><strong>Genre:</strong> {{ scenario.genre }}</p>
+<p><strong>Difficulty:</strong> {{ scenario.difficulty }}</p>
+<p>{{ scenario.intro_text }}</p>
+
+<div class="card" style="margin-bottom: 20px;">
+    <h2>Transmission</h2>
+    <p id="target-text">{{ scenario.passage }}</p>
+</div>
+
+<div class="card" style="margin-bottom: 20px;">
+    <h2>Type Here</h2>
+    <p>Time left: <span id="time-left">60</span>s</p>
+    <textarea id="typing-input" rows="8" placeholder="Begin typing the transmission..."></textarea>
+    <button class="btn" id="finish-btn" type="button">Finish Run</button>
+</div>
+
+<form id="result-form" method="POST" action="{{ url_for('game.submit_run', scenario_id=scenario.id) }}" style="display:none;">
+    <input type="hidden" name="wpm" id="wpm-field">
+    <input type="hidden" name="accuracy" id="accuracy-field">
+    <input type="hidden" name="time_remaining" id="time-remaining-field">
+    <input type="hidden" name="errors" id="errors-field">
+    <input type="hidden" name="grade" id="grade-field">
+    <input type="hidden" name="wpm_history" id="wpm-history-field">
+</form>
+
+<div class="card" id="results-box" style="display:none;">
+    <h2>Results</h2>
+    <p><strong>WPM:</strong> <span id="final-wpm"></span></p>
+    <p><strong>Accuracy:</strong> <span id="final-accuracy"></span>%</p>
+    <p><strong>Errors:</strong> <span id="final-errors"></span></p>
+    <p><strong>Grade:</strong> <span id="final-grade"></span></p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const targetText = document.getElementById("target-text").innerText.trim();
+const typingInput = document.getElementById("typing-input");
+const finishBtn = document.getElementById("finish-btn");
+const timeLeftSpan = document.getElementById("time-left");
+
+const resultForm = document.getElementById("result-form");
+const wpmField = document.getElementById("wpm-field");
+const accuracyField = document.getElementById("accuracy-field");
+const timeRemainingField = document.getElementById("time-remaining-field");
+const errorsField = document.getElementById("errors-field");
+const gradeField = document.getElementById("grade-field");
+const wpmHistoryField = document.getElementById("wpm-history-field");
+
+const resultsBox = document.getElementById("results-box");
+const finalWpm = document.getElementById("final-wpm");
+const finalAccuracy = document.getElementById("final-accuracy");
+const finalErrors = document.getElementById("final-errors");
+const finalGrade = document.getElementById("final-grade");
+
+let started = false;
+let startTime = null;
+let totalTime = 60;
+let timeLeft = totalTime;
+let timer = null;
+let wpmHistory = [];
+
+function startTimer() {
+    if (started) return;
+    started = true;
+    startTime = Date.now();
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timeLeftSpan.textContent = timeLeft;
+
+        recordLiveWpm();
+
+        if (timeLeft <= 0) {
+            finishRun();
+        }
+    }, 1000);
+}
+
+function countErrors(input, target) {
+    let errors = 0;
+    for (let i = 0; i < input.length; i++) {
+        if (i >= target.length || input[i] !== target[i]) {
+            errors++;
+        }
+    }
+    return errors;
+}
+
+function calculateResults() {
+    const typedText = typingInput.value;
+    const elapsedMinutes = Math.max((totalTime - timeLeft) / 60, 1 / 60);
+
+    const typedWords = typedText.trim().length > 0 ? typedText.trim().split(/\s+/).length : 0;
+    const wpm = typedWords / elapsedMinutes;
+
+    const errors = countErrors(typedText, targetText);
+    const correctChars = Math.max(typedText.length - errors, 0);
+    const accuracy = typedText.length > 0 ? (correctChars / typedText.length) * 100 : 0;
+
+    let grade = "F";
+    if (wpm >= 60 && accuracy >= 95) grade = "A";
+    else if (wpm >= 45 && accuracy >= 90) grade = "B";
+    else if (wpm >= 30 && accuracy >= 80) grade = "C";
+    else if (wpm >= 20 && accuracy >= 70) grade = "D";
+
+    return {
+        wpm: Math.round(wpm * 100) / 100,
+        accuracy: Math.round(accuracy * 100) / 100,
+        errors,
+        grade
+    };
+}
+
+function recordLiveWpm() {
+    const typedText = typingInput.value;
+    const elapsedMinutes = Math.max((totalTime - timeLeft) / 60, 1 / 60);
+    const typedWords = typedText.trim().length > 0 ? typedText.trim().split(/\s+/).length : 0;
+    const liveWpm = typedWords / elapsedMinutes;
+    wpmHistory.push(Math.round(liveWpm * 100) / 100);
+}
+
+function finishRun() {
+    clearInterval(timer);
+    typingInput.disabled = true;
+    finishBtn.disabled = true;
+
+    const results = calculateResults();
+
+    finalWpm.textContent = results.wpm;
+    finalAccuracy.textContent = results.accuracy;
+    finalErrors.textContent = results.errors;
+    finalGrade.textContent = results.grade;
+    resultsBox.style.display = "block";
+
+    wpmField.value = results.wpm;
+    accuracyField.value = results.accuracy;
+    timeRemainingField.value = timeLeft;
+    errorsField.value = results.errors;
+    gradeField.value = results.grade;
+    wpmHistoryField.value = JSON.stringify(wpmHistory);
+
+    setTimeout(() => {
+        resultForm.submit();
+    }, 1500);
+}
+
+typingInput.addEventListener("input", startTimer);
+finishBtn.addEventListener("click", finishRun);
+</script>
+{% endblock %}
