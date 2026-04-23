@@ -1,7 +1,22 @@
+# macOS junk
+
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[codz]
+*.py[cod]
 *$py.class
+
+# Virtual environments
+
+.venv/
+venv/
+env/
+
+# Flask / database
+
+instance/
+*.db
 
 # C extensions
 *.so

@@ -17,9 +17,11 @@ def create_app():
     from app.routes.auth import auth
     from app.routes.main import main
     from app.routes.game import game
+    from app.routes.scenario import scenario
     app.register_blueprint(auth)
     app.register_blueprint(main)
     app.register_blueprint(game)
+    app.register_blueprint(scenario,url_prefix='/scenario')
 
     return app
 
