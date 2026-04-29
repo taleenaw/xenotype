@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Campaign Mode - Xenotype{% endblock %}
+
+{% block content %}
+<section class="card campaign-shell">
+    <div class="campaign-header">
+        <div>
+            <h1>Campaign Mode</h1>
+            <p class="campaign-subtitle">Chat with your mission bot and build your story mode here.</p>
+        </div>
+        <button id="resetCampaignChat" class="btn" type="button">Reset Chat</button>
+    </div>
+
+    <div id="campaignChatLog" class="campaign-chat-log">
+        {% for message in history %}
+            <div class="campaign-message campaign-message-{{ message.role }}">
+                <div class="campaign-speaker">{{ message.speaker }}</div>
+                <div class="campaign-text">{{ message.text }}</div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <form id="campaignChatForm" class="campaign-chat-form">
+        <input
+            id="campaignMessageInput"
+            type="text"
+            placeholder="Type to your campaign bot... try: mission, status, lore, help"
+            autocomplete="off"
+            required
+        >
+        <button class="btn" type="submit">Send</button>
+    </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const chatLog = document.getElementById('campaignChatLog');
+const chatForm = document.getElementById('campaignChatForm');
+const messageInput = document.getElementById('campaignMessageInput');
+const resetButton = document.getElementById('resetCampaignChat');
+
+function scrollChatToBottom() {
+    chatLog.scrollTop = chatLog.scrollHeight;
+}
+
+function addMessage(message) {
+    const wrapper = document.createElement('div');
+    wrapper.className = `campaign-message campaign-message-${message.role}`;
+
+    const speaker = document.createElement('div');
+    speaker.className = 'campaign-speaker';
+    speaker.textContent = message.speaker;
+
+    const text = document.createElement('div');
+    text.className = 'campaign-text';
+    text.textContent = message.text;
+
+    wrapper.appendChild(speaker);
+    wrapper.appendChild(text);
+    chatLog.appendChild(wrapper);
+    scrollChatToBottom();
+}
+
+chatForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const message = messageInput.value.trim();
+    if (!message) return;
+
+    addMessage({ speaker: 'You', text: message, role: 'player' });
+    messageInput.value = '';
+
+    const response = await fetch('{{ url_for("campaign.campaign_chat") }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        addMessage({ speaker: 'System', text: data.error || 'Bot error.', role: 'bot' });
+        return;
+    }
+
+    addMessage(data);
+});
+
+resetButton.addEventListener('click', async () => {
+    await fetch('{{ url_for("campaign.reset_campaign_chat") }}', { method: 'POST' });
+    window.location.reload();
+});
+
+scrollChatToBottom();
+</script>
+{% endblock %}

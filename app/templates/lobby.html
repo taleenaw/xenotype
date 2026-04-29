@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Xenotype — Mission Control{% endblock %}
+{% block content %}
+<div style="margin-bottom: 32px;">
+	<p style="font-size: 11px; color: var(--xt-text3); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">// MISSION CONTROL</p>
+	<h1>Welcome, Agent</h1>
+	<p style="color: var(--xt-text3); font-size: 13px;">Select a mission to begin transmission.</p>
+</div>
+
+<a href="{{ url_for('main.scenarios') }}" class="btn">Browse Scenarios</a>
+{% endblock %}

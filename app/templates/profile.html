@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="profile-hero card">
+    <div class="profile-photo-wrap">
+        <img
+            class="profile-photo"
+            src="{{ url_for('static', filename='uploads/' + (user.profile_photo or 'profile_photos/default-avatar.svg')) }}"
+            alt="{{ user.username }} profile photo">
+    </div>
+
+    <div class="profile-info">
+        <p class="eyebrow">Player profile</p>
+        <h1>{{ user.username }}</h1>
+
+        <div class="profile-stats-grid">
+            <div class="profile-stat">
+                <span>Best WPM</span>
+                <strong>{{ best_wpm }}</strong>
+            </div>
+            <div class="profile-stat">
+                <span>Average Accuracy</span>
+                <strong>{{ avg_accuracy }}%</strong>
+            </div>
+            <div class="profile-stat">
+                <span>Total Runs</span>
+                <strong>{{ runs|length }}</strong>
+            </div>
+        </div>
+
+        {% if current_user.id == user.id %}
+        <form class="profile-photo-form" method="POST" enctype="multipart/form-data">
+            <label for="profile_photo">Upload profile photo</label>
+            <div class="profile-upload-row">
+                <input id="profile_photo" type="file" name="profile_photo" accept="image/png,image/jpeg,image/gif,image/webp">
+                <button class="btn" type="submit">Update Photo</button>
+            </div>
+            <p class="profile-upload-hint">PNG, JPG, GIF, or WEBP. Max size: 2 MB.</p>
+        </form>
+        {% endif %}
+    </div>
+</section>
+
+<section class="profile-chart-card card">
+    <div class="profile-section-header">
+        <p class="eyebrow">Performance log</p>
+        <h2>WPM Progress Over All Attempts</h2>
+    </div>
+
+    {% if runs %}
+    <div class="chart-frame">
+        <canvas
+            id="wpmChart"
+            width="900"
+            height="320"
+            aria-label="Line graph showing WPM for each attempt"
+            role="img">
+        </canvas>
+    </div>
+    <p class="chart-hint">Each point shows your final WPM for one completed attempt, from oldest to newest.</p>
+    {% else %}
+    <p>No WPM data yet. Complete a scenario to start building your progress graph.</p>
+    {% endif %}
+</section>
+
+<section class="card profile-runs-card">
+    <div class="profile-section-header">
+        <p class="eyebrow">Attempt history</p>
+        <h2>Recent Runs</h2>
+    </div>
+
+    {% if runs %}
+    <table>
+        <thead>
+            <tr>
+                <th>Scenario</th>
+                <th>WPM</th>
+                <th>Accuracy</th>
+                <th>Grade</th>
+                <th>Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for run in runs %}
+            <tr>
+                <td>{{ run.scenario.title }}</td>
+                <td>{{ run.wpm }}</td>
+                <td>{{ run.accuracy }}%</td>
+                <td>{{ run.grade }}</td>
+                <td>{{ run.completed_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No runs yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+{% if runs %}
+<script>
+    const wpmLabels = {{ wpm_labels | tojson }};
+    const wpmValues = {{ wpm_values | tojson }};
+    const canvas = document.getElementById("wpmChart");
+    const ctx = canvas.getContext("2d");
+
+    const chartTheme = {
+        background: "#020c04",
+        panel: "#071509",
+        grid: "#1a4a1a",
+        gridSoft: "rgba(26, 74, 26, 0.55)",
+        text: "#b8ffb8",
+        muted: "#7acc7a",
+        bright: "#00ff41",
+        mid: "#00cc33",
+        dark: "#003308"
+    };
+
+    function drawWpmChart() {
+        const width = canvas.width;
+        const height = canvas.height;
+        const padding = 58;
+        const graphWidth = width - padding * 2;
+        const graphHeight = height - padding * 2;
+        const maxWpm = Math.max(...wpmValues, 10);
+        const roundedMax = Math.ceil(maxWpm / 10) * 10;
+
+        ctx.clearRect(0, 0, width, height);
+
+        ctx.fillStyle = chartTheme.background;
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.fillStyle = chartTheme.panel;
+        ctx.strokeStyle = chartTheme.grid;
+        ctx.lineWidth = 1;
+        ctx.fillRect(padding, padding, graphWidth, graphHeight);
+        ctx.strokeRect(padding, padding, graphWidth, graphHeight);
+
+        ctx.font = "13px JetBrains Mono, monospace";
+        ctx.textBaseline = "middle";
+
+        // Y-axis labels and grid lines
+        for (let i = 0; i <= 5; i++) {
+            const value = Math.round((roundedMax / 5) * i);
+            const y = height - padding - (value / roundedMax) * graphHeight;
+
+            ctx.strokeStyle = i === 0 ? chartTheme.grid : chartTheme.gridSoft;
+            ctx.beginPath();
+            ctx.moveTo(padding, y);
+            ctx.lineTo(width - padding, y);
+            ctx.stroke();
+
+            ctx.fillStyle = chartTheme.muted;
+            ctx.fillText(value, 18, y);
+        }
+
+        const points = wpmValues.map((wpm, index) => {
+            const x = wpmValues.length === 1
+                ? padding + graphWidth / 2
+                : padding + (index / (wpmValues.length - 1)) * graphWidth;
+            const y = height - padding - (wpm / roundedMax) * graphHeight;
+            return { x, y, wpm, label: wpmLabels[index] };
+        });
+
+        // Soft glow line
+        if (points.length > 1) {
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            points.slice(1).forEach(point => ctx.lineTo(point.x, point.y));
+            ctx.strokeStyle = chartTheme.dark;
+            ctx.lineWidth = 7;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            points.slice(1).forEach(point => ctx.lineTo(point.x, point.y));
+            ctx.strokeStyle = chartTheme.bright;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // Attempt points
+        points.forEach((point, index) => {
+            ctx.beginPath();
+            ctx.fillStyle = chartTheme.background;
+            ctx.strokeStyle = chartTheme.bright;
+            ctx.lineWidth = 2;
+            ctx.arc(point.x, point.y, 6, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = chartTheme.text;
+            ctx.font = "12px JetBrains Mono, monospace";
+            ctx.fillText(point.wpm, point.x - 12, point.y - 18);
+
+            if (points.length <= 12 || index % Math.ceil(points.length / 12) === 0) {
+                ctx.fillStyle = chartTheme.muted;
+                ctx.fillText(String(index + 1), point.x - 4, height - padding + 24);
+            }
+        });
+
+        ctx.fillStyle = chartTheme.bright;
+        ctx.font = "13px Orbitron, monospace";
+        ctx.fillText("WPM", 16, 24);
+        ctx.fillText("ATTEMPT", width / 2 - 34, height - 18);
+    }
+
+    drawWpmChart();
+</script>
+{% endif %}
+{% endblock %}
