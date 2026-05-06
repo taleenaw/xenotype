@@ -16,6 +16,9 @@
 			<a class="xt-nav-link" href="{{ url_for('main.lobby') }}">Lobby</a>
 			<a class="xt-nav-link" href="{{ url_for('main.scenarios') }}">Scenarios</a>
 			<a class="xt-nav-link" href="{{ url_for('campaign.campaign_home') }}">Campaign</a>
+			{% if current_user.is_authenticated %}
+				<a class="xt-nav-link" href="{{ url_for('chat.chat_home') }}">Player Chat</a>
+			{% endif %}
 			<a class="xt-nav-link" href="{{ url_for('main.leaderboard') }}">Leaderboard</a>
 			{% if current_user.is_authenticated %}
 				<a class="xt-nav-link" href="{{ url_for('main.profile', username=current_user.username) }}">Profile</a>

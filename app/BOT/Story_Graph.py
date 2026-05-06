@@ -1,12 +1,64 @@
-#Controls Structure and Flow.
-
-STORY_GRAPH={
-    "intro":["investigate","talk","escape"],
-    "investigate":["clue"],
-    "talk":["challenge"],
-    "escape":["locked exit"],
-    "clue":["challenge"],
-    "trap":["challenge"],
-    "locked exit":["challenge"],
-    "challenge":["intro"]
-    }  
+STORY_GRAPH = {
+    "intro": {
+        "investigate": "first_clue",
+        "talk": "guide_warning",
+        "status": "intro",
+        "help": "intro",
+    },
+    "first_clue": {
+        "investigate": "hidden_room",
+        "talk": "guide_warning",
+        "fight": "security_encounter",
+        "run": "sealed_exit",
+        "status": "first_clue",
+        "help": "first_clue",
+    },
+    "guide_warning": {
+        "investigate": "first_clue",
+        "talk": "secret_hint",
+        "fight": "security_encounter",
+        "run": "sealed_exit",
+        "status": "guide_warning",
+        "help": "guide_warning",
+    },
+    "hidden_room": {
+        "investigate": "secret_hint",
+        "talk": "secret_hint",
+        "fight": "security_encounter",
+        "run": "sealed_exit",
+        "status": "hidden_room",
+        "help": "hidden_room",
+    },
+    "sealed_exit": {
+        "investigate": "hidden_room",
+        "fight": "security_encounter",
+        "run": "security_encounter",
+        "status": "sealed_exit",
+        "help": "sealed_exit",
+    },
+    "secret_hint": {
+        "investigate": "final_gate",
+        "talk": "final_gate",
+        "fight": "security_encounter",
+        "status": "secret_hint",
+        "help": "secret_hint",
+    },
+    "security_encounter": {
+        "fight": "final_gate",
+        "run": "final_gate",
+        "investigate": "final_gate",
+        "status": "security_encounter",
+        "help": "security_encounter",
+    },
+    "final_gate": {
+        "fight": "completed",
+        "investigate": "completed",
+        "talk": "completed",
+        "status": "final_gate",
+        "help": "final_gate",
+    },
+    "completed": {
+        "status": "completed",
+        "help": "completed",
+    },
+}
