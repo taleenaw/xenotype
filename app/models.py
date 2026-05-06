@@ -7,6 +7,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
+    profile_photo = db.Column(db.String(255), nullable=True, default='profile_photos/default-avatar.svg')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     runs = db.relationship('Run', backref='user', lazy=True)
