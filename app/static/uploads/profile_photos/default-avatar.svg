@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <rect width="300" height="300" fill="#020c04"/>
+  <rect x="18" y="18" width="264" height="264" fill="#071509" stroke="#006611" stroke-width="4"/>
+  <circle cx="150" cy="118" r="52" fill="#003308" stroke="#00ff41" stroke-width="5"/>
+  <path d="M70 250c12-52 48-82 80-82s68 30 80 82" fill="#003308" stroke="#00ff41" stroke-width="5"/>
+  <text x="150" y="42" text-anchor="middle" font-family="monospace" font-size="20" fill="#00ff41">XENO</text>
+</svg>
