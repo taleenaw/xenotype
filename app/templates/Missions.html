@@ -14,6 +14,10 @@
     Now its up to you and the barely functional crew of the Nacho Comet to stop
     a galaxy-wide snack disaster before Greg leaves a one-star review.
   </p>
-  <a class="btn" href="#">Start Mission</a>
+  <a
+    class="btn"
+    href="{{ url_for('game.mission_play', mission_id='drive-thru') }}"
+    >Start Mission</a
+  >
 </div>
 {% endblock %}
