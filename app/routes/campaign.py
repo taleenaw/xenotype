@@ -5,6 +5,7 @@ from app import db
 from app.bot.bot import CampaignBot
 from app.models import CampaignProgress
 
+
 campaign = Blueprint('campaign', __name__, url_prefix='/campaign')
 
 
