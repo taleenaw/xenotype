@@ -1,15 +1,27 @@
-#Understand User Input.
+def detect_intent(message: str) -> str:
+    message = message.lower().strip()
 
-def detect_intent(message):
-    lower_message=message.lower()
-    if any(word in lower_message for word in ["look","search" ]): #And so on more synonyms for investigate
+    if not message:
+        return "help"
+
+    help_words = ["help", "commands", "what can i do"]
+    status_words = ["status", "stats", "health", "progress"]
+    investigate_words = ["look", "search", "inspect", "explore", "investigate", "check"]
+    talk_words = ["talk", "speak", "ask", "chat", "message"]
+    run_words = ["run", "escape", "leave", "hide", "retreat"]
+    fight_words = ["fight", "attack", "challenge", "combat", "strike"]
+
+    if any(word in message for word in help_words):
+        return "help"
+    if any(word in message for word in status_words):
+        return "status"
+    if any(word in message for word in investigate_words):
         return "investigate"
-    if any(word in lower_message for word in ["chat","speak" ]): #And so on more synonyms for talk
+    if any(word in message for word in talk_words):
         return "talk"
-    if any(word in lower_message for word in ["leave","run" ]): #And so on more synonyms for investigate
-        return "investigate"
+    if any(word in message for word in run_words):
+        return "run"
+    if any(word in message for word in fight_words):
+        return "fight"
 
-
-
-    return "challenge"
-
+    return "investigate"
