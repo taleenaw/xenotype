@@ -48,6 +48,9 @@ def leaderboard():
 
     return render_template('leaderboard.html', top_runs=top_runs)
 
+@main.route('/missions')
+def missions():
+    return render_template('Missions.html')
 
 @main.route('/profile/<username>', methods=['GET', 'POST'])
 @login_required

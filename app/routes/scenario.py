@@ -3,11 +3,13 @@ from flask import Blueprint, redirect, url_for, flash
 from flask_login import login_required, current_user
 from app import db
 from app.models import Scenario
+from app.routes.scenarios_pool import Scenarios
 
 scenario = Blueprint('scenario', __name__)
 
 def generate_random_scenario_data():
-    genres = {
+    return random.choice(Scenarios)
+    """genres = {
         "Sci-Fi": {
             "settings": ["a ruined moon base", "an orbital relay", "a drifting research vessel"],
             "threats": ["oxygen loss", "reactor instability", "signal corruption"],
@@ -37,8 +39,8 @@ def generate_random_scenario_data():
                 "Secure channel unstable... transmission integrity dropping... continue relay...",
                 "Recon data incoming... encryption valid... command verification required..."
             ]
-        }
-    }
+        }"""
+    
 
     genre = random.choice(list(genres.keys()))
     pool = genres[genre]

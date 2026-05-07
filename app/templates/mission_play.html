@@ -1,0 +1,182 @@
+{% extends "base.html" %} {% block content %}
+
+<h1 id="mission-title">{{ mission.title }}</h1>
+
+<p id="mission-intro">{{ mission.intro_text }}</p>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Transmission</h2>
+  <p id="target-text"></p>
+</div>
+
+<div class="card" id="typing-box" style="margin-bottom: 20px">
+  <h2>Type Here</h2>
+  <p>Time left: <span id="time-left">60</span>s</p>
+
+  <textarea
+    id="typing-input"
+    rows="8"
+    placeholder="Begin typing the transmission..."
+  ></textarea>
+
+  <button class="btn" id="finish-btn" type="button">Submit</button>
+</div>
+
+<div class="card" id="results-box" style="display: none; margin-bottom: 20px">
+  <h2>Stage Complete</h2>
+  <p><strong>WPM:</strong> <span id="final-wpm"></span></p>
+  <p><strong>Accuracy:</strong> <span id="final-accuracy"></span>%</p>
+  <p><strong>Errors:</strong> <span id="final-errors"></span></p>
+</div>
+
+<div class="card" id="choices-box" style="display: none; margin-bottom: 20px">
+  <h2>Choose Your Next Move</h2>
+  <button class="btn choice-btn" id="choice-a" type="button"></button>
+  <button class="btn choice-btn" id="choice-b" type="button"></button>
+</div>
+
+<div class="card" id="complete-box" style="display: none">
+  <h2>Mission Complete</h2>
+  <p id="ending-text"></p>
+  <a class="btn" href="{{ url_for('main.lobby') }}">Return to Lobby</a>
+</div>
+
+{% endblock %} {% block scripts %}
+<script>
+  const missionStages = {{ mission.stages|tojson }};
+
+  const targetTextElement = document.getElementById("target-text");
+  const typingInput = document.getElementById("typing-input");
+  const finishBtn = document.getElementById("finish-btn");
+  const timeLeftSpan = document.getElementById("time-left");
+
+  const typingBox = document.getElementById("typing-box");
+  const resultsBox = document.getElementById("results-box");
+  const choicesBox = document.getElementById("choices-box");
+  const completeBox = document.getElementById("complete-box");
+  const endingText = document.getElementById("ending-text");
+
+  const finalWpm = document.getElementById("final-wpm");
+  const finalAccuracy = document.getElementById("final-accuracy");
+  const finalErrors = document.getElementById("final-errors");
+
+  const choiceA = document.getElementById("choice-a");
+  const choiceB = document.getElementById("choice-b");
+
+  let currentStageKey = "start";
+  let started = false;
+  let totalTime = 60;
+  let timeLeft = totalTime;
+  let timer = null;
+
+  function loadStage(stageKey) {
+    currentStageKey = stageKey;
+    const stage = missionStages[currentStageKey];
+
+    targetTextElement.innerText = stage.passage;
+    typingInput.value = "";
+    typingInput.disabled = false;
+    finishBtn.disabled = false;
+
+    typingBox.style.display = "block";
+    resultsBox.style.display = "none";
+    choicesBox.style.display = "none";
+    completeBox.style.display = "none";
+
+    started = false;
+    timeLeft = totalTime;
+    timeLeftSpan.textContent = timeLeft;
+
+    if (timer) {
+      clearInterval(timer);
+    }
+  }
+
+  function startTimer() {
+    if (started) return;
+
+    started = true;
+
+    timer = setInterval(() => {
+      timeLeft--;
+      timeLeftSpan.textContent = timeLeft;
+
+      if (timeLeft <= 0) {
+        finishStage();
+      }
+    }, 1000);
+  }
+
+  function countErrors(input, target) {
+    let errors = 0;
+
+    for (let i = 0; i < input.length; i++) {
+      if (i >= target.length || input[i] !== target[i]) {
+        errors++;
+      }
+    }
+
+    return errors;
+  }
+
+  function calculateResults() {
+    const typedText = typingInput.value;
+    const targetText = targetTextElement.innerText.trim();
+
+    const elapsedMinutes = Math.max((totalTime - timeLeft) / 60, 1 / 60);
+    const typedWords =
+      typedText.trim().length > 0 ? typedText.trim().split(/\s+/).length : 0;
+
+    const wpm = typedWords / elapsedMinutes;
+    const errors = countErrors(typedText, targetText);
+
+    const correctChars = Math.max(typedText.length - errors, 0);
+    const accuracy =
+      typedText.length > 0 ? (correctChars / typedText.length) * 100 : 0;
+
+    return {
+      wpm: Math.round(wpm * 100) / 100,
+      accuracy: Math.round(accuracy * 100) / 100,
+      errors: errors,
+    };
+  }
+
+  function finishStage() {
+    if (timer) {
+      clearInterval(timer);
+    }
+
+    typingInput.disabled = true;
+    finishBtn.disabled = true;
+
+    const results = calculateResults();
+
+    finalWpm.textContent = results.wpm;
+    finalAccuracy.textContent = results.accuracy;
+    finalErrors.textContent = results.errors;
+
+    resultsBox.style.display = "block";
+
+    const stage = missionStages[currentStageKey];
+
+    if (stage.choices.length === 0) {
+      typingBox.style.display = "none";
+      completeBox.style.display = "block";
+      endingText.textContent = stage.passage;
+    } else {
+      choiceA.textContent = stage.choices[0].text;
+      choiceB.textContent = stage.choices[1].text;
+
+      choiceA.onclick = () => loadStage(stage.choices[0].next);
+      choiceB.onclick = () => loadStage(stage.choices[1].next);
+
+      choicesBox.style.display = "block";
+    }
+  }
+
+  typingInput.addEventListener("input", startTimer);
+  finishBtn.addEventListener("click", finishStage);
+
+  loadStage("start");
+</script>
+{% endblock %}
