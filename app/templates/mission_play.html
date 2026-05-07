@@ -45,6 +45,11 @@
 <script>
   const missionStages = {{ mission.stages|tojson }};
 
+  let totalWpm = 0;
+  let totalAccuracy = 0;
+  let totalErrors = 0;
+  let completedStages = 0;
+
   const targetTextElement = document.getElementById("target-text");
   const typingInput = document.getElementById("typing-input");
   const finishBtn = document.getElementById("finish-btn");
@@ -151,6 +156,11 @@
 
     const results = calculateResults();
 
+    totalWpm += results.wpm;
+    totalAccuracy += results.accuracy;
+    totalErrors += results.errors;
+    completedStages++;
+
     finalWpm.textContent = results.wpm;
     finalAccuracy.textContent = results.accuracy;
     finalErrors.textContent = results.errors;
@@ -163,7 +173,24 @@
       typingBox.style.display = "none";
       completeBox.style.display = "block";
       endingText.textContent = stage.passage;
-    } else {
+
+      const averageWpm = totalWpm / completedStages;
+      const averageAccuracy = totalAccuracy / completedStages;
+
+      let grade = "F";
+      if (averageWpm >= 60 && averageAccuracy >= 95) grade = "A";
+      else if (averageWpm >= 45 && averageAccuracy >= 90) grade = "B";
+      else if (averageWpm >= 30 && averageAccuracy >= 80) grade = "C";
+      else if (averageWpm >= 20 && averageAccuracy >= 70) grade = "D";
+
+      document.getElementById("mission-wpm-field").value = averageWpm;
+      document.getElementById("mission-accuracy-field").value = averageAccuracy;
+      document.getElementById("mission-errors-field").value = totalErrors;
+      document.getElementById("mission-grade-field").value = grade;
+      document.getElementById("mission-result-form").submit();
+
+    }
+    else {
       choiceA.textContent = stage.choices[0].text;
       choiceB.textContent = stage.choices[1].text;
 
@@ -179,4 +206,17 @@
 
   loadStage("start");
 </script>
+
+<form
+  id="mission-result-form"
+  method="POST"
+  action="{{ url_for('game.submit_mission_run', mission_id=mission_id) }}"
+  style="display: none"
+>
+  <input type="hidden" name="wpm" id="mission-wpm-field" />
+  <input type="hidden" name="accuracy" id="mission-accuracy-field" />
+  <input type="hidden" name="errors" id="mission-errors-field" />
+  <input type="hidden" name="grade" id="mission-grade-field" />
+</form>
+
 {% endblock %}
