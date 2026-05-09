@@ -29,6 +29,7 @@ def create_app():
     from app.routes.scenario import scenario
     from app.routes.campaign import campaign
     from app.routes.chat import chat
+    from app.routes.bot import bot
 
     app.register_blueprint(auth)
     app.register_blueprint(main)
@@ -36,6 +37,7 @@ def create_app():
     app.register_blueprint(scenario, url_prefix='/scenario')
     app.register_blueprint(campaign)
     app.register_blueprint(chat)
+    app.register_blueprint(bot)
 
     os.makedirs(
         os.path.join(app.config['UPLOAD_FOLDER'], 'profile_photos'),
