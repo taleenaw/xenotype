@@ -268,26 +268,57 @@ class BotConversation(db.Model):
         default=datetime.utcnow
     )
 
+
 class BotMemory(db.Model):
+
     id = db.Column(db.Integer, primary_key=True)
 
     user_id = db.Column(
+
         db.Integer,
+
         db.ForeignKey('user.id'),
+
         nullable=False
+
     )
 
     memory_key = db.Column(db.String(100), nullable=False)
-    memory_value = db.Column(db.Text, nullable=False)
 
-    importance = db.Column(db.Integer, default=1)
+    memory_value = db.Column(
 
-    created_at = db.Column(
-        db.DateTime,
-        default=datetime.utcnow
+        db.Text,
+
+        nullable=False
+
     )
 
+    importance = db.Column(
 
+        db.Integer,
+
+        default=1
+
+    )
+
+    entity_summary = db.Column(db.Text)
+
+    last_accessed = db.Column(
+
+        db.DateTime,
+
+        default=datetime.utcnow
+
+    )
+
+    created_at = db.Column(
+
+        db.DateTime,
+
+        default=datetime.utcnow
+
+    )
+    
 class BotProfile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
