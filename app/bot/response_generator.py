@@ -1,74 +1,55 @@
-from app import db
-from app.models import BotMemory
+import random
 
+from app.bot.semantic_memory import retrieve_relevant_memories
 from app.bot.topic_classifier import classify_topic
-from app.bot.ner import extract_entities
 
 
-IMPORTANT_WORDS = [
-    'favorite',
-    'like',
-    'hate',
-    'remember',
-    'love'
+GENERAL_RESPONSES = [
+    'Interesting.',
+    'Tell me more.',
+    'I understand.',
+    'That sounds important.'
 ]
 
 
-MEMORY_THRESHOLD = 2
+TOPIC_RESPONSES = {
+    'typing': [
+        'Typing rhythm matters more than raw speed.',
+        'Accuracy is the foundation of fast typing.'
+    ],
+
+    'gaming': [
+        'Campaign progression unlocks stronger scenarios.',
+        'Mission design affects player engagement heavily.'
+    ],
+
+    'lore': [
+        'The Xenotype world contains abandoned AI systems and corrupted transmissions.',
+        'Signal corruption is central to Xenotype lore.'
+    ]
+}
 
 
 
-def calculate_memory_score(message):
-
-    score = 0
-
-    text = message.lower()
-
-    for word in IMPORTANT_WORDS:
-        if word in text:
-            score += 2
-
-    entities = extract_entities(message)
-
-    score += len(entities)
-
-    if len(message.split()) > 10:
-        score += 1
-
-    return score
-
-
-
-def store_memory(user, message):
-
-    existing = BotMemory.query.filter_by(
-        user_id=user.id,
-        memory_value=message
-    ).first()
-
-    if existing:
-        return
-
-    memory_score = calculate_memory_score(message)
-
-    if memory_score < MEMORY_THRESHOLD:
-        return
+def generate_response(user, message):
 
     topic = classify_topic(message)
 
-    entities = extract_entities(message)
-
-    entity_summary = ', '.join([
-        f"{e['text']}:{e['label']}"
-        for e in entities
-    ])
-
-    memory = BotMemory(
-        user_id=user.id,
-        memory_key=topic,
-        memory_value=message,
-        importance=memory_score
+    relevant_memories = retrieve_relevant_memories(
+        user,
+        message
     )
 
-    db.session.add(memory)
-    db.session.commit()
+    if relevant_memories:
+
+        top_memory = relevant_memories[0]['memory']
+
+        return (
+            f"This reminds me of something you said earlier: "
+            f"'{top_memory.memory_value}'"
+        )
+
+    if topic in TOPIC_RESPONSES:
+        return random.choice(TOPIC_RESPONSES[topic])
+
+    return random.choice(GENERAL_RESPONSES)
