@@ -13,6 +13,36 @@ class User(UserMixin, db.Model):
 
     runs = db.relationship('Run', backref='user', lazy=True)
 
+    bot_conversations = db.relationship(
+
+        'BotConversation',
+
+        backref='user',
+
+        lazy=True
+
+    )
+
+    bot_memories = db.relationship(
+
+        'BotMemory',
+
+        backref='user',
+
+        lazy=True
+
+    )
+
+    bot_profile = db.relationship(
+
+        'BotProfile',
+
+        backref='user',
+
+        uselist=False
+
+    )
+
     def __repr__(self):
         return f'<User {self.username}>'
 
@@ -282,3 +312,10 @@ class BotProfile(db.Model):
     )
 
     
+class BotKnowledge(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    category = db.Column(db.String(100))
+    trigger = db.Column(db.String(200))
+    response = db.Column(db.Text)
+
