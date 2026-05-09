@@ -237,3 +237,24 @@ class BotConversation(db.Model):
         db.DateTime,
         default=datetime.utcnow
     )
+
+class BotMemory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('user.id'),
+        nullable=False
+    )
+
+    memory_key = db.Column(db.String(100), nullable=False)
+    memory_value = db.Column(db.Text, nullable=False)
+
+    importance = db.Column(db.Integer, default=1)
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
+
+
