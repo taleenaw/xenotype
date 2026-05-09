@@ -164,6 +164,8 @@ class CampaignProgress(db.Model):
     def __repr__(self):
         return f'<CampaignProgress user_id={self.user_id} node={self.current_node}>'
 
+
+
 class ChatRoom(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
@@ -217,4 +219,7 @@ class ChatMessage(db.Model):
 
     def __repr__(self):
         return f'<ChatMessage {self.id} by User {self.user_id}>'
+
+
+
 
