@@ -258,3 +258,27 @@ class BotMemory(db.Model):
     )
 
 
+class BotProfile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('user.id'),
+        nullable=False,
+        unique=True
+    )
+
+    friendliness = db.Column(db.Integer, default=50)
+    sarcasm = db.Column(db.Integer, default=10)
+    helpfulness = db.Column(db.Integer, default=80)
+
+    favorite_topic = db.Column(db.String(100))
+
+    total_messages = db.Column(db.Integer, default=0)
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
+
+    
