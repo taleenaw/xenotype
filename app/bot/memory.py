@@ -67,7 +67,7 @@ def store_memory(user, message):
         user_id=user.id,
         memory_key=topic,
         memory_value=message,
-        importance=memory_score
+        importance=memory_score,
         entity_summary=entity_summary
     )
 
