@@ -1,6 +1,7 @@
 from app.bot.response_generator import generate_response
 from app.bot.memory import store_memory
 from app.bot.sentiment import detect_sentiment
+from app.bot.topic_classifier import classify_topic
 
 
 class BotEngine:
@@ -9,11 +10,14 @@ class BotEngine:
 
         sentiment = detect_sentiment(message)
 
+        topic = classify_topic(message)
+
         store_memory(user, message)
 
         response = generate_response(user, message)
 
         return {
             'response': response,
-            'sentiment': sentiment
+            'sentiment': sentiment,
+            'topic': topic
         }
