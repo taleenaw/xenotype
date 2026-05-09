@@ -26,6 +26,8 @@ def retrieve_relevant_memories(user, message):
 
         if similarity >= SIMILARITY_THRESHOLD:
 
+            memory.last_accessed = datetime.utcnow()
+
             scored.append({
                 'memory': memory,
                 'score': similarity
@@ -35,5 +37,7 @@ def retrieve_relevant_memories(user, message):
         key=lambda x: x['score'],
         reverse=True
     )
+
+    db.session.commit()
 
     return scored[:5]
