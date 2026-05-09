@@ -68,6 +68,7 @@ def store_memory(user, message):
         memory_key=topic,
         memory_value=message,
         importance=memory_score
+        entity_summary=entity_summary
     )
 
     db.session.add(memory)
