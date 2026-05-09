@@ -19,6 +19,7 @@
 
 			{% if current_user.is_authenticated %}
 				<a class="xt-nav-link" href="{{ url_for('chat.chat_home') }}">Player Chat</a>
+				<a class="xt-nav-link" href="{{ url_for('bot.bot_home') }}">Xeno Assistant</a>
 			{% endif %}
 			<a class="xt-nav-link" href="{{ url_for('main.missions') }}">Missions</a>
 
