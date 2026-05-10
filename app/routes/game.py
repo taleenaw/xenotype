@@ -47,5 +47,30 @@ def submit_run(scenario_id):
     db.session.add(run)
     db.session.commit()
 
-    flash('Run saved successfully.')
-    return redirect(url_for('main.leaderboard'))
+    return redirect(url_for('game.outcome', run_id=run.id))
+
+@game.route('/outcome/<int:run_id>')
+@login_required
+def outcome(run_id):
+    run = Run.query.get_or_404(run_id)
+    scenario = run.scenario
+
+    if run.wpm >= 80 and run.accuracy >= 95:
+        outcome_text = scenario.outcome_high
+    elif run.wpm >= 45:
+        outcome_text = scenario.outcome_mid
+    else:
+        outcome_text = scenario.outcome_low
+
+    import json
+    try:
+        wpm_history = json.loads(run.wpm_history or '[]')
+    except:
+        wpm_history = []
+
+    return render_template('outcome.html',
+        run=run,
+        scenario=scenario,
+        outcome_text=outcome_text,
+        wpm_history=wpm_history
+    )
