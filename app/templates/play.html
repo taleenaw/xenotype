@@ -1,22 +1,58 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ scenario.title }}</h1>
-<p><strong>Genre:</strong> {{ scenario.genre }}</p>
-<p><strong>Difficulty:</strong> {{ scenario.difficulty }}</p>
-<p>{{ scenario.intro_text }}</p>
-
-<div class="card" style="margin-bottom: 20px;">
-    <h2>Transmission</h2>
-    <p id="target-text">{{ scenario.passage }}</p>
+<div style="margin-bottom:16px;">
+    <p style="font-size:11px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">// MISSION ACTIVE</p>
+    <h1>{{ scenario.title }}</h1>
+    <p style="color:var(--xt-text3);font-size:12px;">{{ scenario.genre }} · {{ scenario.difficulty }} · {{ scenario.intro_text }}</p>
 </div>
 
-<div class="card" style="margin-bottom: 20px;">
-    <h2>Type Here</h2>
-    <p>Time left: <span id="time-left">60</span>s</p>
-    <textarea id="typing-input" rows="8" placeholder="Begin typing the transmission..."></textarea>
-    <button class="btn" id="finish-btn" type="button">Finish Run</button>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px;">
+    <div class="card" style="padding:12px 16px;">
+        <div style="font-family:var(--orb);font-size:22px;color:var(--xt-green);" id="live-wpm">0</div>
+        <div style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">WPM</div>
+    </div>
+    <div class="card" style="padding:12px 16px;">
+        <div style="font-family:var(--orb);font-size:22px;" id="live-timer">60</div>
+        <div style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">Time</div>
+    </div>
+    <div class="card" style="padding:12px 16px;">
+        <div style="font-family:var(--orb);font-size:22px;color:var(--xt-green);" id="live-acc">100%</div>
+        <div style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">Accuracy</div>
+    </div>
+    <div class="card" style="padding:12px 16px;">
+        <div style="font-family:var(--orb);font-size:22px;color:var(--xt-red);" id="live-errors">0</div>
+        <div style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">Errors</div>
+    </div>
 </div>
+
+<div style="margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">SHIP INTEGRITY</span>
+        <span style="font-size:10px;color:var(--xt-text3);" id="integrity-label">100%</span>
+    </div>
+    <div style="height:6px;background:var(--xt-bg3);border:1px solid var(--xt-border);">
+        <div id="integrity-bar" style="height:100%;background:var(--xt-green);width:100%;transition:width 0.3s,background 0.3s;"></div>
+    </div>
+</div>
+
+<div style="margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">PROGRESS</span>
+        <span style="font-size:10px;color:var(--xt-text3);" id="progress-label">0%</span>
+    </div>
+    <div style="height:4px;background:var(--xt-bg3);border:1px solid var(--xt-border);">
+        <div id="progress-bar" style="height:100%;background:var(--xt-green);width:0%;transition:width 0.1s;"></div>
+    </div>
+</div>
+
+<div class="card" style="padding:28px 32px;margin-bottom:16px;position:relative;cursor:text;" id="passage-card" onclick="document.getElementById('hidden-input').focus()">
+    <div style="position:absolute;top:10px;right:14px;font-size:10px;color:var(--xt-text3);letter-spacing:1px;">CLICK TO FOCUS · BEGIN TYPING</div>
+    <div id="passage-display" style="line-height:2.4;font-size:17px;word-break:break-word;"></div>
+</div>
+
+<input id="hidden-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+    style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">
 
 <form id="result-form" method="POST" action="{{ url_for('game.submit_run', scenario_id=scenario.id) }}" style="display:none;">
     <input type="hidden" name="wpm" id="wpm-field">
@@ -26,43 +62,91 @@
     <input type="hidden" name="grade" id="grade-field">
     <input type="hidden" name="wpm_history" id="wpm-history-field">
 </form>
-
-<div class="card" id="results-box" style="display:none;">
-    <h2>Results</h2>
-    <p><strong>WPM:</strong> <span id="final-wpm"></span></p>
-    <p><strong>Accuracy:</strong> <span id="final-accuracy"></span>%</p>
-    <p><strong>Errors:</strong> <span id="final-errors"></span></p>
-    <p><strong>Grade:</strong> <span id="final-grade"></span></p>
-</div>
 {% endblock %}
 
 {% block scripts %}
+<style>
+.char-cursor {
+    border-bottom: 2px solid var(--xt-green);
+    color: var(--xt-green) !important;
+    animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+    0%,100%{opacity:1} 50%{opacity:0.3}
+}
+</style>
+
 <script>
-const targetText = document.getElementById("target-text").innerText.trim();
-const typingInput = document.getElementById("typing-input");
-const finishBtn = document.getElementById("finish-btn");
-const timeLeftSpan = document.getElementById("time-left");
+const passage = {{ scenario.passage | tojson }};
+const totalTime = 60;
 
-const resultForm = document.getElementById("result-form");
-const wpmField = document.getElementById("wpm-field");
-const accuracyField = document.getElementById("accuracy-field");
-const timeRemainingField = document.getElementById("time-remaining-field");
-const errorsField = document.getElementById("errors-field");
-const gradeField = document.getElementById("grade-field");
-const wpmHistoryField = document.getElementById("wpm-history-field");
-
-const resultsBox = document.getElementById("results-box");
-const finalWpm = document.getElementById("final-wpm");
-const finalAccuracy = document.getElementById("final-accuracy");
-const finalErrors = document.getElementById("final-errors");
-const finalGrade = document.getElementById("final-grade");
-
+let currentIndex = 0;
+let errors = 0;
+let errorSet = new Set();
 let started = false;
-let startTime = null;
-let totalTime = 60;
+let finished = false;
 let timeLeft = totalTime;
 let timer = null;
 let wpmHistory = [];
+let startTime = null;
+
+const display = document.getElementById('passage-display');
+const hiddenInput = document.getElementById('hidden-input');
+const liveWpm = document.getElementById('live-wpm');
+const liveTimer = document.getElementById('live-timer');
+const liveAcc = document.getElementById('live-acc');
+const liveErrors = document.getElementById('live-errors');
+const integrityBar = document.getElementById('integrity-bar');
+const integrityLabel = document.getElementById('integrity-label');
+const progressBar = document.getElementById('progress-bar');
+const progressLabel = document.getElementById('progress-label');
+
+function buildDisplay() {
+    display.innerHTML = '';
+    passage.split('').forEach((char, i) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.id = 'c' + i;
+        span.style.color = 'var(--xt-text3)';
+        display.appendChild(span);
+    });
+    updateCursor();
+}
+
+function updateCursor() {
+    document.querySelectorAll('.char-cursor').forEach(el => el.classList.remove('char-cursor'));
+    const cur = document.getElementById('c' + currentIndex);
+    if (cur) {
+        cur.classList.add('char-cursor');
+        cur.scrollIntoView({ block: 'nearest' });
+    }
+}
+
+function updateStats() {
+    const elapsed = started ? (Date.now() - startTime) / 60000 : 0;
+    const correctChars = currentIndex - errors;
+    const wpm = elapsed > 0 ? Math.round((correctChars / 5) / elapsed) : 0;
+    const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 100;
+
+    liveWpm.textContent = wpm;
+    liveAcc.textContent = acc + '%';
+    liveErrors.textContent = errors;
+
+    const maxErrors = 10;
+    const integrityPct = Math.max(0, Math.round(((maxErrors - errors) / maxErrors) * 100));
+    integrityBar.style.width = integrityPct + '%';
+    integrityLabel.textContent = integrityPct + '%';
+    if (integrityPct > 60) integrityBar.style.background = 'var(--xt-green)';
+    else if (integrityPct > 30) integrityBar.style.background = 'var(--xt-amber)';
+    else integrityBar.style.background = 'var(--xt-red)';
+
+    const progress = Math.round((currentIndex / passage.length) * 100);
+    progressBar.style.width = progress + '%';
+    progressLabel.textContent = progress + '%';
+
+    const timerEl = document.getElementById('live-timer');
+    timerEl.style.color = timeLeft > 20 ? 'var(--xt-green)' : timeLeft > 10 ? 'var(--xt-amber)' : 'var(--xt-red)';
+}
 
 function startTimer() {
     if (started) return;
@@ -71,85 +155,90 @@ function startTimer() {
 
     timer = setInterval(() => {
         timeLeft--;
-        timeLeftSpan.textContent = timeLeft;
+        liveTimer.textContent = timeLeft;
+        updateStats();
 
-        recordLiveWpm();
+        const elapsed = (Date.now() - startTime) / 60000;
+        const correctChars = currentIndex - errors;
+        const wpm = elapsed > 0 ? Math.round((correctChars / 5) / elapsed) : 0;
+        wpmHistory.push(wpm);
 
-        if (timeLeft <= 0) {
-            finishRun();
-        }
+        if (timeLeft <= 0) finishRun();
     }, 1000);
 }
 
-function countErrors(input, target) {
-    let errors = 0;
-    for (let i = 0; i < input.length; i++) {
-        if (i >= target.length || input[i] !== target[i]) {
+function finishRun() {
+    if (finished) return;
+    finished = true;
+    clearInterval(timer);
+    hiddenInput.blur();
+
+    const elapsed = Math.max((totalTime - timeLeft) / 60, 1/60);
+    const correctChars = currentIndex - errors;
+    const wpm = Math.round((correctChars / 5) / elapsed);
+    const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 0;
+
+    let grade = 'F';
+    if (wpm >= 80 && acc >= 95) grade = 'S';
+    else if (wpm >= 60 && acc >= 90) grade = 'A';
+    else if (wpm >= 45 && acc >= 80) grade = 'B';
+    else if (wpm >= 30 && acc >= 70) grade = 'C';
+    else if (wpm >= 20) grade = 'D';
+
+    document.getElementById('wpm-field').value = wpm;
+    document.getElementById('accuracy-field').value = acc;
+    document.getElementById('time-remaining-field').value = timeLeft;
+    document.getElementById('errors-field').value = errors;
+    document.getElementById('grade-field').value = grade;
+    document.getElementById('wpm-history-field').value = JSON.stringify(wpmHistory);
+
+    setTimeout(() => document.getElementById('result-form').submit(), 800);
+}
+
+hiddenInput.addEventListener('keydown', (e) => {
+    if (finished) return;
+    if (e.key === 'Backspace') { e.preventDefault(); return; }
+    if (e.key.length !== 1) return;
+
+    if (!started) startTimer();
+
+    const expected = passage[currentIndex];
+    const span = document.getElementById('c' + currentIndex);
+
+    if (e.key === expected) {
+        span.style.color = 'var(--xt-text2)';
+        span.style.background = 'none';
+        currentIndex++;
+    } else {
+        span.style.color = 'var(--xt-red)';
+        span.style.textDecoration = 'underline';
+        span.style.background = 'rgba(255,34,34,0.1)';
+        if (!errorSet.has(currentIndex)) {
+            errorSet.add(currentIndex);
             errors++;
         }
+        currentIndex++;
     }
-    return errors;
-}
 
-function calculateResults() {
-    const typedText = typingInput.value;
-    const elapsedMinutes = Math.max((totalTime - timeLeft) / 60, 1 / 60);
+    updateCursor();
+    updateStats();
 
-    const typedWords = typedText.trim().length > 0 ? typedText.trim().split(/\s+/).length : 0;
-    const wpm = typedWords / elapsedMinutes;
+    if (currentIndex >= passage.length) finishRun();
+});
 
-    const errors = countErrors(typedText, targetText);
-    const correctChars = Math.max(typedText.length - errors, 0);
-    const accuracy = typedText.length > 0 ? (correctChars / typedText.length) * 100 : 0;
+hiddenInput.addEventListener('focus', () => {
+    document.getElementById('passage-card').style.borderColor = 'var(--xt-green3)';
+});
 
-    let grade = "F";
-    if (wpm >= 60 && accuracy >= 95) grade = "A";
-    else if (wpm >= 45 && accuracy >= 90) grade = "B";
-    else if (wpm >= 30 && accuracy >= 80) grade = "C";
-    else if (wpm >= 20 && accuracy >= 70) grade = "D";
+hiddenInput.addEventListener('blur', () => {
+    if (!finished) document.getElementById('passage-card').style.borderColor = 'var(--xt-border)';
+});
 
-    return {
-        wpm: Math.round(wpm * 100) / 100,
-        accuracy: Math.round(accuracy * 100) / 100,
-        errors,
-        grade
-    };
-}
+document.addEventListener('keydown', (e) => {
+    if (!finished && e.key.length === 1) hiddenInput.focus();
+});
 
-function recordLiveWpm() {
-    const typedText = typingInput.value;
-    const elapsedMinutes = Math.max((totalTime - timeLeft) / 60, 1 / 60);
-    const typedWords = typedText.trim().length > 0 ? typedText.trim().split(/\s+/).length : 0;
-    const liveWpm = typedWords / elapsedMinutes;
-    wpmHistory.push(Math.round(liveWpm * 100) / 100);
-}
-
-function finishRun() {
-    clearInterval(timer);
-    typingInput.disabled = true;
-    finishBtn.disabled = true;
-
-    const results = calculateResults();
-
-    finalWpm.textContent = results.wpm;
-    finalAccuracy.textContent = results.accuracy;
-    finalErrors.textContent = results.errors;
-    finalGrade.textContent = results.grade;
-    resultsBox.style.display = "block";
-
-    wpmField.value = results.wpm;
-    accuracyField.value = results.accuracy;
-    timeRemainingField.value = timeLeft;
-    errorsField.value = results.errors;
-    gradeField.value = results.grade;
-    wpmHistoryField.value = JSON.stringify(wpmHistory);
-
-    setTimeout(() => {
-        resultForm.submit();
-    }, 1500);
-}
-
-typingInput.addEventListener("input", startTimer);
-finishBtn.addEventListener("click", finishRun);
+buildDisplay();
+hiddenInput.focus();
 </script>
 {% endblock %}
