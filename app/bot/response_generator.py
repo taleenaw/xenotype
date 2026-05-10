@@ -1,6 +1,6 @@
 import random
 
-from app.bot.intents import detect_intent
+from app.bot.intent  import detect_intent
 from app.bot.semantic_memory import retrieve_relevant_memories
 from app.bot.topic_classifier import classify_topic
 from app.bot.conversation_context import get_recent_conversation
