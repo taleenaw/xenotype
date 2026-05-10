@@ -7,25 +7,37 @@
     <div class="campaign-header">
         <div>
             <h1>Campaign Mode</h1>
-            <p class="campaign-subtitle">Chat with your mission bot and build your story mode here.</p>
+            <p class="campaign-subtitle">
+                A saved story campaign powered by the Xenotype bot engine.
+            </p>
         </div>
-        <button id="resetCampaignChat" class="btn" type="button">Reset Chat</button>
+
+        <button id="resetCampaign" class="btn" type="button">
+            Reset Campaign
+        </button>
+    </div>
+
+    <div class="campaign-status-panel">
+        <div><strong>Mode:</strong> {{ progress.mode }}</div>
+        <div><strong>World:</strong> {{ progress.world }}</div>
+        <div><strong>Current Node:</strong> <span id="nodeValue">{{ progress.current_node }}</span></div>
+        <div><strong>Health:</strong> <span id="healthValue">{{ progress.health }}</span></div>
+        <div><strong>Fear:</strong> <span id="fearValue">{{ progress.fear }}</span></div>
+        <div><strong>Confidence:</strong> <span id="confidenceValue">{{ progress.confidence }}</span></div>
     </div>
 
     <div id="campaignChatLog" class="campaign-chat-log">
-        {% for message in history %}
-            <div class="campaign-message campaign-message-{{ message.role }}">
-                <div class="campaign-speaker">{{ message.speaker }}</div>
-                <div class="campaign-text">{{ message.text }}</div>
-            </div>
-        {% endfor %}
+        <div class="campaign-message campaign-message-bot">
+            <div class="campaign-speaker">{{ opening_message.speaker }}</div>
+            <div class="campaign-text">{{ opening_message.text }}</div>
+        </div>
     </div>
 
     <form id="campaignChatForm" class="campaign-chat-form">
         <input
             id="campaignMessageInput"
             type="text"
-            placeholder="Type to your campaign bot... try: mission, status, lore, help"
+            placeholder="Try: look, talk, run, fight, status, help"
             autocomplete="off"
             required
         >
@@ -39,7 +51,12 @@
 const chatLog = document.getElementById('campaignChatLog');
 const chatForm = document.getElementById('campaignChatForm');
 const messageInput = document.getElementById('campaignMessageInput');
-const resetButton = document.getElementById('resetCampaignChat');
+const resetButton = document.getElementById('resetCampaign');
+
+const nodeValue = document.getElementById('nodeValue');
+const healthValue = document.getElementById('healthValue');
+const fearValue = document.getElementById('fearValue');
+const confidenceValue = document.getElementById('confidenceValue');
 
 function scrollChatToBottom() {
     chatLog.scrollTop = chatLog.scrollHeight;
@@ -63,13 +80,27 @@ function addMessage(message) {
     scrollChatToBottom();
 }
 
+function updateProgress(progress) {
+    if (!progress) return;
+
+    nodeValue.textContent = progress.current_node;
+    healthValue.textContent = progress.health;
+    fearValue.textContent = progress.fear;
+    confidenceValue.textContent = progress.confidence;
+}
+
 chatForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const message = messageInput.value.trim();
     if (!message) return;
 
-    addMessage({ speaker: 'You', text: message, role: 'player' });
+    addMessage({
+        speaker: 'You',
+        text: message,
+        role: 'player'
+    });
+
     messageInput.value = '';
 
     const response = await fetch('{{ url_for("campaign.campaign_chat") }}', {
@@ -81,15 +112,23 @@ chatForm.addEventListener('submit', async (event) => {
     const data = await response.json();
 
     if (!response.ok) {
-        addMessage({ speaker: 'System', text: data.error || 'Bot error.', role: 'bot' });
+        addMessage({
+            speaker: 'System',
+            text: data.error || 'Bot error.',
+            role: 'bot'
+        });
         return;
     }
 
     addMessage(data);
+    updateProgress(data.progress);
 });
 
 resetButton.addEventListener('click', async () => {
-    await fetch('{{ url_for("campaign.reset_campaign_chat") }}', { method: 'POST' });
+    await fetch('{{ url_for("campaign.reset_campaign") }}', {
+        method: 'POST'
+    });
+
     window.location.reload();
 });
 
