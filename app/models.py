@@ -13,6 +13,36 @@ class User(UserMixin, db.Model):
 
     runs = db.relationship('Run', backref='user', lazy=True)
 
+    bot_conversations = db.relationship(
+
+        'BotConversation',
+
+        backref='user',
+
+        lazy=True
+
+    )
+
+    bot_memories = db.relationship(
+
+        'BotMemory',
+
+        backref='user',
+
+        lazy=True
+
+    )
+
+    bot_profile = db.relationship(
+
+        'BotProfile',
+
+        backref='user',
+
+        uselist=False
+
+    )
+
     def __repr__(self):
         return f'<User {self.username}>'
 
@@ -217,4 +247,106 @@ class ChatMessage(db.Model):
 
     def __repr__(self):
         return f'<ChatMessage {self.id} by User {self.user_id}>'
+
+
+class BotConversation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('user.id'),
+        nullable=False
+    )
+
+    player_message = db.Column(db.Text, nullable=False)
+    bot_response = db.Column(db.Text, nullable=False)
+
+    sentiment = db.Column(db.String(20), default='neutral')
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
+
+
+class BotMemory(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(
+
+        db.Integer,
+
+        db.ForeignKey('user.id'),
+
+        nullable=False
+
+    )
+
+    memory_key = db.Column(db.String(100), nullable=False)
+
+    memory_value = db.Column(
+
+        db.Text,
+
+        nullable=False
+
+    )
+
+    importance = db.Column(
+
+        db.Integer,
+
+        default=1
+
+    )
+
+    entity_summary = db.Column(db.Text)
+
+    last_accessed = db.Column(
+
+        db.DateTime,
+
+        default=datetime.utcnow
+
+    )
+
+    created_at = db.Column(
+
+        db.DateTime,
+
+        default=datetime.utcnow
+
+    )
+    
+class BotProfile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('user.id'),
+        nullable=False,
+        unique=True
+    )
+
+    friendliness = db.Column(db.Integer, default=50)
+    sarcasm = db.Column(db.Integer, default=10)
+    helpfulness = db.Column(db.Integer, default=80)
+
+    favorite_topic = db.Column(db.String(100))
+
+    total_messages = db.Column(db.Integer, default=0)
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
+
+    
+class BotKnowledge(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    category = db.Column(db.String(100))
+    trigger = db.Column(db.String(200))
+    response = db.Column(db.Text)
 
