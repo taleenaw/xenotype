@@ -21,6 +21,6 @@ class BotEngine:
         return {
             'response': response,
             'sentiment': sentiment,
-            'topic': topic
+            'topic': topic,
             'intent': intent
         }
