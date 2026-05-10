@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Mission Debrief — Xenotype{% endblock %}
+
+{% block content %}
+<div style="max-width:800px;margin:0 auto;">
+
+    <div style="text-align:center;margin-bottom:32px;">
+        <p style="font-size:11px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">// MISSION DEBRIEF — {{ scenario.title }}</p>
+        <div style="font-family:var(--orb);font-size:72px;font-weight:900;line-height:1;color:
+            {% if run.grade == 'S' %}#00ff41
+            {% elif run.grade == 'A' %}#44ff88
+            {% elif run.grade == 'B' %}#ffcc00
+            {% elif run.grade == 'C' %}#ff8800
+            {% else %}#ff2222{% endif %};">{{ run.grade }}</div>
+        <div style="font-family:var(--orb);font-size:10px;color:var(--xt-text3);letter-spacing:3px;margin-top:8px;">
+            {% if run.grade == 'S' %}PERFECT TRANSMISSION
+            {% elif run.grade == 'A' %}MISSION ACCOMPLISHED
+            {% elif run.grade == 'B' %}SIGNAL PARTIAL
+            {% elif run.grade == 'C' %}BARELY DECODED
+            {% else %}TRANSMISSION LOST{% endif %}
+        </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:24px;">
+        <div class="card" style="padding:14px 16px;">
+            <div style="font-family:var(--orb);font-size:22px;color:var(--xt-green);">{{ run.wpm }}</div>
+            <div style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">WPM</div>
+        </div>
+        <div class="card" style="padding:14px 16px;">
+            <div style="font-family:var(--orb);font-size:22px;color:var(--xt-green);">{{ run.accuracy }}%</div>
+            <div style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">Accuracy</div>
+        </div>
+        <div class="card" style="padding:14px 16px;">
+            <div style="font-family:var(--orb);font-size:22px;color:var(--xt-amber);">{{ run.time_remaining }}s</div>
+            <div style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">Time Left</div>
+        </div>
+        <div class="card" style="padding:14px 16px;">
+            <div style="font-family:var(--orb);font-size:22px;color:var(--xt-red);">{{ run.errors }}</div>
+            <div style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;">Errors</div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;padding:24px 28px;">
+        <p style="font-size:10px;color:var(--xt-green);font-family:var(--orb);letter-spacing:2px;margin-bottom:12px;">// WPM OVER TIME</p>
+        <div style="position:relative;width:100%;height:180px;">
+            <canvas id="wpmChart" role="img" aria-label="Line chart of WPM over mission time."></canvas>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;padding:24px 28px;border-color:var(--xt-green3);">
+        <p style="font-size:10px;color:var(--xt-green);font-family:var(--orb);letter-spacing:2px;margin-bottom:12px;">// TRANSMISSION OUTCOME</p>
+        <p style="font-size:13px;color:var(--xt-text2);line-height:1.9;">{{ outcome_text }}</p>
+    </div>
+
+    <div style="display:flex;gap:12px;justify-content:center;">
+        <a href="{{ url_for('game.play_scenario', scenario_id=scenario.id) }}" class="btn">Retry Mission</a>
+        <a href="{{ url_for('main.scenarios') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">New Mission</a>
+        <a href="{{ url_for('main.leaderboard') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">Leaderboard</a>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const wpmHistory = {{ wpm_history | tojson }};
+const labels = wpmHistory.map((_, i) => i + 1);
+
+new Chart(document.getElementById('wpmChart'), {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'WPM',
+            data: wpmHistory,
+            borderColor: '#00ff41',
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+            pointHoverBackgroundColor: '#00ff41',
+            tension: 0.4,
+            fill: false
+        }, {
+            label: 'Average',
+            data: wpmHistory.map(() => Math.round(wpmHistory.reduce((a,b) => a+b, 0) / wpmHistory.length)),
+            borderColor: '#1a4a1a',
+            borderWidth: 1,
+            borderDash: [4, 4],
+            pointRadius: 0,
+            tension: 0,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: '#050f07',
+                borderColor: '#006611',
+                borderWidth: 1,
+                titleColor: '#4a8a4a',
+                bodyColor: '#7acc7a',
+                callbacks: {
+                    title: (items) => 'second ' + items[0].label,
+                    label: (item) => ' wpm: ' + item.raw
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: '#4a8a4a', font: { size: 10 } },
+                grid: { color: '#0d2a0d' },
+                border: { color: '#1a4a1a' }
+            },
+            y: {
+                min: 0,
+                ticks: { color: '#4a8a4a', font: { size: 10 } },
+                grid: { color: '#0d2a0d' },
+                border: { color: '#1a4a1a' }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

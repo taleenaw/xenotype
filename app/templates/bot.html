@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Xeno Assistant{% endblock %}
+
+{% block content %}
+<section class="card bot-shell">
+    <h1>Xeno Assistant</h1>
+    <p class="campaign-subtitle">
+        Chat with the Xenotype assistant. It can remember useful things, classify topics, and respond with context.
+    </p>
+
+    <div id="botChatLog" class="campaign-chat-log">
+        <div class="campaign-message campaign-message-bot">
+            <div class="campaign-speaker">Xeno Assistant</div>
+            <div class="campaign-text">
+                Hello. I can talk about typing, Xenotype lore, missions, and things you tell me to remember.
+            </div>
+        </div>
+    </div>
+
+    <form id="botChatForm" class="campaign-chat-form">
+        <input
+            id="botMessageInput"
+            type="text"
+            placeholder="Try: help me with typing, remember I like cyberpunk, tell me about Xenotype lore"
+            autocomplete="off"
+            required
+        >
+        <button class="btn" type="submit">Send</button>
+    </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const botChatLog = document.getElementById('botChatLog');
+const botChatForm = document.getElementById('botChatForm');
+const botMessageInput = document.getElementById('botMessageInput');
+
+function scrollBotChatToBottom() {
+    botChatLog.scrollTop = botChatLog.scrollHeight;
+}
+
+function addBotMessage(speaker, text, role) {
+    const wrapper = document.createElement('div');
+    wrapper.className = `campaign-message campaign-message-${role}`;
+
+    const speakerDiv = document.createElement('div');
+    speakerDiv.className = 'campaign-speaker';
+    speakerDiv.textContent = speaker;
+
+    const textDiv = document.createElement('div');
+    textDiv.className = 'campaign-text';
+    textDiv.textContent = text;
+
+    wrapper.appendChild(speakerDiv);
+    wrapper.appendChild(textDiv);
+    botChatLog.appendChild(wrapper);
+    scrollBotChatToBottom();
+}
+
+botChatForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const message = botMessageInput.value.trim();
+    if (!message) return;
+
+    addBotMessage('You', message, 'player');
+    botMessageInput.value = '';
+
+    const response = await fetch('{{ url_for("bot.bot_message") }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        addBotMessage('System', data.error || 'Bot error.', 'bot');
+        return;
+    }
+
+    addBotMessage('Xeno Assistant', data.response, 'bot');
+});
+</script>
+{% endblock %}
