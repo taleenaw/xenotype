@@ -56,5 +56,6 @@ def bot_message():
     return jsonify({
         'response': result['response'],
         'sentiment': result['sentiment'],
-        'topic': result.get('topic', 'general')
+        'topic': result.get('topic', 'general'),
+        'intent': result.get('intent', 'general')
     })
