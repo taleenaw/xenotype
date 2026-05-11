@@ -222,3 +222,4 @@ marimo/_lsp/
 __marimo__/
 xenotypevenv/
 .vscode/
+app/static/uploads/profile_photos/user_*
