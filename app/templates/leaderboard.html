@@ -18,7 +18,16 @@
         {% for run in top_runs %}
         <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ run.user.username }}</td>
+            <td>
+                <a href="{{ url_for('main.profile', username=run.user.username) }}" class="leaderboard-user">
+                    <img
+                        class="leaderboard-avatar"
+                        src="{{ url_for('static', filename=run.user.profile_photo if run.user.profile_photo else 'profile_photos/default-avatar.svg') }}"
+                        alt="{{ run.user.username }}"
+                    >
+                    <span>{{ run.user.username }}</span>
+                </a>
+            </td>
             <td>{{ run.scenario.title }}</td>
             <td>{{ run.wpm }}</td>
             <td>{{ run.accuracy }}%</td>
