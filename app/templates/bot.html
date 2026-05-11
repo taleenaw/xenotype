@@ -36,6 +36,7 @@
 const botChatLog = document.getElementById('botChatLog');
 const botChatForm = document.getElementById('botChatForm');
 const botMessageInput = document.getElementById('botMessageInput');
+const csrfToken = "{{ csrf_token() }}";
 
 function scrollBotChatToBottom() {
     botChatLog.scrollTop = botChatLog.scrollHeight;
@@ -70,7 +71,10 @@ botChatForm.addEventListener('submit', async (event) => {
 
     const response = await fetch('{{ url_for("bot.bot_message") }}', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
         body: JSON.stringify({ message })
     });
 
