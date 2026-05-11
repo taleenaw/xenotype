@@ -55,6 +55,7 @@
     style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">
 
 <form id="result-form" method="POST" action="{{ url_for('game.submit_run', scenario_id=scenario.id) }}" style="display:none;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <input type="hidden" name="wpm" id="wpm-field">
     <input type="hidden" name="accuracy" id="accuracy-field">
     <input type="hidden" name="time_remaining" id="time-remaining-field">
