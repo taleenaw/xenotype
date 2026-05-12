@@ -177,7 +177,7 @@ def generate_response(user, message):
 
     # Sentiment is also calculated in chat_engine, but this keeps the generator
     # usable independently if needed.
-    from app.bot.sentiment import detect_sentiment
+    from app.BOT.sentiment import detect_sentiment
     sentiment = detect_sentiment(message)
 
     return _compose_response(
