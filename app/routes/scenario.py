@@ -7,60 +7,59 @@ from app.routes.scenarios_pool import Scenarios
 
 scenario = Blueprint('scenario', __name__)
 
+def calculate_passage_difficulty(passage):
+    words = passage.split()
+    word_count = len(words)
+
+    if word_count == 0:
+        return "Easy"
+
+    average_word_length = sum(len(word) for word in words) / word_count
+
+    punctuation_count = sum(
+        1 for char in passage
+        if char in ",.;:!?\"'()[]{}—-"
+    )
+
+    long_word_count = sum(1 for word in words if len(word) >= 8)
+
+    complexity_score = 0
+
+    if word_count > 120:
+        complexity_score += 2
+    elif word_count > 70:
+        complexity_score += 1
+
+    if average_word_length >= 6:
+        complexity_score += 2
+    elif average_word_length >= 5:
+        complexity_score += 1
+
+    if punctuation_count >= 25:
+        complexity_score += 2
+    elif punctuation_count >= 12:
+        complexity_score += 1
+
+    if long_word_count >= 18:
+        complexity_score += 2
+    elif long_word_count >= 8:
+        complexity_score += 1
+
+    if complexity_score >= 5:
+        return "Hard"
+
+    if complexity_score >= 3:
+        return "Medium"
+
+    return "Easy"
+
+
 def generate_random_scenario_data():
-    return random.choice(Scenarios)
-    """genres = {
-        "Sci-Fi": {
-            "settings": ["a ruined moon base", "an orbital relay", "a drifting research vessel"],
-            "threats": ["oxygen loss", "reactor instability", "signal corruption"],
-            "objectives": ["decode the distress signal", "restore communications", "recover navigation logs"],
-            "passages": [
-                "WARNING... oxygen reserves below critical threshold... crew evacuation advised...",
-                "SOS... main relay offline... request immediate assistance from allied command...",
-                "Navigation systems failing... route data corrupted... manual override required..."
-            ]
-        },
-        "Cyberpunk": {
-            "settings": ["a neon server vault", "an underground data market", "a hidden hacker den"],
-            "threats": ["ICE countermeasures", "hostile intrusion", "encryption spikes"],
-            "objectives": ["extract the access key", "decode the black-site archive", "recover stolen data"],
-            "passages": [
-                "Firewall breach detected... encryption layer rising... manual bypass required...",
-                "Datastream unstable... hostile trace in progress... sever connection or continue...",
-                "Archive fragment found... partial decryption complete... continue extraction..."
-            ]
-        },
-        "Military": {
-            "settings": ["a forward command bunker", "a surveillance outpost", "a desert operations base"],
-            "threats": ["enemy interception", "comms blackout", "drone activity"],
-            "objectives": ["relay the coordinates", "decode the intel report", "restore the secure uplink"],
-            "passages": [
-                "Enemy movement detected north of checkpoint... reinforce sector immediately...",
-                "Secure channel unstable... transmission integrity dropping... continue relay...",
-                "Recon data incoming... encryption valid... command verification required..."
-            ]
-        }"""
-    
+    data = random.choice(Scenarios).copy()
 
-    genre = random.choice(list(genres.keys()))
-    pool = genres[genre]
+    data["difficulty"] = calculate_passage_difficulty(data["passage"])
 
-    setting = random.choice(pool["settings"])
-    threat = random.choice(pool["threats"])
-    objective = random.choice(pool["objectives"])
-    passage = random.choice(pool["passages"])
-    difficulty = random.choice(["Easy", "Medium", "Hard"])
-
-    return {
-        "title": f"Operation {setting.title()}",
-        "genre": genre,
-        "difficulty": difficulty,
-        "intro_text": f"You arrive at {setting}. Your objective is to {objective} while facing {threat}.",
-        "passage": passage,
-        "outcome_high": "You completed the mission flawlessly and secured the objective.",
-        "outcome_mid": "You completed the mission, but with partial losses and delays.",
-        "outcome_low": "The mission failed before the signal could be fully recovered."
-    }
+    return data
 
 @scenario.route('/generate')
 @login_required

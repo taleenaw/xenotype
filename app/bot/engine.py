@@ -20,7 +20,10 @@ class CampaignEngine:
         )
 
     def build_help_text(self):
-        return "Commands you can try: look, search, inspect, talk, run, fight, status, help."
+        return (
+            "Commands you can try: look, search, inspect, talk, run, fight, "
+            "hack, repair, use, status, or help."
+        )
 
     def generate_scene(self, progress):
         world = STORY_WORLDS.get(progress.world, STORY_WORLDS["xenotype_signal"])
@@ -38,25 +41,34 @@ class CampaignEngine:
         )
 
     def apply_node_effects(self, progress, next_node):
-        if next_node == "first_clue":
-            progress.confidence = _clamp(progress.confidence + 5)
-        elif next_node == "guide_warning":
-            progress.fear = _clamp(progress.fear + 5)
-        elif next_node == "hidden_room":
-            progress.confidence = _clamp(progress.confidence + 10)
-        elif next_node == "sealed_exit":
-            progress.fear = _clamp(progress.fear + 10)
-        elif next_node == "secret_hint":
-            progress.confidence = _clamp(progress.confidence + 15)
-            progress.fear = _clamp(progress.fear - 5)
-        elif next_node == "security_encounter":
-            progress.health = _clamp(progress.health - 10)
-            progress.fear = _clamp(progress.fear + 10)
-        elif next_node == "final_gate":
-            progress.confidence = _clamp(progress.confidence + 10)
-        elif next_node == "completed":
+        effects = {
+            "signal_lobby": {"confidence": 3},
+            "npc_echo": {"confidence": 5},
+            "guide_warning": {"fear": 5},
+            "ghost_terminal": {"fear": 5, "confidence": 5},
+            "archive_hall": {"confidence": 5},
+            "hidden_room": {"confidence": 10},
+            "medbay": {"health": 15, "fear": -5},
+            "quarantine_door": {"fear": 10},
+            "corrupted_patrol": {"health": -12, "fear": 10},
+            "secret_hint": {"confidence": 15, "fear": -5},
+            "data_vault": {"confidence": 12},
+            "reactor_core": {"health": -5, "confidence": 8},
+            "choice_bridge": {"confidence": 10},
+            "ending_decode": {"confidence": 20},
+            "ending_restore": {"health": 20, "confidence": 15, "fear": -10},
+            "ending_destroy": {"fear": 15, "confidence": 10},
+            "ending_negotiate": {"confidence": 25, "fear": -15},
+        }
+
+        node_effects = effects.get(next_node, {})
+
+        progress.health = _clamp(progress.health + node_effects.get("health", 0))
+        progress.fear = _clamp(progress.fear + node_effects.get("fear", 0))
+        progress.confidence = _clamp(progress.confidence + node_effects.get("confidence", 0))
+
+        if next_node.startswith("ending_"):
             progress.completed = True
-            progress.confidence = _clamp(progress.confidence + 20)
 
     def process_turn(self, progress, message):
         intent = detect_intent(message)
@@ -70,7 +82,10 @@ class CampaignEngine:
         possible_paths = STORY_GRAPH.get(current_node, STORY_GRAPH["intro"])
 
         if intent not in possible_paths:
-            return "That action is not possible here. Try: look, talk, run, fight, status, or help."
+            return (
+                "That action is not possible from this situation. Try a different command: "
+                "look, talk, run, fight, hack, repair, use, status, or help."
+            )
 
         next_node = possible_paths[intent]
 

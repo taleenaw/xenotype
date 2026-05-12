@@ -103,6 +103,49 @@ INTENT_PATTERNS = {
         r"\bbroken\b",
         r"\bannoying\b",
     ],
+        "typing_coach": [
+        r"\btype better\b",
+        r"\btyping better\b",
+        r"\btyping faster\b",
+        r"\bimprove typing\b",
+        r"\bimprove my typing\b",
+        r"\bhelp me type\b",
+        r"\bwpm\b",
+        r"\baccuracy\b",
+        r"\bkeyboard\b",
+        r"\bmistakes\b",
+        r"\berrors\b",
+        r"\bpractice typing\b",
+    ],
+
+    "game_help": [
+        r"\bhow do i play\b",
+        r"\bwhat is this game\b",
+        r"\bmission\b",
+        r"\bscenario\b",
+        r"\bleaderboard\b",
+        r"\bcampaign\b",
+        r"\bprofile\b",
+        r"\brun\b",
+    ],
+
+    "explain_feature": [
+        r"\bexplain\b",
+        r"\bwhat does\b",
+        r"\bwhat is\b",
+        r"\bhow does\b",
+        r"\bwhy does\b",
+    ],
+
+    "bug_report": [
+        r"\bbug\b",
+        r"\bbroken\b",
+        r"\bnot working\b",
+        r"\bdoesn't work\b",
+        r"\bdoes not work\b",
+        r"\berror\b",
+        r"\bissue\b",
+    ],
 }
 
 
