@@ -582,3 +582,52 @@ tr:hover td {
 	margin-top: 0.75rem;
 	color: #ff8f8f;
 }
+/* SCENARIO CARDS */
+.scenario-card {
+    background: var(--xt-bg2);
+    border: 1px solid var(--xt-border);
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.scenario-card:hover {
+    border-color: var(--xt-green3);
+    background: var(--xt-bg3);
+}
+
+/* TAGS */
+.tag {
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid;
+    display: inline-block;
+}
+
+.tag-genre {
+    border-color: var(--xt-border);
+    color: var(--xt-text3);
+}
+
+.tag-diff-easy {
+    border-color: #006611;
+    color: var(--xt-green2);
+    background: var(--xt-green4);
+}
+
+.tag-diff-medium {
+    border-color: #664800;
+    color: var(--xt-amber);
+    background: rgba(255,204,0,0.05);
+}
+
+.tag-diff-hard {
+    border-color: #660000;
+    color: var(--xt-red);
+    background: rgba(255,34,34,0.05);
+}
