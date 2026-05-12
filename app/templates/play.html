@@ -198,7 +198,34 @@ function finishRun() {
 
 hiddenInput.addEventListener('keydown', (e) => {
     if (finished) return;
-    if (e.key === 'Backspace') { e.preventDefault(); return; }
+
+    if (e.key === 'Backspace' || e.key === 'Delete') {
+        e.preventDefault();
+
+        if (currentIndex <= 0) {
+            return;
+        }
+
+        currentIndex--;
+
+        const span = document.getElementById('c' + currentIndex);
+
+        if (span) {
+            span.style.color = 'var(--xt-text3)';
+            span.style.background = 'none';
+            span.style.textDecoration = 'none';
+        }
+
+        if (errorSet.has(currentIndex)) {
+            errorSet.delete(currentIndex);
+            errors = Math.max(0, errors - 1);
+        }
+
+        updateCursor();
+        updateStats();
+        return;
+    }
+
     if (e.key.length !== 1) return;
 
     if (!started) startTimer();
@@ -206,20 +233,24 @@ hiddenInput.addEventListener('keydown', (e) => {
     const expected = passage[currentIndex];
     const span = document.getElementById('c' + currentIndex);
 
+    if (!span) return;
+
     if (e.key === expected) {
         span.style.color = 'var(--xt-text2)';
         span.style.background = 'none';
-        currentIndex++;
+        span.style.textDecoration = 'none';
     } else {
         span.style.color = 'var(--xt-red)';
         span.style.textDecoration = 'underline';
         span.style.background = 'rgba(255,34,34,0.1)';
+
         if (!errorSet.has(currentIndex)) {
             errorSet.add(currentIndex);
             errors++;
         }
-        currentIndex++;
     }
+
+    currentIndex++;
 
     updateCursor();
     updateStats();
