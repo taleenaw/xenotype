@@ -44,6 +44,33 @@ class User(UserMixin, db.Model):
 
     )
 
+
+    def get_best_wpm(self):
+        if not self.runs:
+            return 0
+        return max(run.wpm for run in self.runs)
+
+    def get_average_accuracy(self):
+        if not self.runs:
+            return 0
+        return round(sum(run.accuracy for run in self.runs) / len(self.runs), 1)
+
+    def get_total_runs(self):
+        return len(self.runs)
+
+    def get_rank(self):
+        from app.models import Run
+        best_wpms = {}
+        all_runs = Run.query.all()
+        for run in all_runs:
+            if run.user_id not in best_wpms or run.wpm > best_wpms[run.user_id]:
+                best_wpms[run.user_id] = run.wpm
+        sorted_users = sorted(best_wpms.items(), key=lambda x: x[1], reverse=True)
+        for i, (uid, _) in enumerate(sorted_users, 1):
+            if uid == self.id:
+                return i
+        return None
+
     def __repr__(self):
         return f'<User {self.username}>'
 
@@ -63,6 +90,23 @@ class Scenario(db.Model):
 
     runs = db.relationship('Run', backref='scenario', lazy=True)
 
+
+    def get_attempt_count(self):
+        return len(self.runs)
+
+    def get_average_wpm(self):
+        if not self.runs:
+            return 0
+        return round(sum(run.wpm for run in self.runs) / len(self.runs), 1)
+
+    def get_difficulty_colour(self):
+        colours = {
+            'Easy': '#00cc33',
+            'Medium': '#ffcc00',
+            'Hard': '#ff2222'
+        }
+        return colours.get(self.difficulty, '#4a8a4a')
+
     def __repr__(self):
         return f'<Scenario {self.title}>'
 
@@ -77,6 +121,21 @@ class Run(db.Model):
     grade = db.Column(db.String(2), nullable=False)
     wpm_history = db.Column(db.Text, nullable=True)
     completed_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+    def get_outcome_label(self):
+        labels = {
+            'S': 'Perfect Transmission',
+            'A': 'Mission Accomplished',
+            'B': 'Signal Partial',
+            'C': 'Barely Decoded',
+            'D': 'Signal Weak',
+            'F': 'Transmission Lost'
+        }
+        return labels.get(self.grade, 'Unknown')
+
+    def is_passing(self):
+        return self.grade not in ['D', 'F']
 
     def __repr__(self):
         return f'<Run {self.id} by User {self.user_id}>'
