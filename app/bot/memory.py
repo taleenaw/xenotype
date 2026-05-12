@@ -1,8 +1,8 @@
 from app import db
 from app.models import BotMemory
 
-from app.bot.topic_classifier import classify_topic
-from app.bot.ner import extract_entities
+from app.BOT.topic_classifier import classify_topic
+from app.BOT.ner import extract_entities
 
 
 IMPORTANT_WORDS = [

@@ -13,7 +13,32 @@ def mission_play(mission_id):
     if not mission:
         flash('Mission not found.')
         return redirect(url_for('main.lobby'))
-    return render_template('mission_play.html', mission=mission)
+    return render_template('mission_play.html', mission=mission, mission_id=mission_id)
+
+@game.route('/submit_mission_run/<mission_id>', methods=['POST'])
+@login_required
+def submit_mission_run(mission_id):
+    wpm = float(request.form.get('wpm', 0))
+    accuracy = float(request.form.get('accuracy', 0))
+    errors = int(request.form.get('errors', 0))
+    grade = request.form.get('grade', 'F')
+
+    run = Run(
+        user_id=current_user.id,
+        scenario_id=1,
+        wpm=wpm,
+        accuracy=accuracy,
+        time_remaining=0,
+        errors=errors,
+        grade=grade,
+        wpm_history=""
+    )
+    db.session.add(run)
+    db.session.commit()
+
+    flash('Mission run saved successfully.')
+    return redirect(url_for('main.leaderboard'))
+
 
 @game.route('/play/<int:scenario_id>')
 @login_required
