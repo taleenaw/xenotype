@@ -1,35 +1,228 @@
 {% extends "base.html" %} {% block content %}
-
-<h1 id="mission-title">{{ mission.title }}</h1>
-
-<p id="mission-intro">{{ mission.intro_text }}</p>
-
-<div class="card" style="margin-bottom: 20px">
-  <h2>Transmission</h2>
-  <p id="target-text"></p>
+<div style="margin-bottom: 16px">
+  <p
+    style="
+      font-size: 11px;
+      color: var(--xt-text3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    "
+  >
+    // CAMPAIGN MISSION ACTIVE
+  </p>
+  <h1 id="mission-title">{{ mission.title }}</h1>
+  <p id="mission-intro" style="color: var(--xt-text3); font-size: 12px">
+    {{ mission.intro_text }}
+  </p>
 </div>
 
-<div class="card" id="typing-box" style="margin-bottom: 20px">
-  <h2>Type Here</h2>
-  <p>Time left: <span id="time-left">60</span>s</p>
-
-  <textarea
-    id="typing-input"
-    rows="8"
-    placeholder="Begin typing the transmission..."
-  ></textarea>
-
-  <button class="btn" id="finish-btn" type="button">Submit</button>
+<div
+  style="
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  "
+>
+  <div class="card" style="padding: 12px 16px">
+    <div
+      style="font-family: var(--orb); font-size: 22px; color: var(--xt-green)"
+      id="live-wpm"
+    >
+      0
+    </div>
+    <div
+      style="
+        font-size: 10px;
+        color: var(--xt-text3);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      "
+    >
+      WPM
+    </div>
+  </div>
+  <div class="card" style="padding: 12px 16px">
+    <div style="font-family: var(--orb); font-size: 22px" id="live-timer">
+      60
+    </div>
+    <div
+      style="
+        font-size: 10px;
+        color: var(--xt-text3);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      "
+    >
+      Time
+    </div>
+  </div>
+  <div class="card" style="padding: 12px 16px">
+    <div
+      style="font-family: var(--orb); font-size: 22px; color: var(--xt-green)"
+      id="live-acc"
+    >
+      100%
+    </div>
+    <div
+      style="
+        font-size: 10px;
+        color: var(--xt-text3);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      "
+    >
+      Accuracy
+    </div>
+  </div>
+  <div class="card" style="padding: 12px 16px">
+    <div
+      style="font-family: var(--orb); font-size: 22px; color: var(--xt-red)"
+      id="live-errors"
+    >
+      0
+    </div>
+    <div
+      style="
+        font-size: 10px;
+        color: var(--xt-text3);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      "
+    >
+      Errors
+    </div>
+  </div>
 </div>
 
-<div class="card" id="results-box" style="display: none; margin-bottom: 20px">
+<div style="margin-bottom: 8px">
+  <div
+    style="display: flex; justify-content: space-between; margin-bottom: 4px"
+  >
+    <span
+      style="
+        font-size: 10px;
+        color: var(--xt-text3);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      "
+      >SHIP INTEGRITY</span
+    >
+    <span style="font-size: 10px; color: var(--xt-text3)" id="integrity-label"
+      >100%</span
+    >
+  </div>
+  <div
+    style="
+      height: 6px;
+      background: var(--xt-bg3);
+      border: 1px solid var(--xt-border);
+    "
+  >
+    <div
+      id="integrity-bar"
+      style="
+        height: 100%;
+        background: var(--xt-green);
+        width: 100%;
+        transition:
+          width 0.3s,
+          background 0.3s;
+      "
+    ></div>
+  </div>
+</div>
+
+<div style="margin-bottom: 16px">
+  <div
+    style="display: flex; justify-content: space-between; margin-bottom: 4px"
+  >
+    <span
+      style="
+        font-size: 10px;
+        color: var(--xt-text3);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      "
+      >PROGRESS</span
+    >
+    <span style="font-size: 10px; color: var(--xt-text3)" id="progress-label"
+      >0%</span
+    >
+  </div>
+  <div
+    style="
+      height: 4px;
+      background: var(--xt-bg3);
+      border: 1px solid var(--xt-border);
+    "
+  >
+    <div
+      id="progress-bar"
+      style="
+        height: 100%;
+        background: var(--xt-green);
+        width: 0%;
+        transition: width 0.1s;
+      "
+    ></div>
+  </div>
+</div>
+
+<div
+  class="card"
+  style="
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    position: relative;
+    cursor: text;
+  "
+  id="passage-card"
+  onclick="document.getElementById('hidden-input').focus()"
+>
+  <div
+    style="
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 10px;
+      color: var(--xt-text3);
+      letter-spacing: 1px;
+    "
+  >
+    CLICK TO FOCUS · BEGIN TYPING
+  </div>
+  <div
+    id="passage-display"
+    style="line-height: 2.4; font-size: 17px; word-break: break-word"
+  ></div>
+</div>
+
+<input
+  id="hidden-input"
+  type="text"
+  autocomplete="off"
+  autocorrect="off"
+  autocapitalize="off"
+  spellcheck="false"
+  style="
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+  "
+/>
+
+<div class="card" id="results-box" style="display: none; margin-bottom: 16px">
   <h2>Stage Complete</h2>
   <p><strong>WPM:</strong> <span id="final-wpm"></span></p>
   <p><strong>Accuracy:</strong> <span id="final-accuracy"></span>%</p>
   <p><strong>Errors:</strong> <span id="final-errors"></span></p>
 </div>
 
-<div class="card" id="choices-box" style="display: none; margin-bottom: 20px">
+<div class="card" id="choices-box" style="display: none; margin-bottom: 16px">
   <h2>Choose Your Next Move</h2>
   <button class="btn choice-btn" id="choice-a" type="button"></button>
   <button class="btn choice-btn" id="choice-b" type="button"></button>
@@ -41,21 +234,67 @@
   <a class="btn" href="{{ url_for('main.lobby') }}">Return to Lobby</a>
 </div>
 
+<form
+  id="mission-result-form"
+  method="POST"
+  action="{{ url_for('game.submit_mission_run', mission_id=mission_id) }}"
+  style="display: none"
+>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <input type="hidden" name="wpm" id="mission-wpm-field" />
+  <input type="hidden" name="accuracy" id="mission-accuracy-field" />
+  <input type="hidden" name="errors" id="mission-errors-field" />
+  <input type="hidden" name="grade" id="mission-grade-field" />
+</form>
 {% endblock %} {% block scripts %}
+<style>
+  .char-cursor {
+    border-bottom: 2px solid var(--xt-green);
+    color: var(--xt-green) !important;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+</style>
+
 <script>
   const missionStages = {{ mission.stages|tojson }};
+  const totalTime = 60;
+
+  let currentStageKey = "start";
+  let passage = "";
+  let currentIndex = 0;
+  let errors = 0;
+  let errorSet = new Set();
+  let started = false;
+  let finished = false;
+  let timeLeft = totalTime;
+  let timer = null;
+  let startTime = null;
 
   let totalWpm = 0;
   let totalAccuracy = 0;
   let totalErrors = 0;
   let completedStages = 0;
 
-  const targetTextElement = document.getElementById("target-text");
-  const typingInput = document.getElementById("typing-input");
-  const finishBtn = document.getElementById("finish-btn");
-  const timeLeftSpan = document.getElementById("time-left");
+  const display = document.getElementById('passage-display');
+  const hiddenInput = document.getElementById('hidden-input');
+  const liveWpm = document.getElementById('live-wpm');
+  const liveTimer = document.getElementById('live-timer');
+  const liveAcc = document.getElementById('live-acc');
+  const liveErrors = document.getElementById('live-errors');
+  const integrityBar = document.getElementById('integrity-bar');
+  const integrityLabel = document.getElementById('integrity-label');
+  const progressBar = document.getElementById('progress-bar');
+  const progressLabel = document.getElementById('progress-label');
 
-  const typingBox = document.getElementById("typing-box");
   const resultsBox = document.getElementById("results-box");
   const choicesBox = document.getElementById("choices-box");
   const completeBox = document.getElementById("complete-box");
@@ -68,155 +307,199 @@
   const choiceA = document.getElementById("choice-a");
   const choiceB = document.getElementById("choice-b");
 
-  let currentStageKey = "start";
-  let started = false;
-  let totalTime = 60;
-  let timeLeft = totalTime;
-  let timer = null;
-
   function loadStage(stageKey) {
-    currentStageKey = stageKey;
-    const stage = missionStages[currentStageKey];
+      currentStageKey = stageKey;
+      const stage = missionStages[currentStageKey];
 
-    targetTextElement.innerText = stage.passage;
-    typingInput.value = "";
-    typingInput.disabled = false;
-    finishBtn.disabled = false;
+      passage = stage.passage;
+      currentIndex = 0;
+      errors = 0;
+      errorSet = new Set();
+      started = false;
+      finished = false;
+      timeLeft = totalTime;
+      startTime = null;
 
-    typingBox.style.display = "block";
-    resultsBox.style.display = "none";
-    choicesBox.style.display = "none";
-    completeBox.style.display = "none";
+      if (timer) clearInterval(timer);
 
-    started = false;
-    timeLeft = totalTime;
-    timeLeftSpan.textContent = timeLeft;
+      liveTimer.textContent = timeLeft;
+      liveWpm.textContent = "0";
+      liveAcc.textContent = "100%";
+      liveErrors.textContent = "0";
+      integrityBar.style.width = "100%";
+      integrityLabel.textContent = "100%";
+      progressBar.style.width = "0%";
+      progressLabel.textContent = "0%";
 
-    if (timer) {
-      clearInterval(timer);
-    }
+      resultsBox.style.display = "none";
+      choicesBox.style.display = "none";
+      completeBox.style.display = "none";
+      document.getElementById("passage-card").style.display = "block";
+
+      buildDisplay();
+      hiddenInput.focus();
+  }
+
+  function buildDisplay() {
+      display.innerHTML = '';
+      passage.split('').forEach((char, i) => {
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.id = 'c' + i;
+          span.style.color = 'var(--xt-text3)';
+          display.appendChild(span);
+      });
+      updateCursor();
+  }
+
+  function updateCursor() {
+      document.querySelectorAll('.char-cursor').forEach(el => el.classList.remove('char-cursor'));
+      const cur = document.getElementById('c' + currentIndex);
+      if (cur) cur.classList.add('char-cursor');
+  }
+
+  function updateStats() {
+      const elapsed = started ? (Date.now() - startTime) / 60000 : 0;
+      const correctChars = Math.max(currentIndex - errors, 0);
+      const wpm = elapsed > 0 ? Math.round((correctChars / 5) / elapsed) : 0;
+      const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 100;
+
+      liveWpm.textContent = wpm;
+      liveAcc.textContent = acc + '%';
+      liveErrors.textContent = errors;
+
+      const maxErrors = 10;
+      const integrityPct = Math.max(0, Math.round(((maxErrors - errors) / maxErrors) * 100));
+      integrityBar.style.width = integrityPct + '%';
+      integrityLabel.textContent = integrityPct + '%';
+
+      if (integrityPct > 60) integrityBar.style.background = 'var(--xt-green)';
+      else if (integrityPct > 30) integrityBar.style.background = 'var(--xt-amber)';
+      else integrityBar.style.background = 'var(--xt-red)';
+
+      const progress = Math.round((currentIndex / passage.length) * 100);
+      progressBar.style.width = progress + '%';
+      progressLabel.textContent = progress + '%';
+
+      liveTimer.style.color = timeLeft > 20 ? 'var(--xt-green)' : timeLeft > 10 ? 'var(--xt-amber)' : 'var(--xt-red)';
   }
 
   function startTimer() {
-    if (started) return;
+      if (started) return;
+      started = true;
+      startTime = Date.now();
 
-    started = true;
+      timer = setInterval(() => {
+          timeLeft--;
+          liveTimer.textContent = timeLeft;
+          updateStats();
 
-    timer = setInterval(() => {
-      timeLeft--;
-      timeLeftSpan.textContent = timeLeft;
-
-      if (timeLeft <= 0) {
-        finishStage();
-      }
-    }, 1000);
-  }
-
-  function countErrors(input, target) {
-    let errors = 0;
-
-    for (let i = 0; i < input.length; i++) {
-      if (i >= target.length || input[i] !== target[i]) {
-        errors++;
-      }
-    }
-
-    return errors;
-  }
-
-  function calculateResults() {
-    const typedText = typingInput.value;
-    const targetText = targetTextElement.innerText.trim();
-
-    const elapsedMinutes = Math.max((totalTime - timeLeft) / 60, 1 / 60);
-    const typedWords =
-      typedText.trim().length > 0 ? typedText.trim().split(/\s+/).length : 0;
-
-    const wpm = typedWords / elapsedMinutes;
-    const errors = countErrors(typedText, targetText);
-
-    const correctChars = Math.max(typedText.length - errors, 0);
-    const accuracy =
-      typedText.length > 0 ? (correctChars / typedText.length) * 100 : 0;
-
-    return {
-      wpm: Math.round(wpm * 100) / 100,
-      accuracy: Math.round(accuracy * 100) / 100,
-      errors: errors,
-    };
+          if (timeLeft <= 0) finishStage();
+      }, 1000);
   }
 
   function finishStage() {
-    if (timer) {
+      if (finished) return;
+      finished = true;
       clearInterval(timer);
-    }
+      hiddenInput.blur();
 
-    typingInput.disabled = true;
-    finishBtn.disabled = true;
+      const elapsed = Math.max((totalTime - timeLeft) / 60, 1 / 60);
+      const correctChars = Math.max(currentIndex - errors, 0);
+      const wpm = Math.round((correctChars / 5) / elapsed);
+      const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 0;
 
-    const results = calculateResults();
+      totalWpm += wpm;
+      totalAccuracy += acc;
+      totalErrors += errors;
+      completedStages++;
 
-    totalWpm += results.wpm;
-    totalAccuracy += results.accuracy;
-    totalErrors += results.errors;
-    completedStages++;
+      finalWpm.textContent = wpm;
+      finalAccuracy.textContent = acc;
+      finalErrors.textContent = errors;
 
-    finalWpm.textContent = results.wpm;
-    finalAccuracy.textContent = results.accuracy;
-    finalErrors.textContent = results.errors;
+      resultsBox.style.display = "block";
 
-    resultsBox.style.display = "block";
+      const stage = missionStages[currentStageKey];
 
-    const stage = missionStages[currentStageKey];
+      if (stage.choices.length === 0) {
+          document.getElementById("passage-card").style.display = "none";
+          completeBox.style.display = "block";
+          endingText.textContent = stage.passage;
 
-    if (stage.choices.length === 0) {
-      typingBox.style.display = "none";
-      completeBox.style.display = "block";
-      endingText.textContent = stage.passage;
+          const averageWpm = Math.round(totalWpm / completedStages);
+          const averageAccuracy = Math.round(totalAccuracy / completedStages);
 
-      const averageWpm = totalWpm / completedStages;
-      const averageAccuracy = totalAccuracy / completedStages;
+          let grade = "F";
+          if (averageWpm >= 60 && averageAccuracy >= 95) grade = "A";
+          else if (averageWpm >= 45 && averageAccuracy >= 90) grade = "B";
+          else if (averageWpm >= 30 && averageAccuracy >= 80) grade = "C";
+          else if (averageWpm >= 20 && averageAccuracy >= 70) grade = "D";
 
-      let grade = "F";
-      if (averageWpm >= 60 && averageAccuracy >= 95) grade = "A";
-      else if (averageWpm >= 45 && averageAccuracy >= 90) grade = "B";
-      else if (averageWpm >= 30 && averageAccuracy >= 80) grade = "C";
-      else if (averageWpm >= 20 && averageAccuracy >= 70) grade = "D";
+          document.getElementById("mission-wpm-field").value = averageWpm;
+          document.getElementById("mission-accuracy-field").value = averageAccuracy;
+          document.getElementById("mission-errors-field").value = totalErrors;
+          document.getElementById("mission-grade-field").value = grade;
 
-      document.getElementById("mission-wpm-field").value = averageWpm;
-      document.getElementById("mission-accuracy-field").value = averageAccuracy;
-      document.getElementById("mission-errors-field").value = totalErrors;
-      document.getElementById("mission-grade-field").value = grade;
-      document.getElementById("mission-result-form").submit();
+          setTimeout(() => document.getElementById("mission-result-form").submit(), 1000);
+      } else {
+          choiceA.textContent = stage.choices[0].text;
+          choiceB.textContent = stage.choices[1].text;
 
-    }
-    else {
-      choiceA.textContent = stage.choices[0].text;
-      choiceB.textContent = stage.choices[1].text;
+          choiceA.onclick = () => loadStage(stage.choices[0].next);
+          choiceB.onclick = () => loadStage(stage.choices[1].next);
 
-      choiceA.onclick = () => loadStage(stage.choices[0].next);
-      choiceB.onclick = () => loadStage(stage.choices[1].next);
-
-      choicesBox.style.display = "block";
-    }
+          choicesBox.style.display = "block";
+      }
   }
 
-  typingInput.addEventListener("input", startTimer);
-  finishBtn.addEventListener("click", finishStage);
+  hiddenInput.addEventListener('keydown', (e) => {
+      if (finished) return;
+      if (e.key === 'Backspace') {
+          e.preventDefault();
+          return;
+      }
+      if (e.key.length !== 1) return;
+
+      if (!started) startTimer();
+
+      const expected = passage[currentIndex];
+      const span = document.getElementById('c' + currentIndex);
+
+      if (!span) return;
+
+      if (e.key === expected) {
+          span.style.color = 'var(--xt-text2)';
+          span.style.background = 'none';
+      } else {
+          span.style.color = 'var(--xt-red)';
+          span.style.textDecoration = 'underline';
+          span.style.background = 'rgba(255,34,34,0.1)';
+          if (!errorSet.has(currentIndex)) {
+              errorSet.add(currentIndex);
+              errors++;
+          }
+      }
+
+      currentIndex++;
+      updateCursor();
+      updateStats();
+
+      if (currentIndex >= passage.length) finishStage();
+  });
+
+  hiddenInput.addEventListener('focus', () => {
+      document.getElementById('passage-card').style.borderColor = 'var(--xt-green3)';
+  });
+
+  hiddenInput.addEventListener('blur', () => {
+      if (!finished) document.getElementById('passage-card').style.borderColor = 'var(--xt-border)';
+  });
+
+  document.addEventListener('keydown', (e) => {
+      if (!finished && e.key.length === 1) hiddenInput.focus();
+  });
 
   loadStage("start");
 </script>
-
-<form
-  id="mission-result-form"
-  method="POST"
-  action="{{ url_for('game.submit_mission_run', mission_id=mission_id) }}"
-  style="display: none"
->
-  <input type="hidden" name="wpm" id="mission-wpm-field" />
-  <input type="hidden" name="accuracy" id="mission-accuracy-field" />
-  <input type="hidden" name="errors" id="mission-errors-field" />
-  <input type="hidden" name="grade" id="mission-grade-field" />
-</form>
-
 {% endblock %}
