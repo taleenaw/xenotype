@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, render_template, request
 from flask_login import current_user, login_required
 
 from app import db
-from app.BOT.chat_engine import BotEngine
+from app.bot.chat_engine import BotEngine
 from app.models import BotConversation, BotProfile
 
 bot = Blueprint('bot', __name__, url_prefix='/bot')
