@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from app.BOT.engine import CampaignEngine
+from app.bot.engine import CampaignEngine
 
 
 @dataclass
