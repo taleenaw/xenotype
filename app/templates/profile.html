@@ -5,8 +5,9 @@
     <div class="profile-photo-wrap">
         <img
             class="profile-photo"
-            src="{{ url_for('static', filename='uploads/' + (user.profile_photo or 'profile_photos/default-avatar.svg')) }}"
-            alt="{{ user.username }} profile photo">
+            src="{{ url_for('static', filename=user.profile_photo if user.profile_photo else 'uploads/profile_photos/default-avatar.svg') }}"
+            alt="{{ user.username }} profile photo"
+        >
     </div>
 
     <div class="profile-info">
@@ -30,6 +31,7 @@
 
         {% if current_user.id == user.id %}
         <form class="profile-photo-form" method="POST" enctype="multipart/form-data">
+            <input id="csrf_token" type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <label for="profile_photo">Upload profile photo</label>
             <div class="profile-upload-row">
                 <input id="profile_photo" type="file" name="profile_photo" accept="image/png,image/jpeg,image/gif,image/webp">

@@ -18,6 +18,11 @@ def register():
             flash('Username already exists.')
             return redirect(url_for('auth.register'))
 
+        email_check = User.query.filter_by(email=email).first()
+        if email_check:
+            flash('Email already registered.')
+            return redirect(url_for('auth.register'))
+
         new_user = User(
             username=username,
             email=email,

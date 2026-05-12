@@ -12,6 +12,8 @@ class BotEngine:
 
         topic = classify_topic(message)
 
+        intent = detect_intent(message)
+
         store_memory(user, message)
 
         response = generate_response(user, message)
@@ -19,5 +21,6 @@ class BotEngine:
         return {
             'response': response,
             'sentiment': sentiment,
-            'topic': topic
+            'topic': topic,
+            'intent': intent
         }
