@@ -17,15 +17,15 @@
         <div class="profile-stats-grid">
             <div class="profile-stat">
                 <span>Best WPM</span>
-                <strong>{{ best_wpm }}</strong>
+                <strong>{{ user.get_best_wpm() }}</strong> 
             </div>
             <div class="profile-stat">
                 <span>Average Accuracy</span>
-                <strong>{{ avg_accuracy }}%</strong>
+               <strong>{{ user.get_average_accuracy() }}%</strong> 
             </div>
             <div class="profile-stat">
                 <span>Total Runs</span>
-                <strong>{{ runs|length }}</strong>
+                <strong>{{ user.get_total_runs() }}</strong>
             </div>
         </div>
 
