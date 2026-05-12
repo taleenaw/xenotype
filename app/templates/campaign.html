@@ -57,6 +57,7 @@ const nodeValue = document.getElementById('nodeValue');
 const healthValue = document.getElementById('healthValue');
 const fearValue = document.getElementById('fearValue');
 const confidenceValue = document.getElementById('confidenceValue');
+const csrfToken = "{{ csrf_token() }}";
 
 function scrollChatToBottom() {
     chatLog.scrollTop = chatLog.scrollHeight;
@@ -105,7 +106,10 @@ chatForm.addEventListener('submit', async (event) => {
 
     const response = await fetch('{{ url_for("campaign.campaign_chat") }}', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
         body: JSON.stringify({ message })
     });
 
@@ -126,7 +130,10 @@ chatForm.addEventListener('submit', async (event) => {
 
 resetButton.addEventListener('click', async () => {
     await fetch('{{ url_for("campaign.reset_campaign") }}', {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken
+        }
     });
 
     window.location.reload();

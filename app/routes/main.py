@@ -82,7 +82,7 @@ def profile(username):
         save_path = os.path.join(profile_photo_dir, unique_filename)
         photo.save(save_path)
 
-        user.profile_photo = f"profile_photos/{unique_filename}"
+        user.profile_photo = f"uploads/profile_photos/{unique_filename}"
         db.session.commit()
 
         flash("Profile photo updated.")

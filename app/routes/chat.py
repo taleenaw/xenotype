@@ -97,3 +97,17 @@ def send_message():
     return jsonify({
         'message': message.to_dict()
     }), 201
+
+@chat.route('/api/reset', methods=['POST'])
+
+@login_required
+
+def reset_chat():
+
+    room = get_or_create_room()
+
+    ChatMessage.query.filter_by(room_id=room.id).delete()
+
+    db.session.commit()
+
+    return jsonify({'status': 'reset'})

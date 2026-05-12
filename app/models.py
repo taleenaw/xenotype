@@ -2,6 +2,7 @@ from app import db
 from flask_login import UserMixin
 from datetime import datetime
 import json
+from flask import url_for
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -243,6 +244,8 @@ class ChatMessage(db.Model):
             'room': self.room.name if self.room else None,
             'user_id': self.user_id,
             'username': self.user.username if self.user else 'Unknown',
+            'profile_photo': self.user.profile_photo if self.user else 'profile_photos/default-avatar.svg',
+            'profile_url': url_for('main.profile', username=self.user.username) if self.user else '#',
             'body': self.body,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
         }
