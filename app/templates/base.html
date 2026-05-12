@@ -11,8 +11,9 @@
 
 <body>
 	<nav class="xt-nav">
-		<div class="xt-logo">XENO<span>TYPE</span></div>
-		<div class="xt-nav-links">
+
+		<div class="xt-logo" style="display:flex;align-items:center;gap:8px;"><img src="{{ url_for('static', filename='Logo.png') }}" style="width:28px;height:28px;object-fit:contain;image-rendering:pixelated;">XENO<span>TYPE</span></div>
+ 		<div class="xt-nav-links">
 			<a class="xt-nav-link" href="{{ url_for('main.lobby') }}">Lobby</a>
 			<a class="xt-nav-link" href="{{ url_for('main.scenarios') }}">Scenarios</a>
 			<a class="xt-nav-link" href="{{ url_for('campaign.campaign_home') }}">Campaign</a>
