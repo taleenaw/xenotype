@@ -2,7 +2,7 @@ from datetime import datetime
 
 from app import db
 from app.models import BotMemory
-from app.BOT.similarity import compute_similarity
+from app.bot.similarity import compute_similarity
 
 
 SIMILARITY_THRESHOLD = 0.2
