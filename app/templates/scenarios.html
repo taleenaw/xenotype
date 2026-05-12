@@ -1,39 +1,89 @@
 {% extends "base.html" %}
 
+{% block title %}Scenarios — Xenotype{% endblock %}
+
 {% block content %}
-
-<h1>Scenarios</h1>
-
-
-<div style="margin-bottom: 20px;">
-    <a class="btn" href="{{ url_for('scenario.generate_scenario') }}">
-        + Generate Random Scenario
-    </a>
+<div style="margin-bottom:28px;">
+    <p style="font-size:11px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">// SCENARIO DATABASE</p>
+    <h1>SELECT MISSION</h1>
+    <p style="color:var(--xt-text3);font-size:12px;margin-top:4px;">Choose your transmission. Each mission ends differently depending on your performance.</p>
 </div>
 
+<div style="display:flex;gap:12px;margin-bottom:24px;align-items:center;">
+    <a class="btn" href="{{ url_for('scenario.generate_scenario') }}" style="font-size:11px;">+ Generate Random Scenario</a>
+    <select id="filter-diff" style="width:160px;font-size:11px;" onchange="filterScenarios()">
+        <option value="">All Difficulties</option>
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+    </select>
+    <span id="scenario-count" style="font-size:11px;color:var(--xt-text3);">{{ scenarios|length }} mission{% if scenarios|length != 1 %}s{% endif %} available</span>
+</div>
 
 {% if scenarios %}
-
+<div id="scenarios-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
     {% for scenario in scenarios %}
-
-        <div class="card" style="margin-bottom: 20px;">
-
-            <h2>{{ scenario.title }}</h2>
-
-            <p>{{ scenario.genre }} | {{ scenario.difficulty }}</p>
-
-            <p>{{ scenario.intro_text }}</p>
-
-            <a class="btn" href="{{ url_for('game.play_scenario', scenario_id=scenario.id) }}">Start Mission</a>
-
+    <div class="scenario-card"
+        data-genre="{{ scenario.genre }}"
+        data-difficulty="{{ scenario.difficulty }}"
+        onclick="window.location='{{ url_for('game.play_scenario', scenario_id=scenario.id) }}'">
+        <div style="margin-bottom:8px;">
+            <p style="font-size:9px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">// {{ scenario.genre }}</p>
+            <h3 style="margin-bottom:8px;font-size:12px;">{{ scenario.title }}</h3>
+            <p style="font-size:12px;color:var(--xt-text3);line-height:1.6;margin-bottom:12px;">{{ scenario.intro_text }}</p>
         </div>
-
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <div style="display:flex;gap:6px;">
+                <span class="tag tag-diff-{{ scenario.difficulty | lower }}">{{ scenario.difficulty }}</span>
+                {% if scenario.is_official %}
+                <span class="tag" style="border-color:var(--xt-green3);color:var(--xt-green2);background:var(--xt-green4);">Official</span>
+                {% else %}
+                <span class="tag" style="border-color:var(--xt-border);color:var(--xt-text3);">Community</span>
+                {% endif %}
+            </div>
+            <span style="font-size:10px;color:var(--xt-text3);">{{ scenario.runs | length }} attempt{% if scenario.runs | length != 1 %}s{% endif %}</span>
+        </div>
+        <div style="height:1px;background:var(--xt-border);margin-bottom:12px;"></div>
+        <a href="{{ url_for('game.play_scenario', scenario_id=scenario.id) }}" class="btn" style="width:100%;text-align:center;display:block;" onclick="event.stopPropagation()">Start Mission</a>
+    </div>
     {% endfor %}
+</div>
+
+<p id="no-results" style="display:none;color:var(--xt-text3);font-size:13px;padding:32px 0;">No missions match your filters.</p>
 
 {% else %}
-
-    <p>No scenarios available.</p>
-
+<div class="card" style="text-align:center;padding:48px;">
+    <p style="color:var(--xt-text3);font-size:13px;margin-bottom:16px;">No missions available yet.</p>
+    <a href="{{ url_for('scenario.generate_scenario') }}" class="btn">Generate First Scenario</a>
+</div>
 {% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+function filterScenarios() {
+    const genre = document.getElementById('filter-genre').value.toLowerCase();
+    const diff = document.getElementById('filter-diff').value.toLowerCase();
+    const cards = document.querySelectorAll('.scenario-card');
+    let visible = 0;
+
+    cards.forEach(card => {
+        const cardGenre = card.dataset.genre.toLowerCase();
+        const cardDiff = card.dataset.difficulty.toLowerCase();
+        const genreMatch = !genre || cardGenre === genre;
+        const diffMatch = !diff || cardDiff === diff;
+
+        if (genreMatch && diffMatch) {
+            card.style.display = 'flex';
+            visible++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    document.getElementById('scenario-count').textContent = visible + ' mission' + (visible !== 1 ? 's' : '') + ' available';
+    document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+}
+</script>
 {% endblock %}
