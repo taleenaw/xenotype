@@ -1,7 +1,7 @@
-from app.bot.response_generator import generate_response
-from app.bot.memory import store_memory
-from app.bot.sentiment import detect_sentiment
-from app.bot.topic_classifier import classify_topic
+from app.BOT.response_generator import generate_response
+from app.BOT.memory import store_memory
+from app.BOT.sentiment import detect_sentiment
+from app.BOT.topic_classifier import classify_topic
 
 
 class BotEngine:

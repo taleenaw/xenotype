@@ -1,9 +1,9 @@
 import random
 
-from app.bot.parser import detect_intent
-from app.bot.story_graph import STORY_GRAPH
-from app.bot.templates import SCENE_TEMPLATES
-from app.bot.worlds import STORY_WORLDS
+from app.BOT.parser import detect_intent
+from app.BOT.story_graph import STORY_GRAPH
+from app.BOT.templates import SCENE_TEMPLATES
+from app.BOT.worlds import STORY_WORLDS
 
 
 def _clamp(value, minimum=0, maximum=100):

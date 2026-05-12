@@ -1,7 +1,7 @@
 import random
 
-from app.bot.semantic_memory import retrieve_relevant_memories
-from app.bot.topic_classifier import classify_topic
+from app.BOT.semantic_memory import retrieve_relevant_memories
+from app.BOT.topic_classifier import classify_topic
 
 
 GENERAL_RESPONSES = [
