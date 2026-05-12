@@ -1,190 +1,174 @@
 import random
 
-from app.bot.intent  import detect_intent
+from app.bot.intent import detect_intent
 from app.bot.semantic_memory import retrieve_relevant_memories
 from app.bot.topic_classifier import classify_topic
 from app.bot.conversation_context import get_recent_conversation
+from app.bot.sentiment import detect_sentiment
 
 
-GREETINGS = [
-    "Hey, good to see you. What are you working on in Xenotype today?",
-    "Hello. I’m here — want to talk strategy, typing, missions, or just chat?",
-    "Hey. What’s happening?",
-]
+RESPONSES = {
+    "greeting": [
+        "Hey. I’m here — want help with typing, missions, campaign mode, or your profile?",
+        "Hello. What are we working on today?",
+        "Hey, good to see you. Are you practising typing or building something in Xenotype?",
+    ],
 
-GOODBYES = [
-    "See you later. I’ll remember anything useful from our chat.",
-    "Goodbye for now. Come back if you want help with typing or missions.",
-    "Catch you later.",
-]
+    "how_are_you": [
+        "I’m running smoothly. More importantly, what are you trying to improve right now?",
+        "I’m good. I can help with typing, missions, campaign choices, or explaining the app.",
+        "Doing fine. Tell me what you want to work on and I’ll help break it down.",
+    ],
 
-THANKS = [
-    "No worries — happy to help.",
-    "Anytime.",
-    "You’re welcome. I’m here if you want to keep going.",
-]
+    "thanks": [
+        "No worries — happy to help.",
+        "Anytime.",
+        "You’re welcome. Keep going, you’re making progress.",
+    ],
 
-HOW_ARE_YOU = [
-    "I’m running smoothly. More importantly, how are you feeling about your progress?",
-    "I’m good. I’m mostly here to help you think, practise, and improve.",
-    "I’m doing fine. What do you want to work on next?",
-]
+    "goodbye": [
+        "See you later. I’ll be here when you want to practise again.",
+        "Catch you later. Good luck with the next mission.",
+        "Goodbye for now.",
+    ],
 
-IDENTITY = [
-    "I’m the Xeno Assistant — a conversational helper for Xenotype. I can talk about typing, missions, lore, and things you want me to remember.",
-    "I’m your Xenotype assistant. I can help with typing advice, explain game systems, discuss lore, and remember useful details.",
-]
+    "identity": [
+        "I’m the Xeno Assistant — a helper for Xenotype. I can give typing advice, explain features, talk about missions, and remember useful things.",
+        "I’m your Xenotype assistant. I’m here to help with gameplay, typing improvement, campaign logic, and general questions.",
+    ],
 
-HELP = [
-    "I can help with typing practice, mission advice, Xenotype lore, or remembering things you tell me.",
-    "Try asking me about your WPM, accuracy, campaign missions, or something you want me to remember.",
-    "I can explain game features, give typing advice, or just chat normally.",
-]
+    "typing_coach": [
+        "To type better, focus on accuracy before speed. Slow down until you can keep mistakes low, then gradually increase pace.",
+        "A strong typing strategy is: aim for clean rhythm, avoid panic typing, and correct patterns that repeatedly cause errors.",
+        "If your WPM is low, do short focused runs. If your accuracy is low, slow down and prioritise clean keystrokes.",
+        "Try practising difficult words in small chunks. Speed comes from rhythm and confidence, not just pressing keys faster.",
+        "For better scores, keep accuracy above 90 percent first. A slightly slower accurate run usually beats a fast messy one.",
+    ],
 
-TYPING_HELP = [
-    "For typing, focus on accuracy first. Speed usually improves naturally once your rhythm becomes consistent.",
-    "A good strategy is to slow down slightly until your errors drop, then gradually push your WPM higher.",
-    "If you are making lots of mistakes, practise smaller sections and aim for clean rhythm rather than raw speed.",
-    "WPM is useful, but accuracy is what makes speed meaningful. A fast messy run usually scores worse than a controlled one.",
-]
+    "typing_help": [
+        "Typing improves fastest when you reduce repeated mistakes. Watch which letters or words break your rhythm.",
+        "Focus on consistency. Your WPM will rise naturally once your hands stop hesitating.",
+        "Try using backspace only when needed. Correcting mistakes is good, but too much correction can break flow.",
+    ],
 
-LORE = [
-    "Xenotype feels like a world built around corrupted signals, missions, and strange system intelligence. That gives the game a cyber-survival atmosphere.",
-    "The Xenotype setting works best when the missions feel like transmissions you are decoding under pressure.",
-    "Lore-wise, the idea of a signal or system reacting to the player fits really well with your campaign structure.",
-]
+    "game_help": [
+        "In Xenotype, you complete typing missions, save runs, earn grades, and compare results on the leaderboard.",
+        "Scenarios are typing missions. Campaign mode is more story-driven and lets you choose actions like look, talk, hack, repair, fight, or run.",
+        "Your profile tracks your runs and progress. The leaderboard shows strong performances from players.",
+    ],
 
-CONFUSED = [
-    "That’s okay — confusion usually means the system needs to be broken down. Tell me which part feels unclear.",
-    "No stress. We can slow it down. What part are you stuck on?",
-    "Let’s simplify it. Are you confused about the gameplay, the code, or the database side?",
-]
+    "xenotype_lore": [
+        "Xenotype works best as a corrupted-signal sci-fi world: typing becomes the way you decode, stabilise, or fight the system.",
+        "The campaign can feel stronger if each command changes the situation: hacking opens hidden paths, repairing reduces danger, fighting costs health, and talking reveals clues.",
+        "The Xenotype setting is about unstable systems, alien signals, damaged AI, and player choices inside a hostile network.",
+    ],
 
-POSITIVE = [
-    "Nice — that sounds like progress.",
-    "Good, that means the direction is working.",
-    "Awesome. That’s a solid step forward.",
-]
+    "explain_feature": [
+        "I can explain it. Tell me which part you mean: typing missions, campaign mode, leaderboard, profile photos, or chat?",
+        "That depends on the feature. Which screen or button are you asking about?",
+        "I can break it down step by step. What specific part is confusing?",
+    ],
 
-NEGATIVE = [
-    "That sounds frustrating. Let’s narrow down what is failing first.",
-    "Fair — if something feels off, we can improve it step by step.",
-    "That is fixable. Tell me what happened right before it broke.",
-]
+    "bug_report": [
+        "That sounds like a bug. First check what page it happens on, what button you pressed, and whether the terminal shows an error.",
+        "If something is broken, the best next step is to reproduce it once, check the Flask terminal output, and inspect the route/template involved.",
+        "Let’s narrow it down: is it a frontend display issue, a database issue, or a Flask route error?",
+    ],
 
-GENERAL = [
-    "That makes sense. Can you tell me a little more?",
-    "I get what you mean. What part do you want to focus on?",
-    "Interesting. Do you want me to respond as a game assistant, typing coach, or general chatbot?",
-    "Okay, I’m following. What would you like to do next?",
-]
+    "memory_request": [
+        "Got it — I’ll remember that because it may help me respond better later.",
+        "Understood. I’ll treat that as useful context for future replies.",
+    ],
+
+    "confused": [
+        "No stress. Tell me which part is confusing and I’ll simplify it.",
+        "That’s okay. Is the confusing part about the code, the gameplay, or the database?",
+        "Let’s slow it down. What was the last thing that made sense?",
+    ],
+
+    "positive_feedback": [
+        "Nice — that sounds like progress.",
+        "Good, that means the direction is working.",
+        "Awesome. Keep building on that.",
+    ],
+
+    "negative_feedback": [
+        "That sounds frustrating. Let’s isolate the problem and fix it one step at a time.",
+        "Fair. If it feels wrong, we can improve the logic or the response style.",
+        "That is fixable. Tell me what you expected and what actually happened.",
+    ],
+
+    "help": [
+        "I can help with typing practice, mission strategy, campaign choices, profile issues, chat, or debugging Xenotype.",
+        "Try asking: 'help me type better', 'explain campaign mode', 'why is my profile photo broken', or 'how do I improve WPM?'",
+    ],
+
+    "general": [
+        "I understand. Do you want advice, an explanation, or help fixing something?",
+        "That makes sense. What part should we focus on next?",
+        "I’m following. Tell me a little more so I can give a better answer.",
+    ],
+}
 
 
-def _pick(options):
-    return random.choice(options)
+def _pick(intent):
+    return random.choice(RESPONSES.get(intent, RESPONSES["general"]))
 
 
 def _memory_sentence(relevant_memories):
     if not relevant_memories:
         return ""
 
-    top_memory = relevant_memories[0]["memory"]
+    memory = relevant_memories[0]["memory"]
 
-    return (
-        f"I remember you previously mentioned: "
-        f"'{top_memory.memory_value}'. "
-    )
+    return f"I remember you previously mentioned: '{memory.memory_value}'. "
 
 
 def _recent_context_sentence(recent_conversations):
     if not recent_conversations:
         return ""
 
-    last = recent_conversations[-1]
+    last = recent_conversations[-1].player_message.lower()
 
-    if "confused" in last.player_message.lower():
+    if "confused" in last or "don't understand" in last:
         return "Since you were unsure earlier, I’ll keep this simple. "
 
-    if "thanks" in last.player_message.lower() or "thank" in last.player_message.lower():
-        return "Building on that, "
+    if "typing" in last or "wpm" in last or "accuracy" in last:
+        return "Continuing from typing practice, "
+
+    if "bug" in last or "broken" in last or "error" in last:
+        return "Continuing from that issue, "
 
     return ""
-
-
-def _compose_response(intent, topic, sentiment, relevant_memories, recent_conversations, message):
-    memory_intro = _memory_sentence(relevant_memories)
-    context_intro = _recent_context_sentence(recent_conversations)
-
-    if intent == "greeting":
-        return _pick(GREETINGS)
-
-    if intent == "goodbye":
-        return _pick(GOODBYES)
-
-    if intent == "thanks":
-        return _pick(THANKS)
-
-    if intent == "how_are_you":
-        return _pick(HOW_ARE_YOU)
-
-    if intent == "identity":
-        return _pick(IDENTITY)
-
-    if intent == "help":
-        return context_intro + _pick(HELP)
-
-    if intent == "typing_help":
-        return context_intro + memory_intro + _pick(TYPING_HELP)
-
-    if intent == "xenotype_lore":
-        return context_intro + memory_intro + _pick(LORE)
-
-    if intent == "memory_request":
-        return "Got it — I’ll remember that because it may help me respond better later."
-
-    if intent == "confused":
-        return _pick(CONFUSED)
-
-    if intent == "positive_feedback":
-        return _pick(POSITIVE)
-
-    if intent == "negative_feedback":
-        return _pick(NEGATIVE)
-
-    if sentiment == "negative":
-        return "That sounds frustrating. " + _pick(GENERAL)
-
-    if sentiment == "positive":
-        return "That’s good to hear. " + _pick(GENERAL)
-
-    if relevant_memories:
-        return memory_intro + _pick(GENERAL)
-
-    if topic == "typing":
-        return _pick(TYPING_HELP)
-
-    if topic == "lore":
-        return _pick(LORE)
-
-    return _pick(GENERAL)
 
 
 def generate_response(user, message):
     intent = detect_intent(message)
     topic = classify_topic(message)
+    sentiment = detect_sentiment(message)
+
     relevant_memories = retrieve_relevant_memories(user, message)
     recent_conversations = get_recent_conversation(user, limit=5)
 
-    # Sentiment is also calculated in chat_engine, but this keeps the generator
-    # usable independently if needed.
-    from app.bot.sentiment import detect_sentiment
-    sentiment = detect_sentiment(message)
+    context = _recent_context_sentence(recent_conversations)
+    memory = _memory_sentence(relevant_memories)
 
-    return _compose_response(
-        intent=intent,
-        topic=topic,
-        sentiment=sentiment,
-        relevant_memories=relevant_memories,
-        recent_conversations=recent_conversations,
-        message=message
-    )
+    if intent in RESPONSES:
+        return context + memory + _pick(intent)
+
+    if topic == "typing":
+        return context + memory + _pick("typing_coach")
+
+    if topic == "lore":
+        return context + memory + _pick("xenotype_lore")
+
+    if sentiment == "negative":
+        return context + _pick("negative_feedback")
+
+    if sentiment == "positive":
+        return context + _pick("positive_feedback")
+
+    if relevant_memories:
+        return memory + _pick("general")
+
+    return _pick("general")
