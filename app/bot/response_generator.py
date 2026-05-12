@@ -1,9 +1,9 @@
 import random
 
-from app.bot.intent  import detect_intent
-from app.bot.semantic_memory import retrieve_relevant_memories
-from app.bot.topic_classifier import classify_topic
-from app.bot.conversation_context import get_recent_conversation
+from app.BOT.intent  import detect_intent
+from app.BOT.semantic_memory import retrieve_relevant_memories
+from app.BOT.topic_classifier import classify_topic
+from app.BOT.conversation_context import get_recent_conversation
 
 
 GREETINGS = [
