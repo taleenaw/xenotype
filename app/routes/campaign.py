@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, render_template, request
 from flask_login import current_user, login_required
 
 from app import db
-from app.BOT.bot import CampaignBot
+from app.bot.bot import CampaignBot
 from app.models import CampaignProgress
 
 
