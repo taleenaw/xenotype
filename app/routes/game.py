@@ -61,7 +61,7 @@ def outcome(run_id):
         outcome_text = scenario.outcome_mid
     else:
         outcome_text = scenario.outcome_low
-
+  
     import json
     try:
         wpm_history = json.loads(run.wpm_history or '[]')
