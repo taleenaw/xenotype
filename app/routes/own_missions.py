@@ -99,5 +99,93 @@ stories = {
                 "choices": []
             }
         }
-    }
+    },
+
+    "nebula": {
+            "title": "Operation Nebula Veil",
+            "intro": "Type each mission transmission, submit it, then choose what happens next.",
+            "stages": {
+                "start": {
+                    "passage": "Your squad descends through the corrosive violet clouds of Eryndor-6 toward a massive subterranean structure recently detected beneath the planet’s surface. The object emits fluctuating electromagnetic frequencies powerful enough to disable military satellites across three sectors. Unfortunately, the mission briefing was interrupted because Sergeant Velk accidentally microwaved a classified data crystal in the cafeteria. As your dropship approaches the excavation zone, the anomaly suddenly activates. Giant luminous symbols ignite across the canyon walls while every electronic system onboard begins speaking fluent dolphin for no apparent reason. Commander Zyra orders you to make a decision immediately.",
+                    "choices": [
+                        {"text": "Enter the alien structure through the primary excavation tunnel.", "next": "stage2a"},
+                        {"text": "Attempt a tactical orbital scan before entering.", "next": "stage2b"}
+                    ]
+                },
+                "stage2a": {
+                    "passage": "Your team advances into the structure’s primary corridor, where the walls pulse like biological tissue beneath layers of metallic alloy. Strange glyphs rearrange themselves every few seconds as though the building is actively observing your squad. Lieutenant Krogg immediately ignores all safety protocols and taps the wall with a wrench \"to see what happens.\" Something happens. A colossal biomechanical sentinel unfolds from the ceiling with hydraulic precision, projecting holographic warnings in an unknown dialect. Unfortunately, Krogg accidentally responds by saluting aggressively.",
+                    "choices": [
+                        {"text": "Attempt diplomatic communication with the sentinel.", "next": "stage3a"},
+                        {"text": "Trigger the emergency cloaking field and escape deeper into the structure.", "next": "stage3b"}
+                    ]
+                },
+                "stage2b": {
+                    "passage": "You remain aboard the Vanta Spectre and initiate a high-resolution orbital scan. The anomaly responds instantly by transmitting encrypted signals directly into the ship’s navigation systems. Within seconds, every monitor fills with distorted alien schematics and one extremely concerning image resembling Krogg with laser eyes. The ship AI determines the transmission is actually a navigational beacon leading toward a hidden installation beneath the polar ice fields. However, the signal also awakens dormant defence drones surrounding your cruiser.",
+                    "choices": [
+                        {"text": "Engage the drones in combat.", "next": "stage3c"},
+                        {"text": "Attempt to jam the signal and avoid detection.", "next": "stage3d"}
+                    ]
+                },
+                "stage3a": {
+                    "passage": "The sentinel escorts your squad into a colossal archive chamber containing thousands of suspended memory cores floating in anti-gravitational fields. At the chamber’s center resides an ancient artificial intelligence known as the Curator. The Curator explains that the structure was designed to imprison an interdimensional organism capable of consuming entire star systems. Unfortunately, the containment system is failing because someone — specifically Krogg — removed what he believed was \"a cool glowing souvenir.\" Krogg insists he only took it because \"it looked collectible.\"",
+                    "choices": [
+                        {"text": "Return the energy core and restore containment.", "next": "ending-containment-restored"},
+                        {"text": "Attempt to weaponise the alien technology.", "next": "ending-catastrophically-tactical"}
+                    ]
+                },
+                "stage3b": {
+                    "passage": "Your squad activates the emergency cloaking system and descends deeper into the structure. Beneath the ruins lies a gigantic planetary reactor generating impossible amounts of energy through quantum compression. The reactor is unstable. Extremely unstable. Alarm sirens echo through the chamber while Lieutenant Krogg reads warning labels aloud in a dramatic narrator voice. Meanwhile, Sergeant Velk accidentally spills neon noodles into the control interface, causing the reactor to begin a full meltdown sequence.",
+                    "choices": [
+                        {"text": "Stabilise the reactor manually.", "next": "ending-heroic-stabilisation"},
+                        {"text": "Evacuate immediately and bombard the site from orbit.", "next": "ending-orbital-oopsie"}
+                    ]
+                },
+                "stage3c": {
+                    "passage": "Dozens of autonomous drones emerge from the clouds, each equipped with plasma weaponry and shockingly judgmental alarm noises. The battle rapidly devolves into chaos after Krogg attempts evasive manoeuvres despite having absolutely no pilot certification. One drone breaches the engine compartment while another begins loudly broadcasting ancient alien opera through the communications system.",
+                    "choices": [
+                        {"text": "Overload the plasma cannons.", "next": "ending-maximum-firepower"},
+                        {"text": "Hack the drone network.", "next": "ending-accidental-friendship"}
+                    ]
+                },
+                "stage3d": {
+                    "passage": "You jam the signal and descend undetected toward the frozen polar installation hidden beneath kilometres of ice. Inside the facility, your squad discovers evidence of an ancient civilisation that vanished after experimenting with dimensional traversal technology. The installation remains operational. Which is deeply concerning. As your team investigates, the facility’s automated systems mistake Krogg for their long-awaited commander due to \"matching levels of chaos.\"",
+                    "choices": [
+                        {"text": "Allow Krogg to assume command temporarily.", "next": "ending-Krogg-supreme-leader"},
+                        {"text": "Shut the installation down immediately.", "next": "ending-frozen-shutdown"}
+                    ]
+                },
+                "ending-containment-restored": {
+                    "passage": "You restore the energy core moments before the dimensional breach destabilises. The structure seals itself once more, and the Curator grants your squad safe passage off-world. Krogg is permanently banned from touching mysterious artefacts without supervision. Mission complete.",
+                    "choices": []
+                },
+                "ending-catastrophically-tactical": {
+                    "passage": "You attempt to weaponise the alien reactor. For approximately eight glorious seconds, your squad possesses enough firepower to conquer several galaxies. Then the reactor overloads and launches the dropship backward through three canyon walls and directly into the commander’s parked cruiser. The organism remains contained somehow, but your military career becomes the subject of mandatory training presentations. Mission complete… barely.",
+                    "choices": []
+                },
+                "ending-heroic-stabilisation": {
+                    "passage": "You manually recalibrate the reactor moments before catastrophic detonation. The facility powers down safely, and the military classifies the mission as an overwhelming success. Krogg still attempts to steal another glowing object on the way out. Mission complete.",
+                    "choices": []
+                },
+                "ending-orbital-oopsie": {
+                    "passage": "You evacuate and order orbital bombardment. The resulting explosion is visible from three neighbouring systems and accidentally creates a perfectly symmetrical crater now considered a tourist attraction. Technically the threat is neutralised, although several admirals describe the outcome as \"excessively enthusiastic.\" Mission complete.",
+                    "choices": []
+                },
+                "ending-maximum-firepower": {
+                    "passage": "You overload the plasma cannons and obliterate the drone swarm in spectacular fashion. Unfortunately, the recoil also destroys the ship’s coffee generator, causing morale to collapse instantly. The crew still considers the mission a success. Mission complete.",
+                    "choices": []
+                },
+                "ending-accidental-friendship": {
+                    "passage": "You successfully hack the drones and discover they are surprisingly polite. The drones immediately stop attacking and begin assisting with repairs while playing calming elevator music. Krogg attempts to adopt one as a pet. Mission complete.",
+                    "choices": []
+                },
+                "ending-Krogg-supreme-leader": {
+                    "passage": "Against all logic, the facility accepts Krogg as its commander. Ancient systems activate across the planet while robotic attendants begin following him everywhere carrying snacks and ceremonial robes. Nobody understands why this worked. Mission complete?",
+                    "choices": []
+                },
+                "ending-frozen-shutdown": {
+                    "passage": "You successfully shut down the installation before its dimensional gateway fully activates. The planet stabilises, the mission is declared classified, and your squad returns home as decorated operatives. Krogg still claims the ancient aliens \"would’ve loved him.\" Mission complete.",
+                    "choices": []
+                }
+            }
+
 }
