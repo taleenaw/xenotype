@@ -72,22 +72,37 @@ class XenotypeUnitTests(unittest.TestCase):
         if os.path.exists(self.db_file.name):
             os.unlink(self.db_file.name)
 
+    def test_register_creates_user(self):
+        response = self.client.post(
+            "/register",
+            data={
+                "username": "newuser",
+                "email": "newuser@example.com",
+                "password": "password123",
+            },
+            follow_redirects=True,
+        )
 
+        self.assertEqual(response.status_code, 200)
 
-def test_register_creates_user(self):
-    response = self.client.post(
-        "/register",
-        data={
-            "username": "newuser",
-            "email": "newuser@example.com",
-            "password": "password123",
-        },
-        follow_redirects=True,
-    )
+        with self.app.app_context():
+            user = User.query.filter_by(username="newuser").first()
+            self.assertIsNotNone(user)
+            self.assertEqual(user.email, "newuser@example.com")
 
-    self.assertEqual(response.status_code, 200)
+        def test_register_duplicate_username_redirects(self):
+            with self.app.app_context():
+                create_test_user(username="duplicate", email="first@example.com")
 
-    with self.app.app_context():
-        user = User.query.filter_by(username="newuser").first()
-        self.assertIsNotNone(user)
-        self.assertEqual(user.email, "newuser@example.com")
+            response = self.client.post(
+                "/register",
+                data={
+                    "username": "duplicate",
+                    "email": "second@example.com",
+                    "password": "password123",
+                },
+                follow_redirects=True,
+            )
+
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(b"Username already exists", response.data)
