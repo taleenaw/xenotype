@@ -2,7 +2,7 @@ import random
 from flask import Blueprint, redirect, url_for, flash
 from flask_login import login_required, current_user
 from app import db
-from app.models import Scenario
+from app.models import Scenario, Run
 from app.routes.scenarios_pool import Scenarios
 
 scenario = Blueprint('scenario', __name__)
@@ -64,23 +64,53 @@ def generate_random_scenario_data():
 @scenario.route('/generate')
 @login_required
 def generate_scenario():
-    data = generate_random_scenario_data()
+    existing_titles = {
+        existing.title.strip().lower()
+        for existing in Scenario.query.all()
+    }
 
-    new_scenario = Scenario(
-        title=data["title"],
-        genre=data["genre"],
-        difficulty=data["difficulty"],
-        intro_text=data["intro_text"],
-        passage=data["passage"],
-        outcome_high=data["outcome_high"],
-        outcome_mid=data["outcome_mid"],
-        outcome_low=data["outcome_low"],
-        created_by=current_user.id,
+    max_attempts = 50
+
+    for _ in range(max_attempts):
+        data = generate_random_scenario_data()
+        title = data["title"].strip().lower()
+
+        if title not in existing_titles:
+            new_scenario = Scenario(
+                title=data["title"],
+                genre=data["genre"],
+                difficulty=data["difficulty"],
+                intro_text=data["intro_text"],
+                passage=data["passage"],
+                outcome_high=data["outcome_high"],
+                outcome_mid=data["outcome_mid"],
+                outcome_low=data["outcome_low"],
+                created_by=current_user.id,
+                is_official=False,
+            )
+
+            db.session.add(new_scenario)
+            db.session.commit()
+
+            flash("Random scenario generated.")
+            return redirect(url_for("main.scenarios"))
+
+    flash("No new unique scenarios available. Add more scenarios to the pool.")
+    return redirect(url_for("main.scenarios"))
+
+@scenario.route('/reset-generated', methods=['POST'])
+@login_required
+def reset_generated_scenarios():
+    generated_scenarios = Scenario.query.filter_by(
         is_official=False
-    )
+    ).all()
 
-    db.session.add(new_scenario)
+    for generated in generated_scenarios:
+        Run.query.filter_by(scenario_id=generated.id).delete()
+
+        db.session.delete(generated)
+
     db.session.commit()
 
-    flash("Random scenario generated successfully.")
-    return redirect(url_for('main.scenarios'))
+    flash("Generated scenarios and their runs have been reset.")
+    return redirect(url_for("main.scenarios"))
