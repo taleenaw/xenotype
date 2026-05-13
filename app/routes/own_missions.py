@@ -456,5 +456,92 @@ stories = {
                 
 
         }
+    },
+
+    "void": {
+        "title": "Operation Void Seraph",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "Your cruiser, the Eclipse Horizon, exits hyperspace into complete darkness. No stars. No signals. No movement. The surveillance station Orion Relay-9 floats silently ahead with all exterior lights disabled. Commander Astra warns the squad that the sector appears to be absorbing electromagnetic radiation itself. Krogg responds by asking whether that means \"the darkness is eating Wi-Fi.\" Nobody answers him. As your squad approaches the station, motion sensors briefly detect something enormous moving behind the hull before disappearing entirely.",
+                "choices": [
+                    {"text": "Board Orion Relay-9 directly.", "next": "stage2a"},
+                    {"text": "Scan the surrounding sector first.", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "Inside the station, emergency lights flicker weakly while abandoned equipment drifts through zero gravity. Entire sections of the station appear frozen mid-evacuation. Coffee mugs float untouched beside still-running terminals. Strangely, every security log ends with the same phrase: \"DO NOT LOOK OUTSIDE.\" Naturally, Krogg immediately looks outside. The moment he does, every alarm aboard the station activates simultaneously.",
+                "choices": [
+                    {"text": "Investigate the command center.", "next": "stage3a"},
+                    {"text": "Restore station power first.", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "Long-range scans reveal dozens of distorted energy signatures scattered throughout the surrounding void. Strangely, the signatures exactly match the missing ships reported throughout the sector over the past twenty years. Including ships destroyed decades ago. Commander Astra suspects the anomaly may somehow distort space-time itself. Krogg asks whether this means he can technically submit late paperwork \"through time travel.\"",
+                "choices": [
+                    {"text": "Investigate the phantom ships.", "next": "stage3c"},
+                    {"text": "Track the central anomaly directly.", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "Your squad reaches the command center where hundreds of monitors display distorted footage of a gigantic object hidden within the darkness outside the station. The object appears organic… yet impossibly geometric at the same time. The station AI explains that the anomaly is transmitting signals directly into human consciousness, causing paranoia and hallucinations among the crew. Krogg admits the anomaly told him to \"buy twelve sandwiches.\"",
+                "choices": [
+                    {"text": "Attempt communication with the anomaly.", "next": "ending-first-contact"},
+                    {"text": "Purge the station and destroy the signal array.", "next": "ending-total-purge"}
+                ]
+            },
+            "stage3b": {
+                "passage": "Your squad descends into the station’s reactor chamber where backup systems remain partially operational. However, strange crystalline growths now cover the reactor walls, pulsing in sync with the anomaly outside. As engineers attempt repairs, the crystals begin spreading across the chamber floor toward your squad. Krogg tries poking one with a wrench. The wrench disintegrates instantly.",
+                "choices": [
+                    {"text": "Stabilise the reactor and contain the crystals.", "next": "ending-containment-success"},
+                    {"text": "Abandon the station immediately.", "next": "ending-emergency-retreat"}
+                ]
+            },
+            "stage3c": {
+                "passage": "Your squad discovers an entire fleet of abandoned vessels drifting together in complete silence. Many appear centuries old despite disappearing only recently. Inside one vessel, security footage shows crew members calmly walking into the darkness outside without resistance. Then your own ship briefly appears on the recordings. From tomorrow.",
+                "choices": [
+                    {"text": "Recover the fleet data logs.", "next": "ending-temporal-recovery"},
+                    {"text": "Destroy the ghost fleet.", "next": "ending-ghost-fleet-destruction"}
+                ]
+            },
+            "stage3d": {
+                "passage": "Your cruiser follows the anomaly beyond all known navigation routes until the stars themselves begin disappearing behind you. Space becomes unnaturally silent while sensors fail one by one. At the sector’s edge, your squad finally sees the anomaly clearly: a colossal entity larger than moons drifting motionless through the void. Its surface is covered in glowing symbols that begin changing as your ship approaches. The symbols eventually form one message: \"TURN BACK.\" Krogg suggests \"politely ignoring that.\"",
+                "choices": [
+                    {"text": "Continue approaching the entity.", "next": "ending-beyond-the-void"},
+                    {"text": "Retreat and warn humanity.", "next": "ending-sector-blackout"}
+                ]
+            },
+            "ending-first-contact": {
+                "passage": "Against all expectations, the anomaly responds peacefully. The object slowly retreats deeper into unexplored space after transmitting mathematical patterns unlike anything humanity has ever discovered. Scientists later describe the encounter as the greatest first-contact event in history. Krogg mainly remembers the sandwich instructions. Mission complete.",
+                "choices": []
+            },
+            "ending-total-purge": {
+                "passage": "You overload the station reactors and destroy the signal array before the anomaly can spread further. Orion Relay-9 vanishes in a massive explosion visible across the sector. The threat is neutralised, although several commanders later describe your approach as \"aggressively final.\" Mission complete.",
+                "choices": []
+            },
+            "ending-containment-success": {
+                "passage": "You restore the station’s systems long enough to contain the crystalline infestation. The anomaly disappears shortly afterward, leaving behind only fragmented sensor data and several deeply traumatised engineers. Krogg spends the entire return flight mourning his wrench. Mission complete.",
+                "choices": []
+            },
+            "ending-emergency-retreat": {
+                "passage": "You evacuate moments before the station is completely consumed by crystalline growths. Orion Relay-9 drifts silently into deep space while the anomaly vanishes alongside it. The military permanently quarantines the sector. Mission complete.",
+                "choices": []
+            },
+            "ending-temporal-recovery": {
+                "passage": "You recover priceless navigational data revealing the anomaly’s ability to bend time itself. The discovery revolutionises interstellar physics research for generations. Krogg attempts to use the data to excuse future lateness. Mission complete.",
+                "choices": []
+            },
+            "ending-ghost-fleet-destruction": {
+                "passage": "You destroy the abandoned fleet before the anomaly can spread further through the sector. The resulting chain explosions illuminate the void like artificial stars. The threat is contained. Probably. Mission complete.",
+                "choices": []
+            },
+            "ending-beyond-the-void": {
+                "passage": "You continue forward despite every warning. The entity opens what appears to be an artificial dimensional gateway before your cruiser vanishes from all known records. Humanity never discovers what your squad encountered beyond the edge of mapped space. Krogg’s final transmission is: \"Okay this is actually terrifying.\" Mission complete?",
+                "choices": []
+            },
+            "ending-sector-blackout": {
+                "passage": "You retreat immediately and transmit all findings to High Command. The sector is permanently sealed while research teams monitor the anomaly from a safe distance. Humanity survives… for now. Krogg still insists you \"almost had it.\" Mission complete.",
+                "choices": []
+            }
     }
 }

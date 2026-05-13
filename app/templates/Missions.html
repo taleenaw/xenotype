@@ -3,6 +3,7 @@
 <p>
   Welcome to the Missions page! Here you can find various missions to test your
   skills and earn rewards.
+  <br />
 </p>
 
 <div class="card" style="margin-bottom: 20px">
@@ -82,6 +83,22 @@
   </p>
   <br />
   <a class="btn" href="{{ url_for('game.mission_play', mission_id='solar') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Void Seraph</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Medium</p>
+  <p>
+    A deep-space surveillance station vanishes after detecting a mysterious
+    object drifting beyond the mapped edge of the galaxy.
+    <br />
+    Your squad is deployed to investigate the anomaly before whatever is out
+    there decides to come closer.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='void') }}"
     >Start Mission</a
   >
 </div>
