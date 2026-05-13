@@ -1,8 +1,11 @@
 import os
 import tempfile
 import unittest
+import threading
+import time
 
 from werkzeug.security import generate_password_hash
+from werkzeug.serving import make_server
 
 from app import create_app, db
 from app.models import User, Scenario, Run
@@ -196,3 +199,195 @@ class XenotypeUnitTests(unittest.TestCase):
             self.assertEqual(user.get_total_runs(), 1)
             self.assertEqual(run.get_outcome_label(), "Perfect Transmission")
             self.assertTrue(run.is_passing())
+
+class ServerThread(threading.Thread):
+    def __init__(self, app, host="127.0.0.1", port=5001):
+        super().__init__()
+        self.server = make_server(host, port, app)
+        self.context = app.app_context()
+        self.host = host
+        self.port = port
+
+    def run(self):
+        self.context.push()
+        self.server.serve_forever()
+
+    def shutdown(self):
+        self.server.shutdown()
+        self.context.pop()
+
+
+class XenotypeSeleniumTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        try:
+            from selenium import webdriver
+            from selenium.webdriver.chrome.options import Options
+            from selenium.webdriver.common.by import By
+            from selenium.webdriver.common.keys import Keys
+            from selenium.webdriver.support.ui import WebDriverWait
+            from selenium.webdriver.support import expected_conditions as EC
+        except ImportError:
+            raise unittest.SkipTest("Selenium is not installed. Install it with: pip install selenium")
+
+        cls.webdriver = webdriver
+        cls.Options = Options
+        cls.By = By
+        cls.Keys = Keys
+        cls.WebDriverWait = WebDriverWait
+        cls.EC = EC
+
+        cls.db_file = tempfile.NamedTemporaryFile(delete=False)
+        cls.db_file.close()
+
+        cls.app = make_test_app(cls.db_file.name)
+
+        with cls.app.app_context():
+            db.drop_all()
+            db.create_all()
+            create_test_scenario()
+
+        cls.server = ServerThread(cls.app, port=5001)
+        cls.server.daemon = True
+        cls.server.start()
+        time.sleep(1)
+
+        chrome_options = Options()
+        chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--window-size=1280,900")
+
+        try:
+            cls.driver = webdriver.Chrome(options=chrome_options)
+        except Exception as error:
+            cls.server.shutdown()
+            raise unittest.SkipTest(f"Chrome WebDriver could not start: {error}")
+
+        cls.base_url = "http://127.0.0.1:5001"
+
+    @classmethod
+    def tearDownClass(cls):
+        if hasattr(cls, "driver"):
+            cls.driver.quit()
+
+        if hasattr(cls, "server"):
+            cls.server.shutdown()
+
+        with cls.app.app_context():
+            db.session.remove()
+            db.drop_all()
+
+        if os.path.exists(cls.db_file.name):
+            os.unlink(cls.db_file.name)
+
+    def setUp(self):
+        self.driver.delete_all_cookies()
+
+    def register_user(self, username, email, password="password123"):
+        self.driver.get(f"{self.base_url}/register")
+
+        self.driver.find_element(self.By.NAME, "username").send_keys(username)
+        self.driver.find_element(self.By.NAME, "email").send_keys(email)
+        self.driver.find_element(self.By.NAME, "password").send_keys(password)
+        self.driver.find_element(self.By.CSS_SELECTOR, "button[type='submit']").click()
+
+    def login_user(self, username, password="password123"):
+        self.driver.get(f"{self.base_url}/login")
+
+        self.driver.find_element(self.By.NAME, "username").send_keys(username)
+        self.driver.find_element(self.By.NAME, "password").send_keys(password)
+        self.driver.find_element(self.By.CSS_SELECTOR, "button[type='submit']").click()
+
+    def test_selenium_user_registration_flow(self):
+        self.register_user("selenium_register", "selenium_register@example.com")
+
+        self.WebDriverWait(self.driver, 5).until(
+            self.EC.url_contains("/login")
+        )
+
+        self.assertIn("/login", self.driver.current_url)
+
+    def test_selenium_login_flow(self):
+        with self.app.app_context():
+            create_test_user(username="selenium_login", email="selenium_login@example.com")
+
+        self.login_user("selenium_login")
+
+        self.WebDriverWait(self.driver, 5).until(
+            self.EC.url_to(f"{self.base_url}/")
+        )
+
+        self.assertEqual(self.driver.current_url.rstrip("/"), self.base_url)
+
+    def test_selenium_scenarios_page_loads(self):
+        with self.app.app_context():
+            create_test_user(username="selenium_scenarios", email="selenium_scenarios@example.com")
+
+        self.login_user("selenium_scenarios")
+        self.driver.get(f"{self.base_url}/scenarios")
+
+        self.assertIn("Test Scenario", self.driver.page_source)
+
+    def test_selenium_typing_game_flow(self):
+        with self.app.app_context():
+            create_test_user(username="selenium_typing", email="selenium_typing@example.com")
+            scenario = Scenario.query.first()
+            scenario_id = scenario.id
+
+        self.login_user("selenium_typing")
+        self.driver.get(f"{self.base_url}/play/{scenario_id}")
+
+        self.WebDriverWait(self.driver, 5).until(
+            self.EC.presence_of_element_located((self.By.ID, "hidden-input"))
+        )
+
+        self.driver.execute_script("document.getElementById('hidden-input').focus();")
+        active = self.driver.switch_to.active_element
+        active.send_keys("abc")
+
+        self.WebDriverWait(self.driver, 8).until(
+            self.EC.url_contains("/outcome/")
+        )
+
+        self.assertIn("/outcome/", self.driver.current_url)
+
+    def test_selenium_leaderboard_navigation(self):
+        with self.app.app_context():
+            user = create_test_user(username="selenium_leaderboard", email="selenium_leaderboard@example.com")
+            scenario = Scenario.query.first()
+
+            run = Run(
+                user_id=user.id,
+                scenario_id=scenario.id,
+                wpm=75,
+                accuracy=96,
+                time_remaining=10,
+                errors=1,
+                grade="A",
+                wpm_history="[60, 70, 75]",
+            )
+
+            db.session.add(run)
+            db.session.commit()
+
+        self.driver.get(f"{self.base_url}/leaderboard")
+
+        self.assertIn("selenium_leaderboard", self.driver.page_source)
+
+        profile_link = self.driver.find_element(
+            self.By.LINK_TEXT,
+            "selenium_leaderboard",
+        )
+
+        profile_link.click()
+
+        self.WebDriverWait(self.driver, 5).until(
+            self.EC.url_contains("/profile/selenium_leaderboard")
+        )
+
+        self.assertIn("/profile/selenium_leaderboard", self.driver.current_url)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
