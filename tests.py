@@ -135,3 +135,40 @@ class XenotypeUnitTests(unittest.TestCase):
         response = self.client.get(f"/play/{scenario_id}", follow_redirects=False)
 
         self.assertIn(response.status_code, [302, 401])
+
+    def test_submit_run_creates_run_for_logged_in_user(self):
+        with self.app.app_context():
+            user = create_test_user(username="runner", email="runner@example.com")
+            scenario = create_test_scenario()
+            scenario_id = scenario.id
+
+        self.client.post(
+            "/login",
+            data={
+                "username": "runner",
+                "password": "password123",
+            },
+            follow_redirects=True,
+        )
+
+        response = self.client.post(
+            f"/submit_run/{scenario_id}",
+            data={
+                "wpm": "55",
+                "accuracy": "91",
+                "time_remaining": "12",
+                "errors": "2",
+                "grade": "A",
+                "wpm_history": "[10, 20, 30]",
+            },
+            follow_redirects=False,
+        )
+
+        self.assertEqual(response.status_code, 302)
+
+        with self.app.app_context():
+            run = Run.query.filter_by(user_id=user.id, scenario_id=scenario_id).first()
+            self.assertIsNotNone(run)
+            self.assertEqual(run.wpm, 55)
+            self.assertEqual(run.accuracy, 91)
+            self.assertEqual(run.grade, "A")
