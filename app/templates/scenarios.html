@@ -11,11 +11,25 @@
 
 <div style="display:flex;gap:12px;margin-bottom:24px;align-items:center;">
     <a class="btn" href="{{ url_for('scenario.generate_scenario') }}" style="font-size:11px;">+ Generate Random Scenario</a>
+    
+    <form
+        method="POST"
+        action="{{ url_for('scenario.reset_generated_scenarios') }}"
+        onsubmit="return confirm('Remove all generated community scenarios?');"
+        style="display:inline;"
+    >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <button class="btn" type="submit" style="font-size:11px;">
+            Reset Generated Scenarios
+        </button>
+    </form>
+
     <select id="filter-diff" style="width:160px;font-size:11px;" onchange="filterScenarios()">
         <option value="">All Difficulties</option>
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
     </select>
     <span id="scenario-count" style="font-size:11px;color:var(--xt-text3);">{{ scenarios|length }} mission{% if scenarios|length != 1 %}s{% endif %} available</span>
 </div>
@@ -25,7 +39,7 @@
     {% for scenario in scenarios %}
     <div class="scenario-card"
         data-genre="{{ scenario.genre }}"
-        data-difficulty="{{ scenario.difficulty }}"
+        data-difficulty="{{ scenario.difficulty|lower }}"
         onclick="window.location='{{ url_for('game.play_scenario', scenario_id=scenario.id) }}'">
         <div style="margin-bottom:8px;">
             <p style="font-size:9px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">// {{ scenario.genre }}</p>
@@ -63,18 +77,17 @@
 {% block scripts %}
 <script>
 function filterScenarios() {
-    const genre = document.getElementById('filter-genre').value.toLowerCase();
-    const diff = document.getElementById('filter-diff').value.toLowerCase();
+    const diffSelect = document.getElementById('filter-diff');
+    const diff = diffSelect ? diffSelect.value.toLowerCase() : '';
+
     const cards = document.querySelectorAll('.scenario-card');
     let visible = 0;
 
     cards.forEach(card => {
-        const cardGenre = card.dataset.genre.toLowerCase();
-        const cardDiff = card.dataset.difficulty.toLowerCase();
-        const genreMatch = !genre || cardGenre === genre;
+        const cardDiff = (card.dataset.difficulty || '').toLowerCase();
         const diffMatch = !diff || cardDiff === diff;
 
-        if (genreMatch && diffMatch) {
+        if (diffMatch) {
             card.style.display = 'flex';
             visible++;
         } else {
@@ -82,8 +95,11 @@ function filterScenarios() {
         }
     });
 
-    document.getElementById('scenario-count').textContent = visible + ' mission' + (visible !== 1 ? 's' : '') + ' available';
-    document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+    document.getElementById('scenario-count').textContent =
+        visible + ' mission' + (visible !== 1 ? 's' : '') + ' available';
+
+    document.getElementById('no-results').style.display =
+        visible === 0 ? 'block' : 'none';
 }
 </script>
 {% endblock %}
