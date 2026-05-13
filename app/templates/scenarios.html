@@ -11,6 +11,20 @@
 
 <div style="display:flex;gap:12px;margin-bottom:24px;align-items:center;">
     <a class="btn" href="{{ url_for('scenario.generate_scenario') }}" style="font-size:11px;">+ Generate Random Scenario</a>
+    
+    <form
+        method="POST"
+        action="{{ url_for('scenario.reset_generated_scenarios') }}"
+        onsubmit="return confirm('Remove all generated community scenarios?');"
+        style="display:inline;"
+    >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <button class="btn" type="submit" style="font-size:11px;">
+            Reset Generated Scenarios
+        </button>
+    </form>
+
     <select id="filter-diff" style="width:160px;font-size:11px;" onchange="filterScenarios()">
         <option value="">All Difficulties</option>
         <option value="easy">Easy</option>
