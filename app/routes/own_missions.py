@@ -632,6 +632,270 @@ stories = {
                 "choices": []
             }
         }
+    },
+
+    "pizza": {
+        "title": "",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "Your ship tracks the missing pizza freighter drifting near an asteroid field. Cheese floats through space around the damaged cargo bay. Krogg says this is \"the saddest thing he has ever seen.\"",
+                "choices": [
+                    {"text": "Board the pizza ship.", "next": "stage2a"},
+                    {"text": "Search the asteroid field.", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "Inside the freighter, melted cheese covers the walls and floors. Boxes float through zero gravity while alarms beep loudly. Then pirate voices echo through the hallway.",
+                "choices": [
+                    {"text": "Sneak past the pirates.", "next": "stage3a"},
+                    {"text": "Challenge the pirates directly.", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "Your scanners detect a pirate base hidden inside a giant asteroid. Krogg asks whether pirates legally count as \"coworkers.\"",
+                "choices": [
+                    {"text": "Enter the base quietly.", "next": "stage3c"},
+                    {"text": "Attack from outside.", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "Your crew finds the main cargo room packed with giant pizzas stacked to the ceiling. Unfortunately, one pirate spots Krogg eating garlic bread.",
+                "choices": [
+                    {"text": "Escape with the pizzas.", "next": "ending-successful-delivery"},
+                    {"text": "Trap the pirates inside.", "next": "ending-locked-in"}
+                ]
+            },
+            "stage3b": {
+                "passage": "The pirates attack using food launchers filled with hot sauce packets. The hallway becomes complete chaos.",
+                "choices": [
+                    {"text": "Fight back", "next": "ending-pizza-victory"},
+                    {"text": "Trigger the fire sprinklers.", "next": "ending-sauce-disaster"}
+                ]
+            },
+            "stage3c": {
+                "passage": "Inside the base, your squad discovers huge freezer rooms packed with stolen pizzas. A pirate guard nearly catches Krogg licking cheese off a wall.",
+                "choices": [
+                    {"text": "Steal the cargo back.", "next": "ending-cargo-recovery"},
+                    {"text": "Freeze the pirates inside.", "next": "ending-frozen-pirates"}
+                ]
+            },
+            "stage3d": {
+                "passage": "Your ship attacks the pirate base while asteroids fly everywhere around you. Warning sirens scream across the cockpit.",
+                "choices": [
+                    {"text": "Destroy the pirate cannons.", "next": "ending-perfect-shot"},
+                    {"text": "Rescue trapped workers first.", "next": "ending-rescue-mission"}
+                ]
+            },
+            "ending-successful-delivery": {
+                "passage": "You escape with the cargo and deliver the pizzas safely. Planet Mozzarella declares your crew heroes. Mission complete.",
+                "choices": []
+            },
+            "ending-locked-in": {
+                "passage": "You trap the pirates inside the freighter and call space police. Krogg steals extra garlic bread on the way out. Mission complete.",
+                "choices": []
+            },
+            "ending-pizza-victory": {
+                "passage": "Your crew defeats the pirates and saves the shipment. The captain gives everyone free pizza. Mission complete.",
+                "choices": []
+            },
+            "ending-sauce-disaster": {
+                "passage": "The sprinklers flood the hallway with sticky sauce, forcing the pirates to retreat. Unfortunately, everybody smells like tomato soup afterward. Mission complete.",
+                "choices": []
+            },
+            "ending-cargo-recovery": {
+                "passage": "You recover every pizza box safely. Planet Mozzarella celebrates all week. Mission complete.",
+                "choices": []
+            },
+            "ending-frozen-pirates": {
+                "passage": "You lock the pirates in the freezer room until authorities arrive. Krogg still steals dessert pizza. Mission complete.",
+                "choices": []
+            },
+            "ending-perfect-shot": {
+                "passage": "You destroy the pirate weapons and force them to surrender. The pizzas are saved. Mission complete.",
+                "choices": []
+            },
+            "ending-rescue-mission": {
+                "passage": "You rescue the trapped workers before escaping the collapsing base. Krogg accidentally brings home twelve pizzas. Mission complete.",
+                "choices": []
+            }
+        }
+    },
+
+    "space": {
+        "title": "",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage2a"},
+                    {"text": "", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3a"},
+                    {"text": "", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3c"},
+                    {"text": "", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3c": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3d": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            }
+        }
+    },
+
+    "robo-cleaners": {
+        "title": "",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage2a"},
+                    {"text": "", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3a"},
+                    {"text": "", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3c"},
+                    {"text": "", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3c": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3d": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            },
+            "ending-": {
+                "passage": "",
+                "choices": []
+            }
+        }
     }
 
 }
