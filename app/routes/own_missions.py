@@ -544,6 +544,94 @@ stories = {
                 "choices": []
             }
         }
+    },
+
+    "marshmallow": {
+        "title": "Mission Marshmallow Meteor",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "Your ship, the Sugar Sprint, races toward the giant marshmallow meteor floating through space. Sensors show the meteor is covered in melted sugar and weird glowing sprinkles. Captain Zing says the meteor could destroy the planet. Krogg says it looks delicious.",
+                "choices": [
+                    {"text": "Land on the meteor.", "next": "stage2a"},
+                    {"text": "Blast it from space.", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "Your crew lands safely, but the surface is soft and squishy. Every step makes loud squeaking sounds. Suddenly, giant marshmallow creatures pop out of the ground holding candy spears.",
+                "choices": [
+                    {"text": "Talk to the marshmallow creatures.", "next": "stage3a"},
+                    {"text": "Run to the meteor core.", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "Your crew fires the ship lasers at the meteor, but the sugary surface reflects the blasts everywhere. One laser accidentally destroys Krogg’s lunch container. He takes this personally.",
+                "choices": [
+                    {"text": "Use stronger lasers.", "next": "stage3c"},
+                    {"text": "Fly closer first.", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "The marshmallow creatures explain they are only looking for a new home because their candy moon exploded. Krogg offers them chips for peace.",
+                "choices": [
+                    {"text": "Help them find a new planet.", "next": "ending-new-home"},
+                    {"text": "Give them part of Planet Flumbo.", "next": "ending-shared-planet"}
+                ]
+            },
+            "stage3b": {
+                "passage": "Your crew reaches the glowing center of the meteor. The heat is rising quickly, and melted sugar pours from the walls. Krogg slips directly into a candy puddle.",
+                "choices": [
+                    {"text": "Cool the core safely.", "next": "ending-safe-landing"},
+                    {"text": "Explode the meteor.", "next": "ending-sugar-explosion"}
+                ]
+            },
+            "stage3c": {
+                "passage": "The ship’s weapons begin overheating while giant chunks of marshmallow break apart around you. Warning alarms fill the cockpit.",
+                "choices": [
+                    {"text": "Keep firing.", "next": "ending-direct-hit"},
+                    {"text": "Retreat and regroup.", "next": "ending-tactical-retreat"}
+                ]
+            },
+            "stage3d": {
+                "passage": "Your ship flies dangerously near the meteor surface. Sticky sugar covers the windows while alarms flash everywhere. Krogg accidentally turns on windshield wipers even though the ship does not have them.",
+                "choices": [
+                    {"text": "Plant explosives manually.", "next": "ending-heroic-explosion"},
+                    {"text": "Escape immediately.", "next": "ending-narrow-escape"}
+                ]
+            },
+            "ending-new-home": {
+                "passage": "The marshmallow creatures happily move to a safe planet nearby. Planet Flumbo survives, and the creatures send your crew thank-you cupcakes every year. Mission complete.",
+                "choices": []
+            },
+            "ending-shared-planet": {
+                "passage": "The creatures move to Planet Flumbo peacefully. Soon the whole planet becomes famous for candy tourism. Krogg opens a snack shop. Mission complete.",
+                "choices": []
+            },
+            "ending-safe-landing": {
+                "passage": "You cool the meteor and guide it safely away from the planet. Krogg smells like burnt marshmallows for weeks. Mission complete.",
+                "choices": []
+            },
+            "ending-sugar-explosion": {
+                "passage": "You blow up the meteor in space. Pink candy dust rains across the galaxy for days. Planet Flumbo is safe. Mission complete.",
+                "choices": []
+            },
+            "ending-direct-hit": {
+                "passage": "The meteor explodes safely before reaching the planet. The crew celebrates with toasted marshmallows. Mission complete.",
+                "choices": []
+            },
+            "ending-tactical-retreat": {
+                "passage": "You fall back and call for backup ships. Together, the fleet destroys the meteor safely. Krogg still misses his lunchbox. Mission complete.",
+                "choices": []
+            },
+            "ending-heroic-explosion": {
+                "passage": "You plant the explosives and escape seconds before the meteor explodes. Planet saved. Mission complete.",
+                "choices": []
+            },
+            "ending-narrow-escape": {
+                "passage": "You retreat before the ship gets trapped in melted sugar. The meteor passes safely by the planet on its own. Everyone pretends that was the plan. Mission complete.",
+                "choices": []
+            }
+        }
     }
 
 }
