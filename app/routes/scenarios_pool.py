@@ -57,8 +57,107 @@ Your mission is simple. Deliver the taco before the emperor arrives, avoid crash
         "outcome_mid": "Partial success",
         "outcome_low": "Mission failed"
 
+    },
+    {
+        "title": "The Sleepy Repair Droid",
+        "genre": "Sci-Fi",
+        "intro_text": "Unit XR-2 keeps falling asleep during critical repairs.",
+        "passage": "The repair drone drifted slowly through the station hallway while carrying a glowing toolbox. Every few minutes it paused, made a quiet snoring sound, and bumped into the walls. Engineers followed behind it with coffee and spare batteries while alarms echoed across the docking bay.",
+        "outcome_high": "You restored the station before the drone could crash into the reactor.",
+        "outcome_mid": "The repairs were completed, although several walls now contain dents.",
+        "outcome_low": "The sleepy drone accidentally welded the cafeteria doors shut."
+    },
+
+    {
+        "title": "Alien Pizza Delivery",
+        "genre": "Sci-Fi",
+        "intro_text": "A pizza courier became lost somewhere near Saturn.",
+        "passage": "The delivery pilot checked the map three times before realizing the glowing moon below was not Earth. The pizza boxes floated around the cockpit while hungry passengers sent angry messages every thirty seconds. Somewhere in deep space, a customer still waited for extra cheese.",
+        "outcome_high": "You guided the courier safely back to Earth with warm pizza intact.",
+        "outcome_mid": "The pizzas arrived cold but technically edible.",
+        "outcome_low": "The courier accidentally delivered pizza to a pirate fleet."
+    },
+
+    {
+        "title": "Robot Karaoke Night",
+        "genre": "Sci-Fi",
+        "intro_text": "The station robots discovered karaoke and refuse to stop singing.",
+        "passage": "Hundreds of service robots crowded the entertainment hall beneath flickering lights. One machine attempted an emotional love song while another played drums on emergency fuel tanks. The station captain quietly considered ejecting the speakers into space.",
+        "outcome_high": "You restored order and even earned applause from the robot audience.",
+        "outcome_mid": "The karaoke event continued but the station survived.",
+        "outcome_low": "The robots formed a touring band and took over the docking bay."
+    },
+
+    {
+        "title": "Gravity Boots Malfunction",
+        "genre": "Sci-Fi",
+        "intro_text": "Experimental gravity boots launched interns into the ceiling.",
+        "passage": "The training room became complete chaos when the gravity boots activated at maximum power. Interns bounced across the ceiling while instructors waved instruction manuals in panic. One trainee somehow floated into the ventilation system carrying an untouched sandwich.",
+        "outcome_high": "You safely disabled the boots before anyone escaped into orbit.",
+        "outcome_mid": "Most interns landed safely with only minor embarrassment.",
+        "outcome_low": "The gravity boots are now banned across twelve galaxies."
+    },
+
+    {
+        "title": "The Confused Battle Computer",
+        "genre": "Sci-Fi",
+        "intro_text": "A military computer thinks every asteroid is an enemy ship.",
+        "passage": "The battle computer screamed warnings every few seconds while harmless rocks drifted past the ship. Automated cannons blasted mining equipment, satellites, and once even a harmless weather balloon. Crew members desperately searched for the mute button.",
+        "outcome_high": "You recalibrated the system and prevented a diplomatic disaster.",
+        "outcome_mid": "The computer still panics occasionally but no longer attacks cargo ships.",
+        "outcome_low": "The ship declared war on a moon-sized potato asteroid."
+    },
+
+    {
+        "title": "Mars Vacation Disaster",
+        "genre": "Sci-Fi",
+        "intro_text": "Tourists accidentally booked a hotel beside an active volcano.",
+        "passage": "Vacationers wandered through the dusty resort while distant explosions shook the windows. Hotel staff calmly handed out complimentary lava-proof umbrellas and free dessert vouchers. Meanwhile, the shuttle pilot quietly prepared emergency evacuation routes.",
+        "outcome_high": "You evacuated the tourists and saved the resort.",
+        "outcome_mid": "The hotel survived with minor lava damage.",
+        "outcome_low": "The volcano is now listed as part of the resort experience."
+    },
+
+    {
+        "title": "The Space Hamster Escape",
+        "genre": "Sci-Fi",
+        "intro_text": "A genetically enhanced hamster escaped the science lab.",
+        "passage": "Scientists chased the glowing hamster through crowded station corridors while it stole snacks from terrified passengers. Security drones failed to capture the creature after it somehow learned how to use elevators. Several crew members insisted the hamster looked smarter than management.",
+        "outcome_high": "You safely returned the hamster to the research team.",
+        "outcome_mid": "The hamster escaped briefly but no major damage occurred.",
+        "outcome_low": "The hamster now controls part of the ventilation system."
+    },
+
+    {
+        "title": "The Invisible Alien",
+        "genre": "Sci-Fi",
+        "intro_text": "An invisible visitor keeps stealing cafeteria desserts.",
+        "passage": "Every evening, slices of cake mysteriously floated through the cafeteria before disappearing completely. Security cameras captured only confused cooks and terrified customers. Eventually, someone noticed invisible footprints covered in chocolate icing leading toward the reactor wing.",
+        "outcome_high": "You contacted the invisible alien peacefully and ended the dessert thefts.",
+        "outcome_mid": "The alien promised to only steal pudding on weekends.",
+        "outcome_low": "The station now has a permanent dessert shortage."
+    },
+
+    {
+        "title": "Meteor Shower Picnic",
+        "genre": "Sci-Fi",
+        "intro_text": "Colonists scheduled a picnic during a dangerous meteor storm.",
+        "passage": "Families unpacked sandwiches beside protective shield generators while fiery meteors streaked across the sky. Children cheered whenever explosions echoed nearby and parents nervously checked emergency shelters. The event organizer insisted the danger added excitement to the experience.",
+        "outcome_high": "You coordinated the evacuation before the shields failed.",
+        "outcome_mid": "The picnic ended early but everyone survived.",
+        "outcome_low": "The picnic table achieved orbit without permission."
+    },
+
+    {
+        "title": "The Space Taco Festival",
+        "genre": "Sci-Fi",
+        "intro_text": "A taco festival caused complete chaos aboard the station.",
+        "passage": "Crowds filled the market district while cooks launched sizzling tacos across the room at hungry customers. Spicy smoke drifted through the ventilation system and triggered emergency alarms throughout the station. Somewhere nearby, a cleaning robot quietly gave up.",
+        "outcome_high": "You restored order and saved the festival from disaster.",
+        "outcome_mid": "The tacos survived even if the station dignity did not.",
+        "outcome_low": "The station now permanently smells like burnt salsa."
     }
-    
+        
 
 
 ]
