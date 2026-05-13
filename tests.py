@@ -71,3 +71,23 @@ class XenotypeUnitTests(unittest.TestCase):
 
         if os.path.exists(self.db_file.name):
             os.unlink(self.db_file.name)
+
+
+
+def test_register_creates_user(self):
+    response = self.client.post(
+        "/register",
+        data={
+            "username": "newuser",
+            "email": "newuser@example.com",
+            "password": "password123",
+        },
+        follow_redirects=True,
+    )
+
+    self.assertEqual(response.status_code, 200)
+
+    with self.app.app_context():
+        user = User.query.filter_by(username="newuser").first()
+        self.assertIsNotNone(user)
+        self.assertEqual(user.email, "newuser@example.com")
