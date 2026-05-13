@@ -898,89 +898,89 @@ stories = {
         }
     },
 
-    "mission-name": {
-        "title": "",
+    "paradox": {
+        "title": "Operation Eventide Paradox",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
-                "passage": "",
+                "passage": "Your cruiser, the Obsidian Halo, emerges beside the remains of the Chronos Array — a colossal research installation suspended within the gravitational influence of a dying neutron star. Entire sections of the station appear fragmented across impossible positions; corridors intersect themselves, debris drifts backward through explosions, and fragmented distress calls repeat in reverse through the comms network. Commander Vaelor warns the squad that the Array’s experimental \"causality engine\" may have destabilised temporal continuity itself. Krogg immediately asks whether this means he can technically arrive before leaving. No one acknowledges him.",
                 "choices": [
-                    {"text": "", "next": "stage2a"},
-                    {"text": "", "next": "stage2b"}
+                    {"text": "Dock directly with the Chronos Array.", "next": "stage2a"},
+                    {"text": "Analyse the temporal distortions remotely.", "next": "stage2b"}
                 ]
             },
             "stage2a": {
-                "passage": "",
+                "passage": "Inside the station, spatial geometry behaves erratically. Hallways loop into themselves; doors open into rooms your squad has not entered yet, and security recordings display events that have not occurred. Several corpses wearing your squad’s uniforms are discovered within the laboratory sector. Unfortunately, they appear to have died tomorrow. Krogg stares at one body for several seconds before quietly announcing that he \"suddenly dislikes science.\"",
                 "choices": [
-                    {"text": "", "next": "stage3a"},
-                    {"text": "", "next": "stage3b"}
+                    {"text": "Proceed toward the causality engine.", "next": "stage3a"},
+                    {"text": "Investigate the temporal laboratory archives.", "next": "stage3b"}
                 ]
             },
             "stage2b": {
-                "passage": "",
+                "passage": "Long-range scans detect dozens of overlapping temporal signatures surrounding the station. Entire versions of the Chronos Array phase in and out of existence every few seconds; some appear intact, while others are visibly destroyed. One sensor feed briefly displays your own cruiser exploding. Twice. Commander Vaelor concludes the causality engine has fractured adjacent probability states into overlapping realities. Krogg asks whether this counts as \"multitasking.\"",
                 "choices": [
-                    {"text": "", "next": "stage3c"},
-                    {"text": "", "next": "stage3d"}
+                    {"text": "Investigate the alternate station signatures.", "next": "stage3c"},
+                    {"text": "Track the source of the temporal fractures.", "next": "stage3d"}
                 ]
             },
             "stage3a": {
-                "passage": "",
+                "passage": "The causality engine hovers within a gigantic containment chamber surrounded by collapsing gravitational fields and fragmented timelines. Scientists trapped within temporal loops repeatedly relive their final moments while automated systems desperately attempt to stabilise the reactor. At the chamber’s center, an artificial intelligence known as the Custodian explains that the engine accidentally breached a higher-dimensional structure existing \"outside linear chronology.\" Krogg asks whether that means the structure is \"older than yesterday.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Shut down the causality engine permanently.", "next": "ending-timeline-secured"},
+                    {"text": "Attempt to stabilise and control the anomaly.", "next": "ending-controlled-catastrophe"}
                 ]
             },
             "stage3b": {
-                "passage": "",
+                "passage": "The station archives contain classified records documenting repeated timelines — every version ending with catastrophic dimensional collapse. Worse still, one file identifies your current squad as the direct cause of the disaster. Then the station alarms activate. A future version of Commander Vaelor appears through a temporal breach, warning that the neutron star will detonate within minutes unless the Array is abandoned immediately.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Trust the future commander.", "next": "ending-emergency-withdrawal"},
+                    {"text": "Remain aboard and continue the investigation.", "next": "ending-infinite-recursion"}
                 ]
             },
             "stage3c": {
-                "passage": "",
+                "passage": "Your squad boards an alternate version of the Chronos Array where the research team successfully stabilised the causality engine. However, the surviving personnel have become increasingly unstable after prolonged exposure to temporal distortion. Their commander insists your reality is the \"incorrect timeline.\" Security drones immediately lock onto your squad.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Negotiate with the alternate survivors.", "next": "ending-timeline-convergence"},
+                    {"text": "Disable the station forcefully.", "next": "ending-temporal-erasure"}
                 ]
             },
             "stage3d": {
-                "passage": "",
+                "passage": "Tracking the fractures leads your cruiser toward a gigantic structure concealed within the neutron star’s accretion field — an ancient gateway generating the temporal instability intentionally. The structure predates all known galactic civilisations. As your squad approaches, the gateway activates automatically; enormous geometric mechanisms rotate around a central singularity while incomprehensible signals flood the ship’s systems. The translation software deciphers one phrase: \"CHRONOLOGICAL ACCESS DENIED.\" Krogg suggests \"trying politely anyway.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Enter the gateway.", "next": "ending-beyond-time"},
+                    {"text": "Destroy the structure remotely.", "next": "ending-casual-severence"}
                 ]
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-timeline-secured" : {
+                "passage" : "You successfully shut down the engine moments before total chronological collapse. The station stabilises, the paradoxes disappear, and surviving personnel are evacuated safely. The Custodian later recommends banning Krogg from theoretical physics discussions indefinitely. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-controlled-catastrophe" : {
+                "passage" : "Against all reasonable judgment, your squad stabilises the anomaly successfully. Humanity gains unprecedented access to temporal manipulation technology; unfortunately, several nearby systems experience \"minor chronological inconsistencies.\" Krogg somehow receives three paychecks for the same week. Mission complete… probably.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-emergency-withdrawal" : {
+                "passage" : "You evacuate the station moments before the neutron star releases a catastrophic gravitational flare that obliterates the Chronos Array entirely. Temporal instability across the sector subsides immediately. Krogg later claims he \"predicted everything.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-infinite-recursion" : {
+                "passage" : "You remain aboard despite the warnings. The Array collapses into an endless recursive timeline where your squad is forced to relive the mission repeatedly — forever encountering the same corridors, the same alarms, and the same increasingly irritated versions of Krogg. Mission complete?",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-timeline-convergence" : {
+                "passage" : "You successfully negotiate a stabilisation procedure allowing both timelines to separate safely without collapsing into paradoxical overlap. The alternate survivors vanish shortly afterward as their reality destabilises naturally. Krogg spends several weeks questioning whether he technically met himself. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-temporal-erasure" : {
+                "passage" : "You disable the alternate station by destroying its causality core. The mirror timeline collapses instantly, erasing the entire reality from existence. Several crew members later describe the experience as \"morally upsetting.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-beyond-time" : {
+                "passage" : "Your cruiser enters the gateway and vanishes from all known temporal records. Historical databases immediately begin changing across multiple systems as though your squad never existed. Only fragmented rumours remain. Mission complete?",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-casual-severence" : {
+                "passage" : "You destroy the gateway using concentrated singularity warheads. The temporal fractures collapse instantly, restoring normal spacetime conditions throughout the sector. The resulting explosion becomes visible across half the galaxy. Krogg describes it as \"extremely dramatic.\" Mission complete.",
                 "choices" : []
             }
         }
