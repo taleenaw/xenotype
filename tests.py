@@ -106,3 +106,24 @@ class XenotypeUnitTests(unittest.TestCase):
 
             self.assertEqual(response.status_code, 200)
             self.assertIn(b"Username already exists", response.data)
+
+    def test_login_and_logout_flow(self):
+        with self.app.app_context():
+            create_test_user(username="loginuser", email="login@example.com")
+
+        login_response = self.client.post(
+            "/login",
+            data={
+                "username": "loginuser",
+                "password": "password123",
+            },
+            follow_redirects=True,
+        )
+
+        self.assertEqual(login_response.status_code, 200)
+
+        logout_response = self.client.get("/logout", follow_redirects=True)
+
+        self.assertEqual(logout_response.status_code, 200)
+        self.assertIn(b"Login", logout_response.data)
+
