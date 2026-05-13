@@ -723,88 +723,88 @@ stories = {
     },
 
     "space": {
-        "title": "",
+        "title": "The Great Space Zoo Escape",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
-                "passage": "",
+                "passage": "Your ship docks at the space zoo where alarms flash across every hallway. Strange noises echo through the station. Krogg immediately asks which animals are bitey. The answer is \"most of them.\"",
                 "choices": [
-                    {"text": "", "next": "stage2a"},
-                    {"text": "", "next": "stage2b"}
+                    {"text": "Search the jungle section.", "next": "stage2a"},
+                    {"text": "Search the aquarium section.", "next": "stage2b"}
                 ]
             },
             "stage2a": {
-                "passage": "",
+                "passage": "The jungle area is completely destroyed. Trees hang from the ceiling while tiny alien monkeys swing through the vents throwing fruit everywhere. One steals Krogg’s radio.",
                 "choices": [
-                    {"text": "", "next": "stage3a"},
-                    {"text": "", "next": "stage3b"}
+                    {"text": "Chase the monkeys.", "next": "stage3a"},
+                    {"text": "Use snacks to lure them back.", "next": "stage3b"}
                 ]
             },
             "stage2b": {
-                "passage": "",
+                "passage": "Water covers the aquarium halls while glowing fish swim through broken tanks. Something huge moves beneath the water.",
                 "choices": [
-                    {"text": "", "next": "stage3c"},
-                    {"text": "", "next": "stage3d"}
+                    {"text": "Investigate the movement.", "next": "stage3c"},
+                    {"text": "Drain the hallway.", "next": "stage3d"}
                 ]
             },
             "stage3a": {
-                "passage": "",
+                "passage": "Your squad crawls through narrow air vents while the monkeys screech loudly nearby. Krogg gets stuck halfway through.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Pull Krogg out.", "next": "ending-monkey-capture"},
+                    {"text": "Keep chasing the monkeys", "next": "ending-lost-radio"}
                 ]
             },
             "stage3b": {
-                "passage": "",
+                "passage": "The monkeys gather around the snacks peacefully while zoo workers prepare new cages. Krogg eats half the bait accidentally.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Offer more snacks.", "next": "ending-peaceful-creature"},
+                    {"text": "Close the cages quickly.", "next": "ending-fast-trap"}
                 ]
             },
             "stage3c": {
-                "passage": "",
+                "passage": "A giant glowing eel bursts from the water and wraps around the hallway lights. Krogg screams louder than everyone else.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Calm the eel", "next": "ending-freindly-eel"},
+                    {"text": "Trap the eel", "next": "ending-eel-trap"}
                 ]
             },
             "stage3d": {
-                "passage": "",
+                "passage": "As the water drains away, escaped fish flop wildly across the floor. Zoo workers slide everywhere trying to catch them.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Help catch the fish.", "next": "ending-fish-rescue"},
+                    {"text": "Seal the aquarium doors.", "next": "ending-locked-down"}
                 ]
             },
-            "ending-": {
-                "passage": "",
+            "ending-monkey-capture": {
+                "passage": "You catch the monkeys safely and return them to their enclosure. Krogg never gets his radio back. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-lost-radio": {
+                "passage": "The monkeys escape deeper into the station, but your crew eventually traps them. The radio is still missing. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-peaceful-capture": {
+                "passage": "The monkeys return calmly to their habitat. The zoo director thanks your crew. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-fast-trap": {
+                "passage": "The cages close before the monkeys can escape again. Krogg still gets hit with a banana. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-friendly-eel": {
+                "passage": "The eel calms down after being fed special fish pellets. The aquarium workers cheer loudly. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-eel-trap": {
+                "passage": "You trap the eel safely inside a reinforced tank. Krogg refuses to go near water again. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-fish-rescue": {
+                "passage": "Your crew safely returns the fish to their tanks. The station finally calms down. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-locked-down": {
+                "passage": "You seal the aquarium until backup arrives. Krogg slips three times on the wet floor. Mission complete.",
                 "choices": []
             }
         }
