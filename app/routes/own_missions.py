@@ -188,5 +188,272 @@ stories = {
                 }
             }
 
+    },
+
+    "rift": {
+            "title": "Operation Blackstar Rift",
+            "intro": "Type each mission transmission, submit it, then choose what happens next.",
+            "stages": {
+                "start": {
+                    "passage": "Your strike cruiser, the Astra Viper, exits hyperspace beside the wreckage of an abandoned convoy drifting silently through the Blackstar Rift. Entire sections of the fleet appear twisted unnaturally, as though gravity itself briefly forgot how physics works. Commander Nyrex orders your team to investigate the flagship wreckage while warning everyone not to touch anything glowing, floating, whispering, or \"vaguely cursed.\" Lieutenant Krogg immediately asks how cursed something has to be before it becomes \"interesting.\"",
+                    "choices": [
+                        {"text": "Board the damaged flagship", "next": "stage2a"},
+                        {"text": "Track the reactor's energy signature remotely", "next": "stage2b"}
+                    ]
+                },
+                "stage2a": {
+                    "passage": "Inside the flagship, gravity fluctuates violently every few seconds. Hallways rotate sideways, ceiling panels detach without warning, and one unfortunate marine slowly floats past holding a sandwich with visible regret. Deep within the ship, your squad discovers survivors barricaded inside the reactor chamber. They claim something emerged from the reactor after entering the Rift. Then the lights go out.",
+                    "choices": [
+                        {"text": "Escort the survivors to extraction", "next": "stage3a"},
+                        {"text": "Continue toward the reactor core", "next": "stage3b"}
+                    ]
+                },
+                "stage2b": {
+                    "passage": "Your ship tracks the reactor signal toward a debris field hidden inside the Rift. However, the coordinates continuously change position every few seconds, as though the signal is actively moving through dimensions. Ship sensors detect a massive unidentified object concealed within the wreckage. Krogg insists it is \"probably fine.\" It is not fine.",
+                    "choices": [
+                        {"text": "Investigate the unidentified object", "next": "stage3c"},
+                        {"text": "Destroy the debris field from orbit", "next": "stage3d"}
+                    ]
+                },
+                "stage3a": {
+                    "passage": "As your squad escorts the survivors through the collapsing ship, shadows begin moving independently of their owners. A towering silhouette materialises at the far end of the corridor before speaking directly into your minds. The entity claims the reactor awakened it from \"dimensional hibernation.\" Krogg responds by asking whether dimensional hibernation includes paid vacation leave.",
+                    "choices": [
+                        {"text": "Attempt peaceful communication", "next": "ending-diplomatic-success"},
+                        {"text": "Open fire immediately", "next": "ending-tactical-disaster"}
+                    ]
+                },
+                "stage3b": {
+                    "passage": "Your squad reaches the reactor chamber where the dark-matter core hovers above the floor surrounded by unstable gravitational distortions. Nearby scientists appear fused halfway into walls, which everybody collectively decides not to discuss. The reactor begins overloading. Warning sirens scream throughout the ship while Krogg wonders aloud whether the reactor would fit in his apartment.",
+                    "choices": [
+                        {"text": "Stabilise the reactor manually", "next": "ending-controlled-stabilisation"},
+                        {"text": "Jettison the reactor into the Rift", "next": "ending-yeet-it-into-space"}
+                    ]
+                },
+                "stage3c": {
+                    "passage": "Buried beneath the debris lies an ancient alien harvester extracting energy directly from dimensional fractures. The machine remains partially operational and appears to be generating the anomalies affecting the convoy. Unfortunately, the harvester recognises Krogg as an authorised user after he accidentally presses several glowing buttons.",
+                    "choices": [
+                        {"text": "Use the harvester to seal the Rift", "next": "ending-Rift-Engineer-Krogg"},
+                        {"text": "Shut the machine down completely", "next": "ending-total-shutdown"}
+                    ]
+                },
+                "stage3d": {
+                    "passage": "You prepare orbital bombardment targeting the debris field. However, ship calculations reveal that destroying the wreckage may trigger a chain reaction capable of tearing open additional dimensional fractures. Meanwhile, Krogg accidentally broadcasts your attack plans over an open civilian frequency.",
+                    "choices": [
+                        {"text": "Proceed with the bombardment", "next": "ending-excessive-firepower"},
+                        {"text": "Abort the strike and retreat", "next": "ending-strategic-retreat"}
+                    ]
+                },
+                "ending-diplomatic-success": {
+                    "passage": "Against all expectations, communication succeeds. The entity stabilises the Rift long enough for your squad to escape safely before vanishing back into deep space. Krogg later attempts to list \"interdimensional negotiator\" on his military résumé. Mission complete.",
+                    "choices": []
+                },
+                "ending-tactical-disaster": {
+                    "passage": "You open fire. The firefight lasts approximately eleven seconds before the entity redirects your plasma rounds directly back into the cafeteria storage bay. The explosion destroys three decks and all remaining pudding supplies. The reactor is recovered somehow. Mission complete… unfortunately.",
+                    "choices": []
+                },
+                "ending-controlled-stabilisation": {
+                    "passage": "You successfully recalibrate the reactor moments before detonation. The flagship remains intact, the Rift stabilises, and your mission is declared a strategic triumph. Krogg is banned from asking to \"borrow\" military-grade reactors. Mission complete.",
+                    "choices": []
+                },
+                "ending-yeet-it-into-space": {
+                    "passage": "You launch the reactor directly into the Rift. The resulting explosion creates a temporary black hole visible from neighbouring systems and accidentally interrupts seventeen civilian radio stations. The threat is eliminated, although several admirals describe your methods as \"deeply concerning.\" Mission complete.",
+                    "choices": []
+                },
+                "ending-rift-engineer-krogg": {
+                    "passage": "Against all logic, Krogg successfully activates the harvester and seals the Rift. Unfortunately, the machine also appoints him \"Supreme Maintenance Overseer.\" He refuses to stop wearing the ceremonial helmet. Mission complete.",
+                    "choices": []
+                },
+                "ending-total-shutdown": {
+                    "passage": "You disable the harvester before it destabilises the sector permanently. The Rift calms, the convoy disaster is contained, and the military seals all information regarding the mission. Krogg still insists he \"could’ve fixed it better.\" Mission complete.",
+                    "choices": []
+                },
+                "ending-excessive-firepower": {
+                    "passage": "The bombardment obliterates the debris field in spectacular fashion. The Rift destabilises briefly before collapsing safely. Several nearby moons now have visible cracks in them. Mission complete.",
+                    "choices": []
+                },
+                "ending-strategic-retreat": {
+                    "passage": "You order a retreat and transmit the coordinates to High Command. The military later returns with an entire fleet to contain the anomaly properly. Krogg claims retreating was \"his idea strategically.\" Mission complete.",
+                    "choices": []
+                }
+
+        }
+    },
+
+    "leviathon": {
+            "title": "Operation Leviathon Echo",
+            "intro": "Type each mission transmission, submit it, then choose what happens next.",
+            "stages": {
+                "start": {
+                    "passage": "Your dropship lands beside Icefall Station during a violent electrical storm sweeping across the frozen wastelands of Nerevos. The facility appears abandoned, although strange claw marks cover the exterior walls. Inside the station, emergency lights flicker while automated speakers repeatedly announce: \"Please remain calm. Catastrophic events are currently manageable.\" Krogg immediately states that this sentence is \"extremely worrying.\"",
+                    "choices": [
+                        {"text": "Search the research laboratories.", "next": "stage2a"},
+                        {"text": "Descend into the underwater excavation site.", "next": "stage2b"}
+                    ]
+                },
+                "stage2a": {
+                    "passage": "The laboratories are filled with shattered containment chambers and overturned research equipment. Computer logs reveal scientists discovered an enormous organism frozen beneath the planet’s oceans. They thawed it. For science. Several corridors ahead, something massive moves behind the walls.",
+                    "choices": [
+                        {"text": "Seal the containment sector.", "next": "stage3a"},
+                        {"text": "Attempt to recover research data first.", "next": "stage3b"}
+                    ]
+                },
+                "stage2b": {
+                    "passage": "Your squad descends through a submerged elevator shaft toward the excavation site beneath the ice shelf. Strange organic growths cover the walls while distorted whale-like sounds echo through the darkness. Sensors detect multiple lifeforms surrounding the station. Krogg asks whether \"aggressively haunted oceans\" qualify for hazard pay.",
+                    "choices": [
+                        {"text": "Investigate the sonar readings.", "next": "stage3c"},
+                        {"text": "Restore power to the excavation drills.", "next": "stage3d"}
+                    ]
+                },
+                "stage3a": {
+                    "passage": "Your squad reaches the central containment chamber where the creature finally emerges from the darkness. The Leviathan towers over the station, its bioluminescent scales illuminating the flooded corridors. Oddly, the creature does not attack immediately. Instead, it stares directly at Krogg. Krogg waves nervously.",
+                    "choices": [
+                        {"text": "Attempt communication.", "next": "ending-peaceful-contact"},
+                        {"text": "Activate the station’s defence grid.", "next": "ending-worst-possible-aquarium"}
+                    ]
+                },
+                "stage3b": {
+                    "passage": "You attempt to recover the station’s research data, but the flooding containment chambers begin destabilising the geothermal reactor beneath the facility. Water pours through collapsing corridors while emergency sirens echo throughout the station. Krogg somehow finds time to steal a frozen sandwich from the cafeteria.",
+                    "choices": [
+                        {"text": "Save the reactor.", "next": "ending-scientific-heroism"},
+                        {"text": "Evacuate with the data.", "next": "ending-research-above-all-else"}
+                    ]
+                },
+                "stage3c": {
+                    "passage": "The sonar readings lead your squad into a gigantic underwater cavern containing hundreds of dormant eggs surrounding a colossal skeletal structure. One of the eggs begins cracking open.",
+                    "choices": [
+                        {"text": "Destroy the nest.", "next": "ending-cleansing-fire"},
+                        {"text": "Leave immediately and quarantine the planet.", "next": "ending-planetary-quarantine"}
+                    ]
+                },
+                "stage3d": {
+                    "passage": "Restoring power to the excavation drills accidentally uncovers a hidden alien vault buried beneath the ocean floor. Ancient symbols illuminate the chamber while automated systems begin awakening around your squad. The vault AI identifies Krogg as \"biologically unqualified.\" Nobody disagrees.",
+                    "choices": [
+                        {"text": "Access the vault database.", "next": "ending-forbidden-knowledge"},
+                        {"text": "Destroy the vault.", "next": "ending-vault-collapse"}
+                    ]
+                },
+                "ending-peaceful-contact": {
+                    "passage": "The Leviathan responds peacefully to your communication attempts and retreats back beneath the ocean after receiving an energy offering from the station reactors. Krogg insists they \"bonded spiritually.\" Mission complete.",
+                    "choices": []
+                },
+                "ending-worst-possible-aquarium": {
+                    "passage": "You activate the defence grid. The station survives, but the Leviathan destroys half the facility before disappearing into the abyss. Your squad barely escapes aboard the dropship while alarms scream in seventeen languages. Mission complete.",
+                    "choices": []
+                },
+                "ending-scientific-heroism": {
+                    "passage": "You stabilise the reactor and prevent the station from collapsing beneath the ocean. The recovered research becomes one of humanity’s greatest xenobiological discoveries. Krogg still eats the frozen sandwich. Mission complete.",
+                    "choices": []
+                },
+                "ending-research-above-all-else": {
+                    "passage": "You escape with the research data moments before Icefall Station collapses into the ocean forever. The mission is considered successful despite the station sinking dramatically into an icy whirlpool behind you. Mission complete.",
+                    "choices": []
+                },
+                "ending-cleansing-fire": {
+                    "passage": "You destroy the nest before the creatures can hatch, triggering a massive chain explosion beneath the ice shelf. The mission succeeds, although several scientists later describe your methods as \"slightly genocidal.\" Mission complete.",
+                    "choices": []
+                },
+                "ending-planetary-quarantine": {
+                    "passage": "You evacuate and place the entire planet under military quarantine. The creatures remain dormant beneath the ice while the sector is permanently restricted. Krogg still argues they \"looked kinda friendly.\" Mission complete.",
+                    "choices": []
+                },
+                "ending-forbidden-knowledge": {
+                    "passage": "You recover ancient alien records detailing extinct civilisations and interstellar catastrophes. The discovery changes scientific understanding across the galaxy forever. Krogg mainly remembers the chair that shocked him. Mission complete.",
+                    "choices": []
+                },
+                "ending-vault-collapse": {
+                    "passage": "You destroy the vault before its systems fully activate. The chamber implodes safely beneath the ocean, preventing unknown dangers from escaping. Krogg complains the explosion \"looked expensive.\" Mission complete.",
+                    "choices": []
+                }
+
+        }
+    },
+
+    "": {
+            "title": "Operation Leviathon Echo",
+            "intro": "Type each mission transmission, submit it, then choose what happens next.",
+            "stages": {
+                "start": {
+                    "passage": "",
+                    "choices": [
+                        {"text": "", "next": "stage2a"},
+                        {"text": "", "next": "stage2b"}
+                    ]
+                },
+                "stage2a": {
+                    "passage": "",
+                    "choices": [
+                        {"text": "", "next": "stage3a"},
+                        {"text": "", "next": "stage3b"}
+                    ]
+                },
+                "stage2b": {
+                    "passage": "",
+                    "choices": [
+                        {"text": "", "next": "stage3c"},
+                        {"text": "", "next": "stage3d"}
+                    ]
+                },
+                "stage3a": {
+                    "passage": "",
+                    "choices": [
+                        {"text": "", "next": "ending-"},
+                        {"text": "", "next": "ending-"}
+                    ]
+                },
+                "stage3b": {
+                    "passage": "",
+                    "choices": [
+                        {"text": "", "next": "ending-"},
+                        {"text": "", "next": "ending-"}
+                    ]
+                },
+                "stage3c": {
+                    "passage": "",
+                    "choices": [
+                        {"text": "", "next": "ending-"},
+                        {"text": "", "next": "ending-"}
+                    ]
+                },
+                "stage3d": {
+                    "passage": "",
+                    "choices": [
+                        {"text": "", "next": "ending-"},
+                        {"text": "", "next": "ending-"}
+                    ]
+                },
+                "ending-": {
+                    "passage": "",
+                    "choices": []
+                },
+                "ending-": {
+                    "passage": "",
+                    "choices": []
+                },
+                "ending-": {
+                    "passage": "",
+                    "choices": []
+                },
+                "ending-": {
+                    "passage": "",
+                    "choices": []
+                },
+                "ending-": {
+                    "passage": "",
+                    "choices": []
+                },
+                "ending-": {
+                    "passage": "",
+                    "choices": []
+                },
+                "ending-": {
+                    "passage": "",
+                    "choices": []
+                },
+                "ending-": {
+                    "passage": "",
+                    "choices": []
+                }
+
+        }
     }
 }

@@ -14,6 +14,7 @@
     Now its up to you and the barely functional crew of the Nacho Comet to stop
     a galaxy-wide snack disaster before Greg leaves a one-star review.
   </p>
+  <br />
   <a
     class="btn"
     href="{{ url_for('game.mission_play', mission_id='drive-thru') }}"
@@ -32,7 +33,40 @@
     questionable decisions, and stop Lieutenant Krogg from “licking ancient
     technology for science.
   </p>
+  <br />
   <a class="btn" href="{{ url_for('game.mission_play', mission_id='nebula') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Blackstar Rift</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Medium</p>
+  <p>
+    A military convoy disappears while transporting an unstable dark-matter
+    reactor through the Blackstar Rift. <br />
+    Your squad is deployed to recover the reactor before reality itself starts
+    folding like cheap cafeteria napkins.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='rift') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Leviathon Echo</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Medium</p>
+  <p>
+    A classified deep-space research station suddenly goes silent after
+    detecting movement beneath the frozen oceans of Planet Nerevos. <br />
+    Your squad is sent to investigate before whatever is under the ice decides
+    to investigate back.
+  </p>
+  <br />
+  <a
+    class="btn"
+    href="{{ url_for('game.mission_play', mission_id='leviathon') }}"
     >Start Mission</a
   >
 </div>
