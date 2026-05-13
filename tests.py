@@ -127,3 +127,11 @@ class XenotypeUnitTests(unittest.TestCase):
         self.assertEqual(logout_response.status_code, 200)
         self.assertIn(b"Login", logout_response.data)
 
+    def test_play_route_requires_login(self):
+        with self.app.app_context():
+            scenario = create_test_scenario()
+            scenario_id = scenario.id
+
+        response = self.client.get(f"/play/{scenario_id}", follow_redirects=False)
+
+        self.assertIn(response.status_code, [302, 401])
