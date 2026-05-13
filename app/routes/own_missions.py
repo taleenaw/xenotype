@@ -896,6 +896,447 @@ stories = {
                 "choices": []
             }
         }
+    },
+
+    "mission-name": {
+        "title": "",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage2a"},
+                    {"text": "", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3a"},
+                    {"text": "", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3c"},
+                    {"text": "", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3c": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3d": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            }
+        }
+    },
+
+    "mission-name": {
+        "title": "",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage2a"},
+                    {"text": "", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3a"},
+                    {"text": "", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3c"},
+                    {"text": "", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3c": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3d": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            }
+        }
+    },
+
+    "mission-name": {
+        "title": "",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage2a"},
+                    {"text": "", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3a"},
+                    {"text": "", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3c"},
+                    {"text": "", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3c": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3d": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            }
+        }
+    },
+
+    "mission-name": {
+        "title": "",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage2a"},
+                    {"text": "", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3a"},
+                    {"text": "", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3c"},
+                    {"text": "", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3c": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3d": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            }
+        }
+    },
+
+    "mission-name": {
+        "title": "",
+        "intro": "Type each mission transmission, submit it, then choose what happens next.",
+        "stages": {
+            "start": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage2a"},
+                    {"text": "", "next": "stage2b"}
+                ]
+            },
+            "stage2a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3a"},
+                    {"text": "", "next": "stage3b"}
+                ]
+            },
+            "stage2b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "stage3c"},
+                    {"text": "", "next": "stage3d"}
+                ]
+            },
+            "stage3a": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3b": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3c": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "stage3d": {
+                "passage": "",
+                "choices": [
+                    {"text": "", "next": "ending-"},
+                    {"text": "", "next": "ending-"}
+                ]
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            },
+            "ending-" : {
+                "passage" : "",
+                "choices" : []
+            }
+        }
     }
+
 
 }
