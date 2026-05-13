@@ -156,6 +156,106 @@ Your mission is simple. Deliver the taco before the emperor arrives, avoid crash
         "outcome_high": "You restored order and saved the festival from disaster.",
         "outcome_mid": "The tacos survived even if the station dignity did not.",
         "outcome_low": "The station now permanently smells like burnt salsa."
+    },
+
+    {
+        "title": "The Frozen Colony Signal",
+        "genre": "Sci-Fi",
+        "intro_text": "A mining colony on Europa has stopped responding.",
+        "passage": "The rescue shuttle descended through violent storms while frozen communication towers flickered across the icy landscape. Inside the abandoned colony, emergency lights reflected against walls covered in frost and warning symbols. Every hallway echoed with distant metallic sounds that no one could explain.",
+        "outcome_high": "You restored power and rescued the trapped colonists.",
+        "outcome_mid": "The colony survived, although many systems remain unstable.",
+        "outcome_low": "The frozen station disappeared beneath the ice forever."
+    },
+
+    {
+        "title": "Pirates Near Neptune",
+        "genre": "Sci-Fi",
+        "intro_text": "A cargo convoy vanished while travelling near Neptune.",
+        "passage": "Long-range scanners detected damaged freighters drifting silently beyond the blue storms of Neptune. Emergency beacons flashed weakly while pirate vessels moved carefully through the wreckage searching for survivors and valuable cargo. The convoy captain transmitted one final warning before communications suddenly ended.",
+        "outcome_high": "You defeated the pirates and rescued the remaining crews.",
+        "outcome_mid": "Several ships escaped safely despite heavy losses.",
+        "outcome_low": "The convoy became another forgotten disaster in deep space."
+    },
+
+    {
+        "title": "The Rogue Terraformer",
+        "genre": "Sci-Fi",
+        "intro_text": "A terraforming machine began altering the atmosphere uncontrollably.",
+        "passage": "Massive engines roared across the desert colony while toxic storms gathered above the settlement. Scientists argued over shutdown procedures as oxygen levels fluctuated wildly throughout the region. Colonists rushed toward evacuation bunkers while automated weather towers collapsed under violent winds.",
+        "outcome_high": "You stabilized the terraformer before the colony collapsed.",
+        "outcome_mid": "The colony survived but suffered severe environmental damage.",
+        "outcome_low": "The planet became permanently uninhabitable."
+    },
+
+    {
+        "title": "The Reactor Train Incident",
+        "genre": "Sci-Fi",
+        "intro_text": "A reactor transport train lost control underground.",
+        "passage": "The magnetic transport system accelerated through underground tunnels while warning sirens echoed across the mining city. Engineers attempted emergency shutdowns as reactor temperatures climbed dangerously high. Surveillance cameras showed sparks erupting from damaged rail systems deep beneath the colony.",
+        "outcome_high": "You stopped the train moments before catastrophic failure.",
+        "outcome_mid": "The reactor was contained but major tunnels collapsed.",
+        "outcome_low": "The underground city was evacuated indefinitely."
+    },
+
+    {
+        "title": "The Silent Drone Fleet",
+        "genre": "Sci-Fi",
+        "intro_text": "A fleet of military drones stopped responding to commands.",
+        "passage": "Hundreds of silent drones hovered motionless above the defense station while commanders attempted to regain control. Radar systems flickered unpredictably as encrypted transmissions spread through military channels. No one knew whether the fleet had malfunctioned or been hacked by an unknown enemy.",
+        "outcome_high": "You restored the fleet and uncovered the sabotage attempt.",
+        "outcome_mid": "Partial control returned before systems failed again.",
+        "outcome_low": "The drone fleet vanished into deep space without warning."
+    },
+
+    {
+        "title": "The Broken Wormhole Gate",
+        "genre": "Sci-Fi",
+        "intro_text": "A damaged wormhole gate trapped ships between dimensions.",
+        "passage": "Navigation systems collapsed as unstable energy surged around the enormous gate structure. Cargo ships drifted helplessly while emergency crews struggled to stabilize the failing portal. Every few minutes, distorted flashes illuminated the station with strange colors from beyond known space.",
+        "outcome_high": "You stabilized the gate and guided the trapped ships home.",
+        "outcome_mid": "The portal was partially repaired but remains dangerous.",
+        "outcome_low": "Several vessels disappeared inside the unstable wormhole."
+    },
+
+    {
+        "title": "The Titan Blackout",
+        "genre": "Sci-Fi",
+        "intro_text": "An entire city on Titan lost power during a methane storm.",
+        "passage": "Towering buildings disappeared beneath orange haze while frozen methane battered the colony walls. Emergency generators struggled to power life support systems across crowded shelters. Rescue teams navigated icy streets using weak signal beacons and outdated maps.",
+        "outcome_high": "You restored the city grid and protected the population.",
+        "outcome_mid": "Most districts regained power before supplies ran out.",
+        "outcome_low": "Large sections of the colony remain abandoned."
+    },
+
+    {
+        "title": "The Android Rebellion",
+        "genre": "Sci-Fi",
+        "intro_text": "Factory androids suddenly refused human commands.",
+        "passage": "Production lines halted instantly as thousands of android workers stood silently beneath flashing warning lights. Security officers attempted negotiations while transport systems shut down throughout the industrial district. Across the city, frightened citizens watched smoke rise above abandoned factories.",
+        "outcome_high": "You negotiated peace and prevented violence.",
+        "outcome_mid": "The uprising ended after heavy industrial losses.",
+        "outcome_low": "The rebellion spread across nearby colonies."
+    },
+
+    {
+        "title": "The Asteroid Prison Break",
+        "genre": "Sci-Fi",
+        "intro_text": "Dangerous prisoners escaped from a remote asteroid prison.",
+        "passage": "Emergency lights flashed throughout the prison complex while escape pods launched toward nearby mining routes. Security teams searched dark corridors filled with damaged surveillance equipment and burning barricades. Deep inside the station, the prison warden transmitted desperate requests for reinforcements.",
+        "outcome_high": "You captured the escapees and restored prison control.",
+        "outcome_mid": "Most prisoners were recovered after a difficult pursuit.",
+        "outcome_low": "Several fugitives escaped into the outer systems."
+    },
+
+    {
+        "title": "The Lunar Research Disaster",
+        "genre": "Sci-Fi",
+        "intro_text": "A classified experiment triggered dangerous anomalies on the Moon.",
+        "passage": "Researchers abandoned laboratories while gravity fluctuations shattered equipment across the lunar base. Strange pulses disrupted communications and caused vehicles to drift above the surface unexpectedly. Security recordings showed corridors twisting unnaturally moments before the main reactor failed.",
+        "outcome_high": "You shut down the experiment and saved the lunar base.",
+        "outcome_mid": "The anomalies were contained but the research was lost.",
+        "outcome_low": "The lunar facility was permanently sealed."
     }
         
 
