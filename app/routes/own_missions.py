@@ -543,5 +543,7 @@ stories = {
                 "passage": "You retreat immediately and transmit all findings to High Command. The sector is permanently sealed while research teams monitor the anomaly from a safe distance. Humanity survives… for now. Krogg still insists you \"almost had it.\" Mission complete.",
                 "choices": []
             }
+        }
     }
+
 }
