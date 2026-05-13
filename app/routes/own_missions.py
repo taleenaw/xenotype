@@ -986,89 +986,89 @@ stories = {
         }
     },
 
-    "mission-name": {
-        "title": "",
+    "abyssal": {
+        "title": "Operation Abyssal Dominion",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
-                "passage": "",
+                "passage": "The Vanguard Revenant descends through violent hypercanes toward the oceanic surface of Nereid-IX — a planet composed almost entirely of black, electrically conductive water. Orbital scans reveal entire research colonies submerged beneath rapidly shifting tidal formations. Distress signals repeat continuously through the atmosphere; however, portions of the transmissions appear mathematically corrupted. Commander Elyra warns that the planetary abyss exhibits impossible gravitational behaviour inconsistent with standard astrophysical models. Krogg asks whether \"haunted oceans\" qualify for additional compensation.",
                 "choices": [
-                    {"text": "", "next": "stage2a"},
-                    {"text": "", "next": "stage2b"}
+                    {"text": "Investigate the submerged research colony.", "next": "stage2a"},
+                    {"text": "Descend directly into the abyssal trench.", "next": "stage2b"}
                 ]
             },
             "stage2a": {
-                "passage": "",
+                "passage": "Inside the submerged colony, corridors pulse with emergency lighting while seawater floods through fractured observation chambers. Strange biomechanical organisms cling to the station walls, reacting violently to nearby movement. Recovered logs reveal the researchers discovered an ancient machine buried beneath the trench floor — one apparently capable of influencing planetary tides. Then the station trembles violently. Something enormous moves beneath the colony.",
                 "choices": [
-                    {"text": "", "next": "stage3a"},
-                    {"text": "", "next": "stage3b"}
+                    {"text": "Seal the lower sectors immediately.", "next": "stage3a"},
+                    {"text": "Continue toward the trench elevator.", "next": "stage3b"}
                 ]
             },
             "stage2b": {
-                "passage": "",
+                "passage": "Your descent craft enters the abyssal trench where water pressure exceeds all known engineering tolerances. Strange luminous organisms drift through the darkness while sensor readings fluctuate unpredictably. Halfway through the descent, the craft detects colossal moving structures beneath the ocean floor itself. Commander Elyra theorises the trench may conceal an artificial megastructure. Krogg quietly states that he \"misses normal planets.\"",
                 "choices": [
-                    {"text": "", "next": "stage3c"},
-                    {"text": "", "next": "stage3d"}
+                    {"text": "Investigate the moving structures.", "next": "stage3c"},
+                    {"text": "Continue descending toward the energy source.", "next": "stage3d"}
                 ]
             },
             "stage3a": {
-                "passage": "",
+                "passage": "Your squad reaches the central containment chamber where a gigantic biomechanical entity emerges from the darkness surrounding the station. Its surface resembles both living tissue and engineered alloy simultaneously; glowing neural pathways pulse beneath armored plating. The entity communicates directly through the station systems, identifying itself as the \"Custodian of the Abyssal Dominion.\" Krogg attempts saluting it respectfully.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Attempt diplomatic communication.", "next": "ending-diplomatic-accord"},
+                    {"text": "Activate the colony’s defence cannons.", "next": "ending-catastrophic-resistance"}
                 ]
             },
             "stage3b": {
-                "passage": "",
+                "passage": "The trench elevator descends kilometers beneath the ocean floor toward a gigantic planetary mechanism hidden beneath the abyss. Massive turbines rotate through superheated water while energy pulses illuminate impossible geometric structures carved into the seabed. The mechanism begins activating automatically upon detecting your squad. Unfortunately, Krogg presses several glowing controls \"out of scientific curiosity.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Deactivate the mechanism manually.", "next": "ending-planetary-stabilisation"},
+                    {"text": "Attempt to interface with the alien systems.", "next": "ending-forbidden-synchronisation"}
                 ]
             },
             "stage3c": {
-                "passage": "",
+                "passage": "Buried beneath the trench lies an incomprehensibly massive engine complex spanning hundreds of kilometers. Entire tectonic plates appear connected to the structure through colossal biomechanical conduits. Automated systems activate immediately upon detecting your craft. Ancient translation algorithms decipher a warning: \"PLANETARY RECONFIGURATION IMMINENT.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Destroy the engines.", "next": "ending-controlled-collapse"},
+                    {"text": "Attempt to halt the activation sequence.", "next": "ending-sequence-interrupted"}
                 ]
             },
             "stage3d": {
-                "passage": "",
+                "passage": "At the trench’s deepest point, your squad discovers a gigantic dimensional gateway suspended beneath the seabed itself. Energy surges through the structure continuously while distorted gravitational waves fracture the surrounding ocean. The gateway suddenly activates. Through the opening, enormous silhouettes become visible moving slowly through complete darkness. Krogg immediately recommends \"leaving professionally.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Enter the gateway.", "next": "ending-into-the-abyss"},
+                    {"text": "Collapse the trench entrance.", "next": "ending-abyssal-containment"}
                 ]
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-diplomatic-accord" : {
+                "passage" : "Against overwhelming expectations, communication succeeds. The Custodian permits humanity to leave peacefully after determining your species is \"currently insufficiently threatening.\" Krogg interprets this as a compliment. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-catastrophic-resistance" : {
+                "passage" : "You activate the defence systems. The resulting battle devastates the colony while tidal shockwaves cripple nearby installations across the planet. Your squad barely escapes before the station collapses into the abyss permanently. Mission complete… narrowly.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-planetary-stabilisation" : {
+                "passage" : "You successfully deactivate the mechanism moments before a planetary-scale tidal collapse destabilises the oceans entirely. Nereid-IX survives. Krogg is permanently prohibited from touching unidentified consoles. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-forbidden-synchronisation" : {
+                "passage" : "You interface with the alien systems successfully; however, fragments of the machine’s consciousness begin integrating with the colony network permanently. Humanity gains extraordinary technological insight. Several scientists later describe the outcome as \"profoundly concerning.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-controlled-collapse" : {
+                "passage" : "You destroy the engines before planetary reconfiguration begins. Massive underwater detonations reshape portions of the ocean floor permanently, but the planet survives intact. Krogg describes the explosions as \"deeply upsetting but visually impressive.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-sequence-interrupted" : {
+                "passage" : "You successfully halt the activation sequence moments before the megastructure reawakens fully. The trench stabilises, and the abyss returns to silence. No one aboard the Vanguard Revenant sleeps comfortably afterward. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-into-the-abyss" : {
+                "passage" : "Your squad enters the dimensional gateway and disappears from all known navigation systems. Fragmentary transmissions continue emerging from the trench for years afterward — distorted, incomplete, and deeply unsettling. Mission complete?",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-abyssal-containment" : {
+                "passage" : "You collapse the trench using seismic charges, burying the gateway beneath millions of tons of oceanic crust. The dimensional activity ceases immediately. Humanity never learns what waited beyond the gate. Mission complete.",
                 "choices" : []
             }
         }
