@@ -93,22 +93,22 @@ class XenotypeUnitTests(unittest.TestCase):
             self.assertIsNotNone(user)
             self.assertEqual(user.email, "newuser@example.com")
 
-        def test_register_duplicate_username_redirects(self):
-            with self.app.app_context():
-                create_test_user(username="duplicate", email="first@example.com")
+    def test_register_duplicate_username_redirects(self):
+        with self.app.app_context():
+            create_test_user(username="duplicate", email="first@example.com")
 
-            response = self.client.post(
-                "/register",
-                data={
-                    "username": "duplicate",
-                    "email": "second@example.com",
-                    "password": "password123",
-                },
-                follow_redirects=True,
-            )
+        response = self.client.post(
+            "/register",
+            data={
+                "username": "duplicate",
+                "email": "second@example.com",
+                "password": "password123",
+            },
+            follow_redirects=True,
+        )
 
-            self.assertEqual(response.status_code, 200)
-            self.assertIn(b"Username already exists", response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Username already exists", response.data)
 
     def test_login_and_logout_flow(self):
         with self.app.app_context():
