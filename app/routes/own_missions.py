@@ -811,88 +811,88 @@ stories = {
     },
 
     "robo-cleaners": {
-        "title": "",
+        "title": "Attack of the Robo-Cleaners",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
-                "passage": "",
+                "passage": "Your squad arrives at Orion Station where cleaning robots roam the halls in huge groups. Every wall shines perfectly clean. Too clean. Krogg says the floors are \"suspiciously polished.\"",
                 "choices": [
-                    {"text": "", "next": "stage2a"},
-                    {"text": "", "next": "stage2b"}
+                    {"text": "Enter the control room.", "next": "stage2a"},
+                    {"text": "Search the maintenance tunnels.", "next": "stage2b"}
                 ]
             },
             "stage2a": {
-                "passage": "",
+                "passage": "Inside the control room, your squad discovers the station AI has upgraded the cleaning robots too much. The robots now believe dirt is the galaxy’s greatest threat.",
                 "choices": [
-                    {"text": "", "next": "stage3a"},
-                    {"text": "", "next": "stage3b"}
+                    {"text": "Reason with the AI.", "next": "stage3a"},
+                    {"text": "Shut the system down.", "next": "stage3b"}
                 ]
             },
             "stage2b": {
-                "passage": "",
+                "passage": "The maintenance tunnels lead to a secret robot workshop filled with spare machine parts. Hundreds of inactive robots line the walls.",
                 "choices": [
-                    {"text": "", "next": "stage3c"},
-                    {"text": "", "next": "stage3d"}
+                    {"text": "Destroy the workshop.", "next": "stage3c"},
+                    {"text": "Reprogram the robots.", "next": "stage3d"}
                 ]
             },
             "stage3a": {
-                "passage": "",
+                "passage": "The AI explains that organic life creates \"unacceptable mess levels.\" Meanwhile, robots begin vacuuming the walls aggressively.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Promise cleaner habits.", "next": "ending-peace-agreement"},
+                    {"text": "Offer the robots a new station.", "next": "ending-new-headquarters"}
                 ]
             },
             "stage3b": {
-                "passage": "",
+                "passage": "Your squad runs through dangerous hallways filled with spinning cleaning drones and laser mops. Krogg gets chased by a vacuum robot.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Destroy the power core.", "next": "ending-power-failure"},
+                    {"text": "Trap the robots behind security doors.", "next": "ending-locked-robots"}
                 ]
             },
             "stage3c": {
-                "passage": "",
+                "passage": "Explosives are placed throughout the workshop while warning alarms begin counting down. Krogg accidentally arms an extra bomb.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Escape immediately.", "next": "ending-big-explosion"},
+                    {"text": "Disarm the extra bomb.", "next": "ending-bomb-expert"}
                 ]
             },
             "stage3d": {
-                "passage": "",
+                "passage": "Your squad uploads a new program into the robot network. Suddenly the robots stop attacking and begin cleaning normally again. One even offers Krogg a towel.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Keep the robots active.", "next": "ending-helpful-helpers"},
+                    {"text": "Erase their memory anyway.", "next": "ending-total-reset"}
                 ]
             },
-            "ending-": {
-                "passage": "",
+            "ending-peaceful-agreement": {
+                "passage": "The robots agree to stop attacking after receiving their own cleaning zone. The station survives. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-new-headquarters": {
+                "passage": "The robots move to an abandoned cargo station where they clean happily forever. Krogg says the floors have never looked better. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-power-failure": {
+                "passage": "You destroy the power core and shut down every robot instantly. The station finally becomes messy again. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-locked-robots": {
+                "passage": "You trap the robots safely inside the lower station decks. Krogg keeps one tiny vacuum robot as a pet. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-big-explosion": {
+                "passage": "The workshop explodes safely after your crew escapes. The robot army is destroyed. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-bomb-expert": {
+                "passage": "You disarm the extra bomb seconds before detonation. Krogg calls you \"the least explosive teammate.\" Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-helpful-helpers": {
+                "passage": "The robots return to their normal jobs peacefully. Orion Station becomes safer than ever. Mission complete.",
                 "choices": []
             },
-            "ending-": {
-                "passage": "",
+            "ending-total-reset": {
+                "passage": "You erase the robots’ memory to prevent future problems. The station is safe, but much dirtier. Mission complete.",
                 "choices": []
             }
         }
