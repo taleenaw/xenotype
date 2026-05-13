@@ -3,6 +3,7 @@
 <p>
   Welcome to the Missions page! Here you can find various missions to test your
   skills and earn rewards.
+  <br />
 </p>
 
 <div class="card" style="margin-bottom: 20px">
@@ -14,9 +15,70 @@
     Now its up to you and the barely functional crew of the Nacho Comet to stop
     a galaxy-wide snack disaster before Greg leaves a one-star review.
   </p>
+  <br />
   <a
     class="btn"
     href="{{ url_for('game.mission_play', mission_id='drive-thru') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Mission Marshmallow Meteor</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Easy</p>
+  <p>
+    A giant marshmallow meteor is heading toward Planet Flumbo. <br />
+    Your crew must stop it before the entire planet becomes sticky forever.
+  </p>
+  <br />
+  <a
+    class="btn"
+    href="{{ url_for('game.mission_play', mission_id='marshmallow') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Pizza Planet</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Easy</p>
+  <p>
+    A delivery ship carrying giant alien pizzas has gone missing near Planet
+    Mozzarella. <br />
+    Your squad must recover the shipment before hungry space pirates do.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='pizza') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>The Great Space Zoo Escape</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Easy</p>
+  <p>
+    Animals have escaped from the Galactic Space Zoo after a power outage.
+    <br />
+    Your crew must catch them before they take over the station.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='space') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Attack of the Robo-Cleaners</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Easy</p>
+  <p>
+    Cleaning robots aboard a giant space station suddenly stop following orders.
+    <br />
+    Now the entire station is being hunted by angry machines with mops and
+    lasers.
+  </p>
+  <br />
+  <a
+    class="btn"
+    href="{{ url_for('game.mission_play', mission_id='robo-cleaners') }}"
     >Start Mission</a
   >
 </div>
@@ -32,8 +94,153 @@
     questionable decisions, and stop Lieutenant Krogg from “licking ancient
     technology for science.
   </p>
+  <br />
   <a class="btn" href="{{ url_for('game.mission_play', mission_id='nebula') }}"
     >Start Mission</a
   >
 </div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Blackstar Rift</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Medium</p>
+  <p>
+    A military convoy disappears while transporting an unstable dark-matter
+    reactor through the Blackstar Rift. <br />
+    Your squad is deployed to recover the reactor before reality itself starts
+    folding like cheap cafeteria napkins.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='rift') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Leviathon Echo</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Medium</p>
+  <p>
+    A classified deep-space research station suddenly goes silent after
+    detecting movement beneath the frozen oceans of Planet Nerevos. <br />
+    Your squad is sent to investigate before whatever is under the ice decides
+    to investigate back.
+  </p>
+  <br />
+  <a
+    class="btn"
+    href="{{ url_for('game.mission_play', mission_id='leviathon') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Solar Revenant</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Medium</p>
+  <p>
+    A mining colony orbiting a dying star abruptly loses all communication after
+    uncovering a buried alien war machine. <br />
+    Your squad is dispatched to secure the colony before the ancient weapon
+    reactivates completely.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='solar') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Void Seraph</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Medium</p>
+  <p>
+    A deep-space surveillance station vanishes after detecting a mysterious
+    object drifting beyond the mapped edge of the galaxy.
+    <br />
+    Your squad is deployed to investigate the anomaly before whatever is out
+    there decides to come closer.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='void') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Eventide Paradox</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Hard</p>
+  <p>
+    A classified temporal-research facility disappears after attempting to
+    manipulate localized spacetime near a collapsing neutron star. <br />
+    Your squad is dispatched to investigate the anomaly before causality itself
+    begins deteriorating across the sector.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='paradox') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Abyssal Dominion</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Hard</p>
+  <p>
+    An oceanic exoplanet suddenly ceases all communication after researchers
+    uncover a colossal biomechanical structure beneath the planetary abyss.
+    <br />
+    Your squad is deployed to investigate before the structure fully awakens.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='abyssal') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Celestial Ruin</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Hard</p>
+  <p>
+    A remote excavation fleet vanishes after uncovering an enormous alien
+    superstructure hidden beneath a shattered moon. <br />
+    Your squad is dispatched to recover the fleet before the structure fully
+    activates.
+  </p>
+  <br />
+  <a
+    class="btn"
+    href="{{ url_for('game.mission_play', mission_id='celestial') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Iron Revenant</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Hard</p>
+  <p>
+    A heavily armed military outpost abruptly ceases communication after
+    recovering an unidentified alien battleship drifting near the galactic
+    frontier. <br />
+    Your squad is deployed to investigate before the vessel fully powers online.
+  </p>
+  <br />
+  <a class="btn" href="{{ url_for('game.mission_play', mission_id='iron') }}"
+    >Start Mission</a
+  >
+</div>
+
+<div class="card" style="margin-bottom: 20px">
+  <h2>Operation Eclipsed Horizon</h2>
+  <p>Genre: Comedy Sci-Fi | Difficulty: Hard</p>
+  <p>
+    A scientific observatory stationed near a rogue black hole suddenly
+    transmits evidence of an impossible artificial structure hidden within the
+    event horizon. <br />
+    Your squad is sent to investigate before the anomaly destabilises
+    surrounding star systems.
+  </p>
+  <br />
+  <a
+    class="btn"
+    href="{{ url_for('game.mission_play', mission_id='eclipsed') }}"
+    >Start Mission</a
+  >
+</div>
+
 {% endblock %}
