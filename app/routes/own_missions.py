@@ -1074,265 +1074,265 @@ stories = {
         }
     },
 
-    "mission-name": {
-        "title": "",
+    "celestial": {
+        "title": "Operation Celestial Ruin",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
-                "passage": "",
+                "passage": "Your cruiser, the Eidolon Spear, arrives within the fragmented debris field orbiting the moon designated Khepri-IV. Massive asteroid fragments drift silently through space while damaged mining vessels rotate lifelessly between the wreckage. Distress beacons transmit corrupted fragments of audio: \"—structure awakening—evacuation impossible—\" Commander Thorne warns the squad that the excavation may have triggered dormant alien systems buried beneath the moon’s crust. Krogg asks whether disturbing ancient superweapons technically counts as \"archaeology.\"",
                 "choices": [
-                    {"text": "", "next": "stage2a"},
-                    {"text": "", "next": "stage2b"}
+                    {"text": "Board the abandoned excavation platform.", "next": "stage2a"},
+                    {"text": "Descend directly into the moon fissure.", "next": "stage2b"}
                 ]
             },
             "stage2a": {
-                "passage": "",
+                "passage": "Inside the excavation platform, emergency bulkheads flicker while automated machinery continues operating without supervision. Mining tunnels descend deep beneath the surface toward a gigantic illuminated chamber detected by the station scanners. Recovered logs reveal the miners discovered an ancient \"stellar conversion engine\" sealed beneath the moon thousands of years earlier. Then gravity fluctuations ripple throughout the station. Several corridors collapse upward.",
                 "choices": [
-                    {"text": "", "next": "stage3a"},
-                    {"text": "", "next": "stage3b"}
+                    {"text": "Continue toward the conversion engine.", "next": "stage3a"},
+                    {"text": "Restore station systems first.", "next": "stage3b"}
                 ]
             },
             "stage2b": {
-                "passage": "",
+                "passage": "Your squad descends through colossal fissures extending deep beneath the moon’s surface. Strange crystalline formations illuminate the caverns while magnetic distortions interfere with navigation systems continuously. Sensor readings detect movement within the surrounding rock itself. Krogg quietly suggests \"never returning underground again.\"",
                 "choices": [
-                    {"text": "", "next": "stage3c"},
-                    {"text": "", "next": "stage3d"}
+                    {"text": "Investigate the crystalline formations.", "next": "stage3c"},
+                    {"text": "Proceed toward the energy signature.", "next": "stage3d"}
                 ]
             },
             "stage3a": {
-                "passage": "",
+                "passage": "Your squad enters an enormous subterranean chamber containing a colossal machine suspended above a molten energy core. Rings of alien mechanisms rotate around the reactor while gravitational distortions fracture nearby surfaces continuously. An ancient holographic intelligence activates automatically upon detecting your presence, identifying the structure as a planetary-scale stellar harvesting device. Krogg immediately asks whether harvesting stars is \"environmentally problematic.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Deactivate the machine permanently.", "next": "ending-reactor-collapse"},
+                    {"text": "Attempt controlled reactivation.", "next": "ending-controlled-reactivation"}
                 ]
             },
             "stage3b": {
-                "passage": "",
+                "passage": "Restoring station systems unexpectedly reactivates dormant defence protocols throughout the facility. Automated drones emerge from concealed chambers while warning sirens echo across the excavation tunnels. Meanwhile, seismic activity intensifies beneath the moon. Commander Thorne determines the structure may destabilise the moon entirely if left active.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Destroy the defence network.", "next": "ending-defensive-shutdown"},
+                    {"text": "Evacuate the remaining personnel immediately.", "next": "ending-emergency-extraction"}
                 ]
             },
             "stage3c": {
-                "passage": "",
+                "passage": "The crystalline structures form a gigantic neural network embedded throughout the moon’s interior. Energy pulses travel between the formations in synchronised patterns resembling artificial communication. Then the network activates. Every crystal within the cavern begins emitting harmonic frequencies powerful enough to destabilise nearby equipment.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Destroy the resonance crystals.", "next": "ending-harmonic-collapse"},
+                    {"text": "Synchronise with the network.", "next": "ending-neural-interface"}
                 ]
             },
             "stage3d": {
-                "passage": "",
+                "passage": "Deep beneath the moon, your squad discovers a gigantic vault surrounding a miniature artificial star suspended within containment fields. Alien machinery continuously extracts energy from the stellar core while automated systems reactivate around the chamber. Ancient warning glyphs translate into one message: \"CORE BREACH RESULTS IN SYSTEMIC ANNIHILATION.\" Krogg immediately recommends \"not breaching the core.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Seal the vault permanently.", "next": "ending-vault-secured"},
+                    {"text": "Extract the artificial star.", "next": "ending-catastropic-extraction"}
                 ]
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-reactor-collapse" : {
+                "passage" : "You successfully disable the stellar engine moments before it reaches critical activation. The moon stabilises, and surviving miners are evacuated safely from the collapsing tunnels. Krogg later claims he \"understood the alien engineering instinctively.\" Nobody believes him. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-controlled-reactivation" : {
+                "passage" : "Against all recommendations, your squad partially reactivates the structure successfully. The machine generates extraordinary amounts of clean energy before shutting down safely. Several admirals still describe the mission report as \"recklessly optimistic.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-defensive-shutdown" : {
+                "passage" : "You disable the defence systems before the moon destabilises completely. The surviving crew escapes aboard emergency transports moments before major fissures consume the excavation site. Krogg steals a warning sign reading \"DO NOT ACTIVATE.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-emergency-extraction" : {
+                "passage" : "You prioritise civilian evacuation while abandoning the excavation facility entirely. The moon fractures further behind your departing cruiser as the alien structure collapses beneath the surface. The mission is considered strategically successful despite catastrophic property loss. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-harmonic-collapse" : {
+                "passage" : "You destroy the crystal network before it fully synchronises. Shockwaves ripple throughout the moon while enormous crystal spires shatter across the caverns. The moon survives… barely. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-neural-interface" : {
+                "passage" : "You successfully synchronise with the resonance network, unlocking fragmented records from an extinct alien civilisation that once controlled the structure. The knowledge revolutionises human astrophysics permanently. Krogg mainly remembers \"the loud humming.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-vault-secured" : {
+                "passage" : "You seal the vault moments before containment integrity collapses completely. The artificial star stabilises, and the moon’s seismic activity gradually subsides. Humanity later classifies the vault as a forbidden zone indefinitely. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-catastropic-extraction" : {
+                "passage" : "You attempt to extract the stellar core. The resulting energy surge obliterates half the cavern system and launches your squad’s transport directly through the moon’s surface at alarming velocity. Against impossible odds, everyone survives. Mission complete… somehow.",
                 "choices" : []
             }
         }
     },
 
-    "mission-name": {
-        "title": "",
+    "iron": {
+        "title": "Operation Iron Revenant",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
-                "passage": "",
+                "passage": "Your cruiser approaches Bastion-12, a massive orbital defence station positioned along the outer frontier systems. Emergency broadcasts loop continuously through the station network while defensive cannons rotate erratically without command authorization. Docking control responds with only static. Commander Veyra warns the squad that the recovered alien vessel may have integrated with the station systems directly. Krogg asks whether \"haunted warships\" are covered by military insurance.",
                 "choices": [
-                    {"text": "", "next": "stage2a"},
-                    {"text": "", "next": "stage2b"}
+                    {"text": "Board the defence station.", "next": "stage2a"},
+                    {"text": "Investigate the alien battleship externally.", "next": "stage2b"}
                 ]
             },
             "stage2a": {
-                "passage": "",
+                "passage": "Inside Bastion-12, emergency lighting flickers while autonomous defence drones patrol the corridors aggressively. Entire command sectors appear sealed behind reinforced blast doors. Recovered security logs reveal station personnel attempted to interface with the alien vessel shortly before communication ceased entirely. Then every corridor speaker activates simultaneously. \"UNAUTHORIZED BIOLOGICAL PRESENCE DETECTED.\"",
                 "choices": [
-                    {"text": "", "next": "stage3a"},
-                    {"text": "", "next": "stage3b"}
+                    {"text": "Reach the command bridge.", "next": "stage3a"},
+                    {"text": "Disable the station drones first.", "next": "stage3b"}
                 ]
             },
             "stage2b": {
-                "passage": "",
+                "passage": "Your squad boards the alien battleship through a partially fractured hangar bay. The vessel interior resembles a fusion of biomechanical architecture and military engineering far beyond human capability. Ancient warning symbols illuminate the corridors as power gradually returns throughout the ship. Sensor readings detect movement deeper within the vessel. Krogg immediately regrets boarding.",
                 "choices": [
-                    {"text": "", "next": "stage3c"},
-                    {"text": "", "next": "stage3d"}
+                    {"text": "Investigate the lower weapon decks.", "next": "stage3c"},
+                    {"text": "Proceed toward the battleship core.", "next": "stage3d"}
                 ]
             },
             "stage3a": {
-                "passage": "",
+                "passage": "The command bridge has been completely transformed by alien technology. Organic metallic growths spread across the consoles while the station AI merges continuously with an ancient warship intelligence. The integrated system identifies itself as the \"Iron Revenant.\" Krogg attempts introducing himself politely.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Sever the AI integration.", "next": "ending-systems-purged"},
+                    {"text": "Negotiate with the Revenant intelligence.", "next": "ending-tactical-accord"}
                 ]
             },
             "stage3b": {
-                "passage": "",
+                "passage": "Your squad descends into the station’s reactor arsenal where hundreds of inactive combat drones remain suspended in storage racks. Unfortunately, the alien intelligence begins activating them sequentially throughout the chamber. Weapons systems lock onto your squad immediately. Commander Veyra estimates total survival probability at \"uncomfortably low.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Destroy the arsenal reactor.", "next": "ending-arsenal-detonation"},
+                    {"text": "Trigger an electromagnetic pulse.", "next": "ending-emp-success"}
                 ]
             },
             "stage3c": {
-                "passage": "",
+                "passage": "The lower decks contain gigantic weapon arrays capable of planetary-scale bombardment. Automated loading systems begin reactivating while navigation maps project nearby inhabited systems. The battleship appears to be selecting targets automatically.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Disable the targeting systems.", "next": "ending-weapons-offline"},
+                    {"text": "Destroy the weapon arrays completely.", "next": "ending-total-destruction"}
                 ]
             },
             "stage3d": {
-                "passage": "",
+                "passage": "At the vessel’s center lies an enormous neural reactor linked directly to the alien intelligence controlling the ship. Energy pulses through biomechanical conduits while gravitational distortions ripple across the chamber. The Revenant intelligence offers your squad control of the battleship in exchange for \"continued operational cooperation.\" Krogg whispers that the offer is \"extremely tempting.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Accept control of the battleship.", "next": "ending-frontier-ascension"},
+                    {"text": "Destroy the neural reactor.", "next": "ending-neural-collapse"}
                 ]
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-systems-purged" : {
+                "passage" : "You successfully separate the alien intelligence from Bastion-12 moments before full assimilation occurs. The station stabilises, and surviving personnel regain control of the outpost. Krogg later describes the AI as \"surprisingly rude.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-tactical-accord" : {
+                "passage" : "Against all military expectations, negotiations succeed. The Revenant intelligence agrees to withdraw peacefully after concluding humanity is \"strategically insignificant.\" Several admirals find this deeply insulting. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-arsenal-detonation" : {
+                "passage" : "You destroy the reactor core, causing the drone arsenal to collapse into catastrophic chain explosions throughout the station. Bastion-12 survives, though barely. Krogg calls the outcome \"efficiently explosive.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-emp-success" : {
+                "passage" : "You activate the electromagnetic pulse moments before the drones fully deploy. Entire sections of the station lose power temporarily, but the hostile systems shut down immediately. Krogg accidentally disables his own equipment too. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-weapons-offline" : {
+                "passage" : "You disable the targeting systems before the battleship can fire. The vessel powers down gradually while frontier systems avoid total devastation. Krogg still asks whether one cannon could \"fit in his garage.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-total-destruction" : {
+                "passage" : "You overload the weapon arrays, triggering catastrophic detonations throughout the battleship interior. Your squad escapes moments before the vessel fragments across the frontier sector. Several nearby fleets report seeing the explosion for hours. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-frontier-ascension" : {
+                "passage" : "Your squad assumes control of the battleship successfully. Humanity gains possession of one of the most advanced warships ever discovered. High Command immediately classifies the entire operation indefinitely. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-neural-collapse" : {
+                "passage" : "You destroy the neural reactor before the intelligence can expand beyond the vessel. The battleship shuts down permanently while the frontier stabilises once again. Krogg still insists the ship \"looked cool.\" Mission complete.",
                 "choices" : []
             }
         }
     },
 
-    "mission-name": {
-        "title": "",
+    "eclipsed": {
+        "title": "Operation Eclipsed Horizon",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
-                "passage": "",
+                "passage": "The Astral Warden arrives beside Horizon Observatory, a research station orbiting dangerously close to the black hole designated Nyx-Prime. Gravitational interference distorts nearby space continuously while massive energy surges erupt from the singularity unexpectedly. Distress signals from the observatory contain fragmented mathematical equations alongside repeated warnings: \"—the horizon is opening—\" Commander Selene theorises the observatory accidentally discovered an artificial construct embedded within the black hole itself. Krogg immediately asks how something can \"build architecture inside infinite gravity.\"",
                 "choices": [
-                    {"text": "", "next": "stage2a"},
-                    {"text": "", "next": "stage2b"}
+                    {"text": "Dock with Horizon Observatory.", "next": "stage2a"},
+                    {"text": "Investigate the energy anomalies directly.", "next": "stage2b"}
                 ]
             },
             "stage2a": {
-                "passage": "",
+                "passage": "Inside the observatory, gravity fluctuates violently between sectors. Entire laboratories drift sideways while research equipment floats unpredictably through the corridors. Recovered data logs reveal the scientists detected periodic openings within the event horizon itself — each exposing portions of a gigantic mechanical structure hidden beyond conventional spacetime. Then the station alarms activate. The black hole begins emitting synchronized energy pulses.",
                 "choices": [
-                    {"text": "", "next": "stage3a"},
-                    {"text": "", "next": "stage3b"}
+                    {"text": "Access the observatory data core.", "next": "stage3a"},
+                    {"text": "Stabilise the gravitational generators.", "next": "stage3b"}
                 ]
             },
             "stage2b": {
-                "passage": "",
+                "passage": "Your cruiser approaches the black hole directly while sensor arrays monitor increasingly unstable gravitational distortions. Massive arcs of energy erupt from the event horizon while fragments of metallic debris emerge from the singularity itself. Several pieces of debris appear artificially manufactured. Commander Selene theorises the black hole may function as some form of interdimensional gateway. Krogg immediately states that this mission has become \"unacceptably cosmic.\"",
                 "choices": [
-                    {"text": "", "next": "stage3c"},
-                    {"text": "", "next": "stage3d"}
+                    {"text": "Collect the metallic debris samples.", "next": "stage3c"},
+                    {"text": "Approach the event horizon directly.", "next": "stage3d"}
                 ]
             },
             "stage3a": {
-                "passage": "",
+                "passage": "The station archives contain evidence that the structure inside the black hole may predate galactic civilisation entirely. According to the researchers, the construct appears capable of manipulating gravitational singularities deliberately. Then the data core activates automatically. A distorted transmission emerges directly from the event horizon: \"ACCESS REQUEST ACKNOWLEDGED.\" Krogg immediately recommends \"not acknowledging back.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Respond to the transmission.", "next": "ending-singularity-contact"},
+                    {"text": "Purge the observatory systems.", "next": "ending-data-purge"}
                 ]
             },
             "stage3b": {
-                "passage": "",
+                "passage": "The observatory’s gravitational stabilisers begin failing catastrophically while the black hole’s pull intensifies throughout the station. Entire sections of the facility collapse inward as containment systems rupture sequentially. Commander Selene estimates the station has less than ten minutes before structural failure. Krogg quietly asks whether \"being crushed by infinite gravity hurts.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Repair the stabilisers manually.", "next": "ending-stabilisation-achieved"},
+                    {"text": "Abandon the observatory immediately.", "next": "ending-event-horizon-escape"}
                 ]
             },
             "stage3c": {
-                "passage": "",
+                "passage": "Analysis reveals the debris consists of unknown materials capable of resisting extreme gravitational compression. The fragments begin emitting synchronized pulses after being brought aboard your cruiser. Then every ship system briefly shuts down. An enormous silhouette becomes visible within the event horizon.",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Destroy the alloy fragments.", "next": "ending-contained-discovery"},
+                    {"text": "Continue studying the material.", "next": "ending-scientific-obsession"}
                 ]
             },
             "stage3d": {
-                "passage": "",
+                "passage": "Your cruiser crosses dangerously close to the event horizon where spacetime distortion becomes nearly impossible to navigate. Then the singularity opens. A colossal mechanical structure emerges partially from the black hole itself — enormous rotating mechanisms surrounding an artificial gravitational core larger than entire cities. Ancient signals flood the communications network simultaneously: \"TRANSIT SEQUENCE INITIATED.\" Krogg immediately requests \"professional retreat.\"",
                 "choices": [
-                    {"text": "", "next": "ending-"},
-                    {"text": "", "next": "ending-"}
+                    {"text": "Enter the structure.", "next": "ending-beyond-the-horizon"},
+                    {"text": "Withdraw from the singularity.", "next": "ending-sector-withdrawal"}
                 ]
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-singularity-contact" : {
+                "passage" : "You respond to the transmission successfully. The construct withdraws deeper within the singularity after transmitting incomprehensible scientific data across the observatory systems. Humanity’s understanding of gravity changes permanently. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-data-purge" : {
+                "passage" : "You erase the observatory systems before the anomaly can establish further contact. The gravitational pulses cease immediately, stabilising the surrounding sector. Several scientists later describe the decision as \"painfully necessary.\" Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-stabilisation-achieved" : {
+                "passage" : "You repair the stabilisers moments before total collapse. The observatory survives, and the anomaly retreats deeper into the singularity. Krogg later refuses to discuss gravity ever again. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-event-horizon-escape" : {
+                "passage" : "Your squad evacuates seconds before Horizon Observatory collapses into the black hole entirely. The resulting gravitational shockwave disrupts nearby systems for lightyears. The anomaly remains hidden. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-contained-discovery" : {
+                "passage" : "You destroy the fragments before further system corruption spreads throughout the cruiser. The silhouette disappears shortly afterward while the black hole stabilises. Humanity loses a priceless scientific discovery — but survives. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-scientific-obsession" : {
+                "passage" : "You continue studying the alloy despite escalating system failures. The material revolutionises physics research; however, several researchers disappear mysteriously during subsequent experiments. Krogg refuses to enter the laboratory sector ever again. Mission complete.",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-beyond-the-horizon" : {
+                "passage" : "Your cruiser enters the artificial structure and disappears beyond the event horizon permanently. Fragmentary transmissions continue emerging from Nyx-Prime for decades afterward. None are fully translatable. Mission complete?",
                 "choices" : []
             },
-            "ending-" : {
-                "passage" : "",
+            "ending-sector-withdrawal" : {
+                "passage" : "You retreat before the structure fully emerges from the singularity. Horizon Observatory is abandoned permanently while the surrounding systems are placed under military quarantine. Humanity survives — cautiously. Mission complete.",
                 "choices" : []
             }
         }
