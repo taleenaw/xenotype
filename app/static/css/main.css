@@ -631,3 +631,113 @@ tr:hover td {
     color: var(--xt-red);
     background: rgba(255,34,34,0.05);
 }
+
+/* ── RESPONSIVE / MOBILE ── */
+
+@media (max-width: 768px) {
+
+    /* Nav */
+    .xt-nav {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 16px;
+    }
+
+    .xt-nav-links {
+        flex-wrap: wrap;
+        gap: 2px;
+        width: 100%;
+    }
+
+    .xt-nav-link {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+    /* Main content */
+    main {
+        padding: 20px 16px;
+    }
+
+    /* Lobby two column → single column */
+    .lobby-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Scenario cards grid → single column */
+    #scenarios-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Stats grids → two column */
+    .stats-grid-4 {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Outcome stats */
+    div[style*="grid-template-columns:1fr 1fr 1fr 1fr"] {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Lobby feature cards */
+    div[style*="grid-template-columns:1fr 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Buttons wrap */
+    div[style*="display:flex"] {
+        flex-wrap: wrap;
+    }
+
+    /* Lobby two column layout */
+    div[style*="grid-template-columns:1fr 400px"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Xhad mascot on mobile */
+    .lobby-mascot img {
+        width: 180px !important;
+        height: 180px !important;
+    }
+
+    /* Play page stats */
+    div[style*="grid-template-columns:1fr 1fr 1fr 1fr;gap:12px"] {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Leaderboard table scroll */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    h1 { font-size: 18px; }
+    h2 { font-size: 15px; }
+
+    /* Passage text smaller on mobile */
+    #passage-display {
+        font-size: 14px !important;
+        line-height: 2 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .xt-logo {
+        font-size: 14px;
+    }
+
+    .xt-nav-link {
+        font-size: 9px;
+        padding: 3px 6px;
+    }
+
+    main {
+        padding: 16px 12px;
+    }
+
+    .btn {
+        font-size: 10px;
+        padding: 8px 14px;
+    }
+}
