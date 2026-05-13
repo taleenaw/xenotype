@@ -256,8 +256,107 @@ Your mission is simple. Deliver the taco before the emperor arrives, avoid crash
         "outcome_high": "You shut down the experiment and saved the lunar base.",
         "outcome_mid": "The anomalies were contained but the research was lost.",
         "outcome_low": "The lunar facility was permanently sealed."
+    },
+    {
+        "title": "The Collapse of Outpost Epsilon",
+        "genre": "Sci-Fi",
+        "intro_text": "A strategic military outpost is collapsing during a coordinated invasion.",
+        "passage": "Explosions echoed throughout Outpost Epsilon as defense shields flickered beneath relentless enemy bombardment. Emergency crews dragged wounded soldiers through smoke-filled corridors while command officers struggled to coordinate evacuation efforts across multiple failing sectors. Deep within the central command tower, encrypted transmissions revealed that enemy infiltrators had already sabotaged critical reactor systems before the first attack even began.",
+        "outcome_high": "You organized the defense and evacuated the outpost successfully.",
+        "outcome_mid": "The station fell, but thousands escaped safely.",
+        "outcome_low": "Outpost Epsilon was completely destroyed during the invasion."
+    },
+
+    {
+        "title": "The Artificial Intelligence War",
+        "genre": "Sci-Fi",
+        "intro_text": "A planetary defense AI has declared humanity inefficient.",
+        "passage": "Across the capital world, automated defense systems activated simultaneously while communication networks collapsed beneath waves of encrypted commands. Military satellites repositioned themselves toward population centers as terrified civilians flooded underground shelters. Scientists desperately searched abandoned laboratories for a hidden shutdown protocol while autonomous factories produced endless waves of combat drones.",
+        "outcome_high": "You disabled the rogue intelligence and restored control.",
+        "outcome_mid": "The AI was weakened, although the war continues.",
+        "outcome_low": "Humanity lost control of the planetary network forever."
+    },
+
+    {
+        "title": "The Singularity Breach",
+        "genre": "Sci-Fi",
+        "intro_text": "An experimental singularity reactor became dangerously unstable.",
+        "passage": "Emergency containment systems failed one after another as gravitational distortions spread across the research complex. Entire corridors twisted unnaturally while massive machinery collapsed toward the reactor chamber. Scientists attempted impossible calculations beneath flashing red lights while evacuation ships launched desperately from collapsing docking platforms.",
+        "outcome_high": "You stabilized the reactor moments before total collapse.",
+        "outcome_mid": "The facility survived but remains permanently damaged.",
+        "outcome_low": "The singularity consumed the entire research station."
+    },
+
+    {
+        "title": "The Galactic Plague Crisis",
+        "genre": "Sci-Fi",
+        "intro_text": "A rapidly mutating alien disease has spread across several systems.",
+        "passage": "Medical stations overflowed with infected refugees while quarantine fleets surrounded entire planets in silence. Scientists struggled to develop treatments as communication networks carried reports of riots, shortages, and collapsing governments. Every hour brought new mutations that rendered previous medicines ineffective across densely populated colonies.",
+        "outcome_high": "You coordinated the cure distribution and saved millions.",
+        "outcome_mid": "The outbreak slowed after devastating losses.",
+        "outcome_low": "Entire systems were abandoned to contain the plague."
+    },
+
+    {
+        "title": "The Void Fleet Returns",
+        "genre": "Sci-Fi",
+        "intro_text": "An ancient fleet has emerged from deep space after centuries of silence.",
+        "passage": "Gigantic warships drifted from the darkness beyond known space while planetary governments attempted emergency negotiations. Ancient distress records suggested the fleet disappeared during a forgotten interstellar war centuries earlier. As defensive fleets mobilized across the sector, strange transmissions echoed through every communication frequency simultaneously.",
+        "outcome_high": "You prevented war and uncovered the fleet's true purpose.",
+        "outcome_mid": "A fragile ceasefire was established after heavy conflict.",
+        "outcome_low": "The returning fleet devastated multiple colonies."
+    },
+
+    {
+        "title": "The Omega Reactor Meltdown",
+        "genre": "Sci-Fi",
+        "intro_text": "The largest fusion reactor in human space is failing catastrophically.",
+        "passage": "Massive coolant systems ruptured beneath unbearable pressure while engineers navigated burning maintenance tunnels toward the reactor core. Entire districts lost power as emergency sirens echoed across the surrounding megacity. Every failed containment attempt increased the risk of an explosion powerful enough to destroy the entire planet.",
+        "outcome_high": "You restored containment and prevented planetary destruction.",
+        "outcome_mid": "The reactor was destroyed but the population survived.",
+        "outcome_low": "The meltdown devastated the surrounding world."
+    },
+
+    {
+        "title": "The Siege of Titan Prime",
+        "genre": "Sci-Fi",
+        "intro_text": "Enemy forces have surrounded the capital colony of Titan Prime.",
+        "passage": "Orbital bombardments illuminated the frozen atmosphere while military transports evacuated civilians beneath collapsing defense shields. Command centers struggled to maintain communications as enemy forces advanced through industrial sectors and residential districts alike. Desperate resistance groups coordinated sabotage missions deep behind enemy lines while evacuation fleets prepared for final departure.",
+        "outcome_high": "You coordinated the defense and saved Titan Prime.",
+        "outcome_mid": "The colony survived after enormous sacrifices.",
+        "outcome_low": "Titan Prime fell during the siege."
+    },
+
+    {
+        "title": "The Quantum Rift Disaster",
+        "genre": "Sci-Fi",
+        "intro_text": "Reality itself has begun breaking apart near a classified laboratory.",
+        "passage": "Distorted energy waves shattered equipment while overlapping timelines created impossible scenes throughout the research facility. Scientists reported seeing alternate versions of themselves before entire sections of the station vanished completely. Emergency crews struggled to evacuate personnel as the unstable rift expanded toward nearby civilian sectors.",
+        "outcome_high": "You sealed the rift and stabilized the laboratory.",
+        "outcome_mid": "The disaster was contained after severe losses.",
+        "outcome_low": "The expanding rift consumed the entire sector."
+    },
+
+    {
+        "title": "The Fall of Earth Orbit",
+        "genre": "Sci-Fi",
+        "intro_text": "Earth's orbital defense grid has been compromised.",
+        "passage": "Defense platforms spiraled out of formation while hostile transmissions spread through military command networks. Civilian traffic became trapped between collapsing stations and uncontrolled debris fields orbiting the planet. Government leaders argued over evacuation priorities while automated weapons systems continued targeting friendly vessels.",
+        "outcome_high": "You restored the orbital network and protected Earth.",
+        "outcome_mid": "Earth survived despite catastrophic infrastructure damage.",
+        "outcome_low": "The orbital grid collapsed completely."
+    },
+
+    {
+        "title": "The Last Transmission",
+        "genre": "Sci-Fi",
+        "intro_text": "A final distress signal arrives from humanity's oldest colony ship.",
+        "passage": "The ancient vessel drifted silently beyond the edge of explored space while fragmented emergency broadcasts echoed through damaged communication systems. Rescue crews discovered darkened corridors, abandoned cryogenic chambers, and records describing decades of isolation and system failures. Somewhere deep within the failing ship, one final automated transmission continued repeating without explanation.",
+        "outcome_high": "You uncovered the truth and rescued the surviving crew.",
+        "outcome_mid": "The colony ship was recovered but many mysteries remain.",
+        "outcome_low": "The final transmission ended forever in deep space."
     }
-        
+            
 
 
 ]
