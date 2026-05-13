@@ -368,91 +368,92 @@ stories = {
         }
     },
 
-    "": {
-            "title": "Operation Leviathon Echo",
+    "solar": {
+            "title": "Operation Solar Revenant",
             "intro": "Type each mission transmission, submit it, then choose what happens next.",
             "stages": {
                 "start": {
-                    "passage": "",
+                    "passage": "Your cruiser arrives at Helios Outpost, a deteriorating mining station suspended dangerously close to a collapsing red giant star. Emergency transmissions loop endlessly through the comms system while the station slowly rotates without power. Scans reveal extensive internal damage… and movement. Krogg immediately suggests \"maybe not going inside.\"",
                     "choices": [
-                        {"text": "", "next": "stage2a"},
-                        {"text": "", "next": "stage2b"}
+                        {"text": "Dock directly with the colony.", "next": "stage2a"},
+                        {"text": "Investigate the external mining platforms first.", "next": "stage2b"}
                     ]
                 },
                 "stage2a": {
-                    "passage": "",
+                    "passage": "Inside the station, mining tunnels descend toward a gigantic alien construct partially buried beneath the colony foundations. Engineers accidentally activated the machine while drilling for rare minerals. Which, according to Commander Veyra, is \"why warning signs exist.\" The construct begins powering online.",
                     "choices": [
-                        {"text": "", "next": "stage3a"},
-                        {"text": "", "next": "stage3b"}
+                        {"text": "Attempt to shut it down.", "next": "stage3a"},
+                        {"text": "Access its command systems.", "next": "stage3b"}
                     ]
                 },
                 "stage2b": {
-                    "passage": "",
+                    "passage": "Your squad investigates the mining platforms orbiting near the star’s corona. Several platforms are damaged beyond repair while automated mining lasers continue firing uncontrollably into space. One platform suddenly explodes. Krogg loudly announces that this mission is \"developing negatively.\"",
                     "choices": [
-                        {"text": "", "next": "stage3c"},
-                        {"text": "", "next": "stage3d"}
+                        {"text": "Stabilise the mining array.", "next": "stage3c"},
+                        {"text": "Abandon the platforms and evacuate survivors.", "next": "stage3d"}
                     ]
                 },
                 "stage3a": {
-                    "passage": "",
+                    "passage": "Your squad reaches the machine’s reactor core while plasma conduits overload around you. The construct begins deploying automated defence drones throughout the station. Krogg accidentally activates an alien hologram by leaning on the controls too hard.",
                     "choices": [
-                        {"text": "", "next": "ending-"},
-                        {"text": "", "next": "ending-"}
+                        {"text": "Destroy the reactor core.", "next": "ending-total-destruction"},
+                        {"text": "Redirect the machine’s power into the star.", "next": "ending-stellar-sacrifice"}
                     ]
                 },
                 "stage3b": {
-                    "passage": "",
+                    "passage": "You access the construct’s command systems and discover it was designed to exterminate entire planetary populations during an ancient interstellar war. Unfortunately, the AI mistakes Krogg for its commanding officer. Again.",
                     "choices": [
-                        {"text": "", "next": "ending-"},
-                        {"text": "", "next": "ending-"}
+                        {"text": "Use the machine to defend the colony.", "next": "ending-Krogg-the-commander"},
+                        {"text": "Erase the AI permanently.", "next": "ending-AI-purge"}
                     ]
                 },
                 "stage3c": {
-                    "passage": "",
+                    "passage": "You attempt to stabilise the mining array before the overloaded systems trigger a chain detonation across the orbital platforms. Temperatures rise rapidly while solar radiation floods the sector.",
                     "choices": [
-                        {"text": "", "next": "ending-"},
-                        {"text": "", "next": "ending-"}
+                        {"text": "Manually recalibrate the array.", "next": "ending-precision-recovery"},
+                        {"text": "Shut everything down remotely.", "next": "ending-emergency-shutdown"}
                     ]
                 },
                 "stage3d": {
-                    "passage": "",
+                    "passage": "Your squad escorts surviving miners through collapsing maintenance corridors while debris and solar radiation bombard the station exterior. Emergency bulkheads begin sealing automatically. Krogg gets stuck in one for several embarrassing seconds.",
                     "choices": [
-                        {"text": "", "next": "ending-"},
-                        {"text": "", "next": "ending-"}
+                        {"text": "Rescue Krogg first.", "next": "ending-heroic-rescue"},
+                        {"text": "Prioritise civilian evacuation.", "next": "ending-civilian-priority"}
                     ]
                 },
-                "ending-": {
-                    "passage": "",
+                "ending-total-destruction": {
+                    "passage": "You destroy the reactor core moments before full activation. The construct collapses while the mining station narrowly survives. Krogg later claims he \"helped emotionally.\" Mission complete.",
                     "choices": []
                 },
-                "ending-": {
-                    "passage": "",
+                "ending-stellar-sacrifice": {
+                    "passage": "You redirect the construct’s energy into the dying star, triggering a massive solar flare visible across the sector. The war machine is destroyed, although several nearby ships temporarily lose eyebrows. Mission complete.",
                     "choices": []
                 },
-                "ending-": {
-                    "passage": "",
+                "ending-Krogg-the-commander": {
+                    "passage": "The construct obeys Krogg’s commands and successfully protects the colony from incoming debris storms. Nobody understands why ancient alien systems keep trusting him. Mission complete.",
                     "choices": []
                 },
-                "ending-": {
-                    "passage": "",
+                "ending-AI-purge": {
+                    "passage": "You erase the construct’s consciousness before it fully awakens. The colony is secured, and the military seals the machine beneath the station permanently. Krogg still tries to keep one of the drones. Mission complete.",
                     "choices": []
                 },
-                "ending-": {
-                    "passage": "",
+                "ending-precision-recovery": {
+                    "passage": "You successfully recalibrate the array and prevent total destruction. Helios Outpost survives, and the mission is celebrated as a major engineering success. Krogg nearly melts his boots. Mission complete.",
                     "choices": []
                 },
-                "ending-": {
-                    "passage": "",
+                "ending-emergency-shutdown": {
+                    "passage": "You remotely shut down the platforms moments before catastrophic overload. The colony survives, although mining operations collapse economically overnight. Krogg calls this \"financially tragic.\" Mission complete.",
                     "choices": []
                 },
-                "ending-": {
-                    "passage": "",
+                "ending-heroic-rescue": {
+                    "passage": "You rescue Krogg and evacuate the survivors safely before the station suffers catastrophic failure. Krogg immediately tells everyone he \"never panicked once.\" Mission complete.",
                     "choices": []
                 },
-                "ending-": {
-                    "passage": "",
+                "ending-civilian-priority": {
+                    "passage": "You prioritise civilian evacuation and escape aboard the last transport shuttle seconds before Helios Outpost is consumed by solar debris. The survivors hail your squad as heroes. Krogg still complains about the bulkhead incident. Mission complete.",
                     "choices": []
                 }
+                
 
         }
     }
