@@ -172,3 +172,27 @@ class XenotypeUnitTests(unittest.TestCase):
             self.assertEqual(run.wpm, 55)
             self.assertEqual(run.accuracy, 91)
             self.assertEqual(run.grade, "A")
+
+    def test_model_helper_methods(self):
+        with self.app.app_context():
+            user = create_test_user(username="modeluser", email="model@example.com")
+            scenario = create_test_scenario()
+
+            run = Run(
+                user_id=user.id,
+                scenario_id=scenario.id,
+                wpm=80,
+                accuracy=95,
+                time_remaining=20,
+                errors=0,
+                grade="S",
+                wpm_history="[70, 75, 80]",
+            )
+
+            db.session.add(run)
+            db.session.commit()
+
+            self.assertEqual(user.get_best_wpm(), 80)
+            self.assertEqual(user.get_total_runs(), 1)
+            self.assertEqual(run.get_outcome_label(), "Perfect Transmission")
+            self.assertTrue(run.is_passing())
