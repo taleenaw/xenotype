@@ -288,6 +288,7 @@
   let errorSet = new Set();
   let started = false;
   let finished = false;
+  let totalTime;
   let timeLeft = totalTime;
   let timer = null;
   let startTime = null;
@@ -325,12 +326,15 @@
       const stage = missionStages[currentStageKey];
 
       passage = stage.passage;
+      totalTime = calculateTimeLimit(passage, missionDifficulty);
+      timeLeft = totalTime;
+      liveTimer.textContent = totalTime
       currentIndex = 0;
       errors = 0;
       errorSet = new Set();
       started = false;
       finished = false;
-      timeLeft = totalTime;
+
       startTime = null;
 
       if (timer) clearInterval(timer);
