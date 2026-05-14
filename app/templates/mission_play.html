@@ -266,7 +266,20 @@
 
 <script>
   const missionStages = {{ mission.stages|tojson }};
-  const totalTime = 60;
+  const missionDifficulty = {{ mission.difficulty | tojson }};
+
+  function calculateTimeLimit(passage, difficulty) {
+    const wordCount = passage.trim().split(/\s+/).length;
+
+    let secondsPerWord;
+
+    if (difficulty === "Easy") {secondsPerWord = 1.8;}
+    else if (difficulty === "Medium") {secondsPerWord = 1.6;}
+    else if (difficulty === "Hard") {secondsPerWord = 1.4;}
+    else {secondsPerWord = 1.5;}
+
+    return Math.max(30, Math.round(wordCount * secondsPerWord));
+  }
 
   let currentStageKey = "start";
   let passage = "";
