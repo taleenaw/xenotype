@@ -1,6 +1,7 @@
 stories = {
     "drive-thru": {
         "title": "The Great Cosmic Drive-Thru Disaster",
+        "difficulty": "Easy",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -103,6 +104,7 @@ stories = {
 
     "nebula": {
             "title": "Operation Nebula Veil",
+            "difficulty": "Medium",
             "intro": "Type each mission transmission, submit it, then choose what happens next.",
             "stages": {
                 "start": {
@@ -192,6 +194,7 @@ stories = {
 
     "rift": {
             "title": "Operation Blackstar Rift",
+            "difficulty": "Medium",
             "intro": "Type each mission transmission, submit it, then choose what happens next.",
             "stages": {
                 "start": {
@@ -281,6 +284,7 @@ stories = {
 
     "leviathon": {
             "title": "Operation Leviathon Echo",
+            "difficulty": "Medium",
             "intro": "Type each mission transmission, submit it, then choose what happens next.",
             "stages": {
                 "start": {
@@ -370,6 +374,7 @@ stories = {
 
     "solar": {
             "title": "Operation Solar Revenant",
+            "difficulty": "Medium",
             "intro": "Type each mission transmission, submit it, then choose what happens next.",
             "stages": {
                 "start": {
@@ -460,6 +465,7 @@ stories = {
 
     "void": {
         "title": "Operation Void Seraph",
+        "difficulty": "Medium",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -548,6 +554,7 @@ stories = {
 
     "marshmallow": {
         "title": "Mission Marshmallow Meteor",
+        "difficulty": "Easy",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -635,7 +642,8 @@ stories = {
     },
 
     "pizza": {
-        "title": "",
+        "title": "Operation Pizza Planet",
+        "difficulty": "Easy",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -724,6 +732,7 @@ stories = {
 
     "space": {
         "title": "The Great Space Zoo Escape",
+        "difficulty": "Easy",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -812,6 +821,7 @@ stories = {
 
     "robo-cleaners": {
         "title": "Attack of the Robo-Cleaners",
+        "difficulty": "Easy",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -900,6 +910,7 @@ stories = {
 
     "paradox": {
         "title": "Operation Eventide Paradox",
+        "difficulty": "Hard",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -988,6 +999,7 @@ stories = {
 
     "abyssal": {
         "title": "Operation Abyssal Dominion",
+        "difficulty": "Hard",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -1076,6 +1088,7 @@ stories = {
 
     "celestial": {
         "title": "Operation Celestial Ruin",
+        "difficulty": "Hard",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -1164,6 +1177,7 @@ stories = {
 
     "iron": {
         "title": "Operation Iron Revenant",
+        "difficulty": "Hard",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
@@ -1252,6 +1266,7 @@ stories = {
 
     "eclipsed": {
         "title": "Operation Eclipsed Horizon",
+        "difficulty": "Hard",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
