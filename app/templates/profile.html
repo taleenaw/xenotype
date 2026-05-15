@@ -2,7 +2,12 @@
 
 {% block content %}
 <section class="profile-hero card">
-    <div class="profile-photo-wrap">
+    <div
+        class="profile-photo-wrap ranked-avatar rank-{{ rank_tier.key }}"
+        {% if rank_tier.border %}
+        style="--rank-border-image: url('{{ url_for('main.rank_border', filename=rank_tier.border) }}');"
+        {% endif %}
+    >
         <img
             class="profile-photo"
             src="{{ url_for('static', filename=user.profile_photo if user.profile_photo else 'uploads/profile_photos/default-avatar.svg') }}"
@@ -26,6 +31,15 @@
             <div class="profile-stat">
                 <span>Total Runs</span>
                 <strong>{{ user.get_total_runs() }}</strong>
+            </div>
+            <div class="profile-stat rank-card rank-{{ rank_tier.key }}">
+                <span>Player Rank</span>
+                <strong>{{ rank_tier.name }}</strong>
+                {% if rank_tier.score is not none %}
+                <small>Score {{ rank_tier.score }}</small>
+                {% else %}
+                <small>{{ rank_tier.missions_until_ranked }} more missions to rank</small>
+                {% endif %}
             </div>
         </div>
 
