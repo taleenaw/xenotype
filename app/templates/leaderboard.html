@@ -2,12 +2,13 @@
 {% block content %}
 <h1>Leaderboard</h1>
 
-{% if top_runs %}
+{% if top_entries %}
 <table>
     <thead>
         <tr>
-            <th>Rank</th>
+            <th>#</th>
             <th>User</th>
+            <th>Player Rank</th>
             <th>Scenario</th>
             <th>WPM</th>
             <th>Accuracy</th>
@@ -15,18 +16,35 @@
         </tr>
     </thead>
     <tbody>
-        {% for run in top_runs %}
+        {% for entry in top_entries %}
+        {% set run = entry.run %}
+        {% set rank_tier = entry.rank_tier %}
         <tr>
             <td>{{ loop.index }}</td>
             <td>
                 <a href="{{ url_for('main.profile', username=run.user.username) }}" class="leaderboard-user">
-                    <img
-                        class="leaderboard-avatar"
-                        src="{{ url_for('static', filename=run.user.profile_photo if run.user.profile_photo else 'profile_photos/default-avatar.svg') }}"
-                        alt="{{ run.user.username }}"
+                    <span
+                        class="ranked-avatar leaderboard-avatar-wrap rank-{{ rank_tier.key }}"
+                        {% if rank_tier.border %}
+                        style="--rank-border-image: url('{{ url_for('main.rank_border', filename=rank_tier.border) }}');"
+                        {% endif %}
                     >
+                        <img
+                            class="leaderboard-avatar"
+                            src="{{ url_for('static', filename=run.user.profile_photo if run.user.profile_photo else 'profile_photos/default-avatar.svg') }}"
+                            alt="{{ run.user.username }}"
+                        >
+                    </span>
                     <span>{{ run.user.username }}</span>
                 </a>
+            </td>
+            <td>
+                <span class="rank-badge rank-{{ rank_tier.key }}">{{ rank_tier.name }}</span>
+                {% if rank_tier.score is not none %}
+                <span class="rank-score">{{ rank_tier.score }}</span>
+                {% else %}
+                <span class="rank-score">{{ rank_tier.missions_until_ranked }} more missions</span>
+                {% endif %}
             </td>
             <td>{{ run.scenario.title }}</td>
             <td>{{ run.wpm }}</td>

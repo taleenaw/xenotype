@@ -55,6 +55,22 @@ def create_test_scenario():
     return scenario
 
 
+def create_test_run(user, scenario, wpm=60, accuracy=90, grade="A"):
+    run = Run(
+        user_id=user.id,
+        scenario_id=scenario.id,
+        wpm=wpm,
+        accuracy=accuracy,
+        time_remaining=10,
+        errors=1,
+        grade=grade,
+        wpm_history="[40, 50, 60]",
+    )
+    db.session.add(run)
+    db.session.commit()
+    return run
+
+
 class XenotypeUnitTests(unittest.TestCase):
     def setUp(self):
         self.db_file = tempfile.NamedTemporaryFile(delete=False)
@@ -143,6 +159,7 @@ class XenotypeUnitTests(unittest.TestCase):
         with self.app.app_context():
             user = create_test_user(username="runner", email="runner@example.com")
             scenario = create_test_scenario()
+            user_id = user.id
             scenario_id = scenario.id
 
         self.client.post(
@@ -170,7 +187,7 @@ class XenotypeUnitTests(unittest.TestCase):
         self.assertEqual(response.status_code, 302)
 
         with self.app.app_context():
-            run = Run.query.filter_by(user_id=user.id, scenario_id=scenario_id).first()
+            run = Run.query.filter_by(user_id=user_id, scenario_id=scenario_id).first()
             self.assertIsNotNone(run)
             self.assertEqual(run.wpm, 55)
             self.assertEqual(run.accuracy, 91)
@@ -199,6 +216,77 @@ class XenotypeUnitTests(unittest.TestCase):
             self.assertEqual(user.get_total_runs(), 1)
             self.assertEqual(run.get_outcome_label(), "Perfect Transmission")
             self.assertTrue(run.is_passing())
+
+    def test_player_rank_requires_three_completed_runs(self):
+        with self.app.app_context():
+            user = create_test_user(username="unranked", email="unranked@example.com")
+            scenario = create_test_scenario()
+
+            create_test_run(user, scenario)
+            create_test_run(user, scenario)
+
+            rank_tier = user.get_rank_tier()
+
+            self.assertEqual(rank_tier["name"], "Unranked")
+            self.assertEqual(rank_tier["missions_until_ranked"], 1)
+            self.assertIsNone(rank_tier["score"])
+
+    def test_player_rank_places_qualified_users_into_tiers(self):
+        with self.app.app_context():
+            scenario = create_test_scenario()
+            wood_user = create_test_user(username="wooduser", email="wood@example.com")
+            silver_user = create_test_user(username="silveruser", email="silver@example.com")
+            gold_user = create_test_user(username="golduser", email="gold@example.com")
+
+            for _ in range(3):
+                create_test_run(wood_user, scenario, wpm=25, accuracy=70, grade="C")
+                create_test_run(silver_user, scenario, wpm=55, accuracy=86, grade="B")
+                create_test_run(gold_user, scenario, wpm=90, accuracy=98, grade="S")
+
+            self.assertEqual(wood_user.get_rank_tier()["name"], "Wood")
+            self.assertEqual(silver_user.get_rank_tier()["name"], "Silver")
+            self.assertEqual(gold_user.get_rank_tier()["name"], "Gold")
+
+    def test_rank_is_shown_on_leaderboard_and_profile(self):
+        with self.app.app_context():
+            create_test_user(username="rankedplayer", email="ranked@example.com")
+            scenario = create_test_scenario()
+            scenario_id = scenario.id
+
+        self.client.post(
+            "/login",
+            data={
+                "username": "rankedplayer",
+                "password": "password123",
+            },
+            follow_redirects=True,
+        )
+
+        for _ in range(3):
+            self.client.post(
+                f"/submit_run/{scenario_id}",
+                data={
+                    "wpm": "90",
+                    "accuracy": "98",
+                    "time_remaining": "20",
+                    "errors": "0",
+                    "grade": "S",
+                    "wpm_history": "[80, 85, 90]",
+                },
+                follow_redirects=False,
+            )
+
+        leaderboard_response = self.client.get("/leaderboard")
+
+        self.assertEqual(leaderboard_response.status_code, 200)
+        self.assertIn(b"rankedplayer", leaderboard_response.data)
+        self.assertIn(b"Gold", leaderboard_response.data)
+
+        profile_response = self.client.get("/profile/rankedplayer")
+
+        self.assertEqual(profile_response.status_code, 200)
+        self.assertIn(b"Player Rank", profile_response.data)
+        self.assertIn(b"Gold", profile_response.data)
 
 class ServerThread(threading.Thread):
     def __init__(self, app, host="127.0.0.1", port=5001):
