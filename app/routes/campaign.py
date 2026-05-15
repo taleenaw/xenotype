@@ -47,13 +47,15 @@ def campaign_home():
 def campaign_chat():
     data = request.get_json(silent=True) or {}
     player_message = data.get('message', '').strip()
+    wpm = int(data.get('wpm', 0))
+    
 
     if not player_message:
         return jsonify({'error': 'Message cannot be empty.'}), 400
 
     progress = get_or_create_campaign_progress()
     bot = CampaignBot()
-    reply = bot.respond(progress, player_message)
+    reply = bot.respond(progress, player_message, wpm)
 
     db.session.add(progress)
     db.session.commit()
@@ -68,7 +70,8 @@ def campaign_chat():
             'fear': progress.fear,
             'confidence': progress.confidence,
             'completed': progress.completed,
-        }
+        },
+        'wpm': wpm,
     })
 
 
