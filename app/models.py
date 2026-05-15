@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from datetime import datetime
 import json
 from flask import url_for
+from app.ranking import get_rank_tier
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -57,6 +58,9 @@ class User(UserMixin, db.Model):
 
     def get_total_runs(self):
         return len(self.runs)
+
+    def get_rank_tier(self):
+        return get_rank_tier(self.runs)
 
     def get_rank(self):
         from app.models import Run
