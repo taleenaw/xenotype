@@ -70,9 +70,39 @@ class CampaignEngine:
         if next_node.startswith("ending_"):
             progress.completed = True
 
-    def process_turn(self, progress, message):
+    def process_turn(self, progress, message, wpm=0):
         intent = detect_intent(message)
+        required_wpm = {
 
+            "run": 25,
+
+            "fight": 35,
+
+            "hack": 45,
+
+            "repair": 30,
+
+            "use": 20,
+
+        }
+
+        if intent in required_wpm and wpm < required_wpm[intent]:
+
+            progress.fear = _clamp(progress.fear + 5)
+
+            progress.confidence = _clamp(progress.confidence - 5)
+
+            return (
+
+                f"You tried to {intent}, but your signal speed was too low. "
+
+                f"This action requires at least {required_wpm[intent]} WPM. "
+
+                f"Your current speed was {wpm} WPM.\n\n"
+
+                f"{self.build_status_text(progress)}"
+
+            )
         if intent == "help":
             return self.build_help_text()
         if intent == "status":
