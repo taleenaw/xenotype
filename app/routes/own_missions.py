@@ -463,7 +463,7 @@ stories = {
         }
     },
 
-    "void": {
+    "seraph": {
         "title": "Operation Void Seraph",
         "difficulty": "Medium",
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
