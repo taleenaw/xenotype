@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+from app.bot.parser import detect_intent
 from app.bot.engine import CampaignEngine
 
 
@@ -25,6 +25,30 @@ class CampaignBot:
             ),
         )
 
-    def respond(self, progress, player_message):
-        text = self.engine.process_turn(progress, player_message)
+    def respond(self, progress, player_message, wpm=0):
+        required_wpm = {
+            "run": 25,
+            "fight": 35,
+            "hack": 45,
+            "repair": 30,
+            "use": 20,
+        }
+
+        intent = detect_intent(player_message)
+
+        if intent in required_wpm and wpm < required_wpm[intent]:
+            progress.fear = min(progress.fear + 5, 100)
+            progress.confidence = max(progress.confidence - 5, 0)
+
+            return BotReply(
+                speaker=self.bot_name,
+                text=(
+                    f"You attempted to {intent}, but your response speed was too slow.\n\n"
+                    f"Required WPM: {required_wpm[intent]}\n"
+                    f"Your WPM: {wpm}\n\n"
+                    f"The delay causes hesitation and danger spreads through the area."
+                ),
+            )
+
+        text = self.engine.process_turn(progress, player_message, wpm)
         return BotReply(speaker=self.bot_name, text=text)

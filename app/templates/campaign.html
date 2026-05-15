@@ -33,6 +33,14 @@
         </div>
     </div>
 
+    <div class="campaign-wpm-panel">
+
+        <strong>Current Command WPM:</strong>
+
+        <span id="campaignWpmValue">0</span>
+
+    </div>
+
     <form id="campaignChatForm" class="campaign-chat-form">
         <input
             id="campaignMessageInput"
@@ -58,6 +66,9 @@ const healthValue = document.getElementById('healthValue');
 const fearValue = document.getElementById('fearValue');
 const confidenceValue = document.getElementById('confidenceValue');
 const csrfToken = "{{ csrf_token() }}";
+const wpmValue = document.getElementById('campaignWpmValue');
+
+let typingStartTime = null;
 
 function scrollChatToBottom() {
     chatLog.scrollTop = chatLog.scrollHeight;
@@ -90,11 +101,53 @@ function updateProgress(progress) {
     confidenceValue.textContent = progress.confidence;
 }
 
+
+messageInput.addEventListener('input', () => {
+    if (!typingStartTime && messageInput.value.length > 0) {
+        typingStartTime = Date.now();
+    }
+
+    const text = messageInput.value.trim();
+
+    if (!typingStartTime || text.length === 0) {
+        wpmValue.textContent = 0;
+        return;
+    }
+
+    const elapsedMinutes = (Date.now() - typingStartTime) / 60000;
+    const charactersTyped = text.length;
+
+    /*
+    Standard typing metric:
+    5 characters = 1 word
+    */
+
+    const estimatedWords = charactersTyped / 5;
+
+    const currentWpm = elapsedMinutes > 0.005
+        ? Math.round(estimatedWords / elapsedMinutes)
+        : 0;
+            
+    wpmValue.textContent = Number.isFinite(currentWpm) ? currentWpm : 0;
+});
+
 chatForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const message = messageInput.value.trim();
     if (!message) return;
+
+    const elapsedMinutes = typingStartTime
+        ? (Date.now() - typingStartTime) / 60000
+        : 0;
+
+    const charactersTyped = message.length;
+
+    const estimatedWords = charactersTyped / 5;
+
+    const wpm = elapsedMinutes > 0.005
+        ? Math.round(estimatedWords / elapsedMinutes)
+        : 0;
 
     addMessage({
         speaker: 'You',
@@ -103,6 +156,8 @@ chatForm.addEventListener('submit', async (event) => {
     });
 
     messageInput.value = '';
+    typingStartTime = null;
+    wpmValue.textContent = 0;
 
     const response = await fetch('{{ url_for("campaign.campaign_chat") }}', {
         method: 'POST',
@@ -110,7 +165,10 @@ chatForm.addEventListener('submit', async (event) => {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrfToken
         },
-        body: JSON.stringify({ message })
+        body: JSON.stringify({
+            message: message,
+            wpm: wpm
+        })
     });
 
     const data = await response.json();
