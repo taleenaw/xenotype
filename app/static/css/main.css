@@ -821,3 +821,16 @@ tr:hover td {
     border-color: var(--xt-border);
     background: var(--xt-green4);
 }
+
+.campaign-wpm-panel {
+    border: 1px solid var(--xt-border);
+    background: var(--xt-bg3);
+    color: var(--xt-text2);
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 12px;
+}
+
+.campaign-wpm-panel strong {
+    color: var(--xt-green);
+}
