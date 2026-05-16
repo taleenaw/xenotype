@@ -15,6 +15,7 @@ def mission_play(mission_id):
         return redirect(url_for('main.lobby'))
     return render_template('mission_play.html', mission=mission, mission_id=mission_id)
 
+
 @game.route('/submit_mission_run/<mission_id>', methods=['POST'])
 @login_required
 def submit_mission_run(mission_id):
