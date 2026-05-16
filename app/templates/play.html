@@ -229,6 +229,14 @@
   <input type="hidden" name="grade" id="grade-field" />
   <input type="hidden" name="wpm_history" id="wpm-history-field" />
 </form>
+
+<div id="score-popup" class="score-popup" style="display: none">
+  <div class="score-popup-box">
+    <h2 id="popup-title"></h2>
+    <p id="popup-message"></p>
+    <button class="btn" id="popup-continue" type="button">Continue</button>
+  </div>
+</div>
 {% endblock %} {% block scripts %}
 <style>
   .char-cursor {
@@ -248,214 +256,266 @@
 </style>
 
 <script>
-  const passage = {{ scenario.passage | tojson }};
-  const difficulty = {{ scenario.difficulty | tojson}};
+    const passage = {{ scenario.passage | tojson }};
+    const difficulty = {{ scenario.difficulty | tojson}};
 
-  function calculateTime(passage, difficulty) {
+    function calculateTime(passage, difficulty) {
 
-      const wordCount = passage.trim().split(/\s+/).length;
-      let secondsPerWord;
+        const wordCount = passage.trim().split(/\s+/).length;
+        let secondsPerWord;
 
-      if (difficulty === "Easy") {secondsPerWord = 1.8;}
-       else if (difficulty === "Medium") {secondsPerWord = 1.6;}
-       else if (difficulty === "Hard") {secondsPerWord = 1.4;}
-       else {secondsPerWord = 1.5;}
+        if (difficulty === "Easy") {secondsPerWord = 1.8;}
+         else if (difficulty === "Medium") {secondsPerWord = 1.6;}
+         else if (difficulty === "Hard") {secondsPerWord = 1.4;}
+         else {secondsPerWord = 1.5;}
 
-       return Math.max(30, Math.round(wordCount * secondsPerWord));
-  }
+         return Math.max(30, Math.round(wordCount * secondsPerWord));
+    }
 
-  const totalTime = calculateTime(passage, difficulty);
-  let currentIndex = 0;
-  let errors = 0;
-  let errorSet = new Set();
-  let started = false;
-  let finished = false;
-  let timeLeft = totalTime;
-  let timer = null;
-  let wpmHistory = [];
-  let startTime = null;
+    const totalTime = calculateTime(passage, difficulty);
+    let currentIndex = 0;
+    let errors = 0;
+    let errorSet = new Set();
+    let started = false;
+    let finished = false;
+    let timeLeft = totalTime;
+    let timer = null;
+    let wpmHistory = [];
+    let startTime = null;
 
-  const display = document.getElementById('passage-display');
-  const hiddenInput = document.getElementById('hidden-input');
-  const liveWpm = document.getElementById('live-wpm');
-  const liveTimer = document.getElementById('live-timer');
-  liveTimer.textContent = timeLeft;
-  const liveAcc = document.getElementById('live-acc');
-  const liveErrors = document.getElementById('live-errors');
-  const integrityBar = document.getElementById('integrity-bar');
-  const integrityLabel = document.getElementById('integrity-label');
-  const progressBar = document.getElementById('progress-bar');
-  const progressLabel = document.getElementById('progress-label');
+    const display = document.getElementById('passage-display');
+    const hiddenInput = document.getElementById('hidden-input');
+    const liveWpm = document.getElementById('live-wpm');
+    const liveTimer = document.getElementById('live-timer');
+    liveTimer.textContent = timeLeft;
+    const liveAcc = document.getElementById('live-acc');
+    const liveErrors = document.getElementById('live-errors');
+    const integrityBar = document.getElementById('integrity-bar');
+    const integrityLabel = document.getElementById('integrity-label');
+    const progressBar = document.getElementById('progress-bar');
+    const progressLabel = document.getElementById('progress-label');
 
-  function buildDisplay() {
-      display.innerHTML = '';
-      passage.split('').forEach((char, i) => {
-          const span = document.createElement('span');
-          span.textContent = char;
-          span.id = 'c' + i;
-          span.style.color = 'var(--xt-text3)';
-          display.appendChild(span);
-      });
-      updateCursor();
-  }
+    function buildDisplay() {
+        display.innerHTML = '';
+        passage.split('').forEach((char, i) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.id = 'c' + i;
+            span.style.color = 'var(--xt-text3)';
+            display.appendChild(span);
+        });
+        updateCursor();
+    }
 
-  function updateCursor() {
-      document.querySelectorAll('.char-cursor').forEach(el => el.classList.remove('char-cursor'));
-      const cur = document.getElementById('c' + currentIndex);
-      if (cur) {
-          cur.classList.add('char-cursor');
-          cur.scrollIntoView({ block: 'nearest' });
-      }
-  }
+    function updateCursor() {
+        document.querySelectorAll('.char-cursor').forEach(el => el.classList.remove('char-cursor'));
+        const cur = document.getElementById('c' + currentIndex);
+        if (cur) {
+            cur.classList.add('char-cursor');
+            cur.scrollIntoView({ block: 'nearest' });
+        }
+    }
 
-  function updateStats() {
-      const elapsed = started ? (Date.now() - startTime) / 60000 : 0;
-      const correctChars = currentIndex - errors;
-      const wpm = elapsed > 0 ? Math.round((correctChars / 5) / elapsed) : 0;
-      const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 100;
+    function updateStats() {
+        const elapsed = started ? (Date.now() - startTime) / 60000 : 0;
+        const correctChars = currentIndex - errors;
+        const wpm = elapsed > 0 ? Math.round((correctChars / 5) / elapsed) : 0;
+        const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 100;
 
-      liveWpm.textContent = wpm;
-      liveAcc.textContent = acc + '%';
-      liveErrors.textContent = errors;
+        liveWpm.textContent = wpm;
+        liveAcc.textContent = acc + '%';
+        liveErrors.textContent = errors;
 
-      const maxErrors = 10;
-      const integrityPct = Math.max(0, Math.round(((maxErrors - errors) / maxErrors) * 100));
-      integrityBar.style.width = integrityPct + '%';
-      integrityLabel.textContent = integrityPct + '%';
-      if (integrityPct > 60) integrityBar.style.background = 'var(--xt-green)';
-      else if (integrityPct > 30) integrityBar.style.background = 'var(--xt-amber)';
-      else integrityBar.style.background = 'var(--xt-red)';
+        const maxErrors = 10;
+        const integrityPct = Math.max(0, Math.round(((maxErrors - errors) / maxErrors) * 100));
+        integrityBar.style.width = integrityPct + '%';
+        integrityLabel.textContent = integrityPct + '%';
+        if (integrityPct > 60) integrityBar.style.background = 'var(--xt-green)';
+        else if (integrityPct > 30) integrityBar.style.background = 'var(--xt-amber)';
+        else integrityBar.style.background = 'var(--xt-red)';
 
-      const progress = Math.round((currentIndex / passage.length) * 100);
-      progressBar.style.width = progress + '%';
-      progressLabel.textContent = progress + '%';
+        const progress = Math.round((currentIndex / passage.length) * 100);
+        progressBar.style.width = progress + '%';
+        progressLabel.textContent = progress + '%';
 
-      const timerEl = document.getElementById('live-timer');
-      timerEl.style.color = timeLeft > 20 ? 'var(--xt-green)' : timeLeft > 10 ? 'var(--xt-amber)' : 'var(--xt-red)';
-  }
+        const timerEl = document.getElementById('live-timer');
+        timerEl.style.color = timeLeft > 20 ? 'var(--xt-green)' : timeLeft > 10 ? 'var(--xt-amber)' : 'var(--xt-red)';
+    }
 
-  function startTimer() {
-      if (started) return;
-      started = true;
-      startTime = Date.now();
+    function startTimer() {
+        if (started) return;
+        started = true;
+        startTime = Date.now();
 
-      timer = setInterval(() => {
-          timeLeft--;
-          liveTimer.textContent = timeLeft;
-          updateStats();
+        timer = setInterval(() => {
+            timeLeft--;
+            liveTimer.textContent = timeLeft;
+            updateStats();
 
-          const elapsed = (Date.now() - startTime) / 60000;
-          const correctChars = currentIndex - errors;
-          const wpm = elapsed > 0 ? Math.round((correctChars / 5) / elapsed) : 0;
-          wpmHistory.push(wpm);
+            const elapsed = (Date.now() - startTime) / 60000;
+            const correctChars = currentIndex - errors;
+            const wpm = elapsed > 0 ? Math.round((correctChars / 5) / elapsed) : 0;
+            wpmHistory.push(wpm);
 
-          if (timeLeft <= 0) finishRun();
-      }, 1000);
-  }
+            if (timeLeft <= 0) finishRun();
+        }, 1000);
+    }
 
-  function finishRun() {
-      if (finished) return;
-      finished = true;
-      clearInterval(timer);
-      hiddenInput.blur();
+    function finishRun() {
+        if (finished) return;
+        finished = true;
+        clearInterval(timer);
+        hiddenInput.blur();
 
-      const elapsed = Math.max((totalTime - timeLeft) / 60, 1/60);
-      const correctChars = currentIndex - errors;
-      const wpm = Math.round((correctChars / 5) / elapsed);
-      const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 0;
+        const elapsed = Math.max((totalTime - timeLeft) / 60, 1/60);
+        const correctChars = currentIndex - errors;
+        const wpm = Math.round((correctChars / 5) / elapsed);
+        const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 0;
 
-      let grade = 'F';
-      if (wpm >= 80 && acc >= 95) grade = 'S';
-      else if (wpm >= 60 && acc >= 90) grade = 'A';
-      else if (wpm >= 45 && acc >= 80) grade = 'B';
-      else if (wpm >= 30 && acc >= 70) grade = 'C';
-      else if (wpm >= 20) grade = 'D';
+        let grade = 'F';
+        if (wpm >= 80 && acc >= 95) grade = 'S';
+        else if (wpm >= 60 && acc >= 90) grade = 'A';
+        else if (wpm >= 45 && acc >= 80) grade = 'B';
+        else if (wpm >= 30 && acc >= 70) grade = 'C';
+        else if (wpm >= 20) grade = 'D';
 
-      document.getElementById('wpm-field').value = wpm;
-      document.getElementById('accuracy-field').value = acc;
-      document.getElementById('time-remaining-field').value = timeLeft;
-      document.getElementById('errors-field').value = errors;
-      document.getElementById('grade-field').value = grade;
-      document.getElementById('wpm-history-field').value = JSON.stringify(wpmHistory);
+        document.getElementById('wpm-field').value = wpm;
+        document.getElementById('accuracy-field').value = acc;
+        document.getElementById('time-remaining-field').value = timeLeft;
+        document.getElementById('errors-field').value = errors;
+        document.getElementById('grade-field').value = grade;
+        document.getElementById('wpm-history-field').value = JSON.stringify(wpmHistory);
 
-      setTimeout(() => document.getElementById('result-form').submit(), 800);
-  }
-
-  hiddenInput.addEventListener('keydown', (e) => {
-      if (finished) return;
-
-      if (e.key === 'Backspace' || e.key === 'Delete') {
-          e.preventDefault();
-
-          if (currentIndex <= 0) {
-              return;
-          }
-
-          currentIndex--;
-
-          const span = document.getElementById('c' + currentIndex);
-
-          if (span) {
-              span.style.color = 'var(--xt-text3)';
-              span.style.background = 'none';
-              span.style.textDecoration = 'none';
-          }
-
-          if (errorSet.has(currentIndex)) {
-              errorSet.delete(currentIndex);
-              errors = Math.max(0, errors - 1);
-          }
-
-          updateCursor();
-          updateStats();
-          return;
+        //setTimeout(() => document.getElementById('result-form').submit(), 800);
+        showScorePopup(grade, wpm, acc, errors, () => {
+          document.getElementById('result-form').submit();
+        });
       }
 
-      if (e.key.length !== 1) return;
+    hiddenInput.addEventListener('keydown', (e) => {
+        if (finished) return;
 
-      if (!started) startTimer();
+        if (e.key === 'Backspace' || e.key === 'Delete') {
+            e.preventDefault();
 
-      const expected = passage[currentIndex];
-      const span = document.getElementById('c' + currentIndex);
+            if (currentIndex <= 0) {
+                return;
+            }
 
-      if (!span) return;
+            currentIndex--;
 
-      if (e.key === expected) {
-          span.style.color = 'var(--xt-text2)';
-          span.style.background = 'none';
-          span.style.textDecoration = 'none';
-      } else {
-          span.style.color = 'var(--xt-red)';
-          span.style.textDecoration = 'underline';
-          span.style.background = 'rgba(255,34,34,0.1)';
+            const span = document.getElementById('c' + currentIndex);
 
-          if (!errorSet.has(currentIndex)) {
-              errorSet.add(currentIndex);
-              errors++;
-          }
-      }
+            if (span) {
+                span.style.color = 'var(--xt-text3)';
+                span.style.background = 'none';
+                span.style.textDecoration = 'none';
+            }
 
-      currentIndex++;
+            if (errorSet.has(currentIndex)) {
+                errorSet.delete(currentIndex);
+                errors = Math.max(0, errors - 1);
+            }
 
-      updateCursor();
-      updateStats();
+            updateCursor();
+            updateStats();
+            return;
+        }
 
-      if (currentIndex >= passage.length) finishRun();
-  });
+        if (e.key.length !== 1) return;
 
-  hiddenInput.addEventListener('focus', () => {
-      document.getElementById('passage-card').style.borderColor = 'var(--xt-green3)';
-  });
+        if (!started) startTimer();
 
-  hiddenInput.addEventListener('blur', () => {
-      if (!finished) document.getElementById('passage-card').style.borderColor = 'var(--xt-border)';
-  });
+        const expected = passage[currentIndex];
+        const span = document.getElementById('c' + currentIndex);
 
-  document.addEventListener('keydown', (e) => {
-      if (!finished && e.key.length === 1) hiddenInput.focus();
-  });
+        if (!span) return;
 
-  buildDisplay();
-  hiddenInput.focus();
+        if (e.key === expected) {
+            span.style.color = 'var(--xt-text2)';
+            span.style.background = 'none';
+            span.style.textDecoration = 'none';
+        } else {
+            span.style.color = 'var(--xt-red)';
+            span.style.textDecoration = 'underline';
+            span.style.background = 'rgba(255,34,34,0.1)';
+
+            if (!errorSet.has(currentIndex)) {
+                errorSet.add(currentIndex);
+                errors++;
+            }
+        }
+
+        currentIndex++;
+
+        updateCursor();
+        updateStats();
+
+        if (currentIndex >= passage.length) finishRun();
+    });
+
+    hiddenInput.addEventListener('focus', () => {
+        document.getElementById('passage-card').style.borderColor = 'var(--xt-green3)';
+    });
+
+    hiddenInput.addEventListener('blur', () => {
+        if (!finished) document.getElementById('passage-card').style.borderColor = 'var(--xt-border)';
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!finished && e.key.length === 1) hiddenInput.focus();
+    });
+
+    buildDisplay();
+    hiddenInput.focus();
+
+  const popupMessages = {
+    S: [
+          "S-RANK! The mothership is emotionally overwhelmed.",
+          "Alien command says you typed with illegal levels of skill.",
+          "Perfect transmission. The galaxy may survive after all."
+      ],
+      A: [
+          "Excellent work, space cadet!",
+          "Mission success! The aliens are mildly impressed.",
+          "Clean run. Commander Zyra approves."
+      ],
+      B: [
+          "Pretty good! A few cosmic typos, but nothing exploded.",
+          "Solid typing. The ship only caught fire twice.",
+          "Nice work! The aliens are taking notes."
+      ],
+      C: [
+          "You survived. That counts.",
+          "Not bad, but the keyboard gremlins definitely won some battles.",
+          "Mission complete-ish. The crew is pretending not to panic."
+      ],
+      D: [
+          "Better luck next time!",
+          "The transmission was a bit scrambled, but you made it out alive.",
+          "The aliens are confused, but not angry. Probably."
+      ],
+      F: [
+          "Better luck next time!",
+          "The mission did not go well. The space lawyers have been contacted.",
+          "Transmission failed. Somewhere, a robot is sighing."
+      ]
+  };
+
+  function getRandomPopupMessage(grade) {
+    const message = popupMessages[grade] || popupMessages.F;
+    return message[Math.floor(Math.random() * message.length)];
+  }
+
+  function showScorePopup(grade, wpm, accuracy, errors, submitCallback) {
+      document.getElementById("popup-title").textContent = "Grade: " + grade;
+      document.getElementById("popup-message").textContent =
+          getRandomPopupMessage(grade) +
+          ` WPM: ${Math.round(wpm)} | Accuracy: ${Math.round(accuracy)}% | Errors: ${errors}`;
+
+      document.getElementById("score-popup").style.display = "flex";
+
+      document.getElementById("popup-continue").onclick = submitCallback;
+  }
 </script>
 {% endblock %}
