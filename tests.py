@@ -3,6 +3,7 @@ import tempfile
 import unittest
 import threading
 import time
+import shutil
 
 from werkzeug.security import generate_password_hash
 from werkzeug.serving import make_server
@@ -11,18 +12,25 @@ from app import create_app, db
 from app.models import User, Scenario, Run
 
 
+
 def make_test_app(database_path=None):
-    app = create_app()
-
     if database_path is None:
-        database_path = tempfile.mktemp(suffix=".db")
+        database_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
+        database_path = database_file.name
+        database_file.close()
 
-    app.config.update(
-        TESTING=True,
-        WTF_CSRF_ENABLED=False,
-        SQLALCHEMY_DATABASE_URI=f"sqlite:///{database_path}",
-        SERVER_NAME=None,
-    )
+    test_upload_dir = tempfile.mkdtemp(prefix="xenotype_test_uploads_")
+
+    app = create_app({
+        "TESTING": True,
+        "WTF_CSRF_ENABLED": False,
+        "SQLALCHEMY_DATABASE_URI": f"sqlite:///{database_path}",
+        "SQLALCHEMY_TRACK_MODIFICATIONS": False,
+        "UPLOAD_FOLDER": test_upload_dir,
+    })
+
+    app.test_database_path = database_path
+    app.test_upload_dir = test_upload_dir
 
     return app
 
@@ -90,6 +98,9 @@ class XenotypeUnitTests(unittest.TestCase):
 
         if os.path.exists(self.db_file.name):
             os.unlink(self.db_file.name)
+
+        if hasattr(self.app, "test_upload_dir") and os.path.exists(self.app.test_upload_dir):
+            shutil.rmtree(self.app.test_upload_dir)
 
     def test_register_creates_user(self):
         response = self.client.post(
@@ -292,17 +303,14 @@ class ServerThread(threading.Thread):
     def __init__(self, app, host="127.0.0.1", port=5001):
         super().__init__()
         self.server = make_server(host, port, app)
-        self.context = app.app_context()
         self.host = host
         self.port = port
 
     def run(self):
-        self.context.push()
         self.server.serve_forever()
 
     def shutdown(self):
         self.server.shutdown()
-        self.context.pop()
 
 
 class XenotypeSeleniumTests(unittest.TestCase):
@@ -368,6 +376,9 @@ class XenotypeSeleniumTests(unittest.TestCase):
 
         if os.path.exists(cls.db_file.name):
             os.unlink(cls.db_file.name)
+
+        if hasattr(cls.app, "test_upload_dir") and os.path.exists(cls.app.test_upload_dir):
+            shutil.rmtree(cls.app.test_upload_dir)
 
     def setUp(self):
         self.driver.delete_all_cookies()
