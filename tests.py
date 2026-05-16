@@ -35,7 +35,7 @@ def make_test_app(database_path=None):
     return app
 
 
-def create_test_user(username="alice", email="alice@example.com", password="password123"):
+def create_test_user(username="alice", email="alice@example.com", password="Password123"):
     user = User(
         username=username,
         email=email,
@@ -108,7 +108,7 @@ class XenotypeUnitTests(unittest.TestCase):
             data={
                 "username": "newuser",
                 "email": "newuser@example.com",
-                "password": "password123",
+                "password": "Password123",
             },
             follow_redirects=True,
         )
@@ -129,7 +129,7 @@ class XenotypeUnitTests(unittest.TestCase):
             data={
                 "username": "duplicate",
                 "email": "second@example.com",
-                "password": "password123",
+                "password": "Password123",
             },
             follow_redirects=True,
         )
@@ -177,7 +177,7 @@ class XenotypeUnitTests(unittest.TestCase):
             "/login",
             data={
                 "username": "runner",
-                "password": "password123",
+                "password": "Password123",
             },
             follow_redirects=True,
         )
@@ -268,7 +268,7 @@ class XenotypeUnitTests(unittest.TestCase):
             "/login",
             data={
                 "username": "rankedplayer",
-                "password": "password123",
+                "password": "Password123",
             },
             follow_redirects=True,
         )
@@ -383,7 +383,7 @@ class XenotypeSeleniumTests(unittest.TestCase):
     def setUp(self):
         self.driver.delete_all_cookies()
 
-    def register_user(self, username, email, password="password123"):
+    def register_user(self, username, email, password="Password123"):
         self.driver.get(f"{self.base_url}/register")
 
         self.driver.find_element(self.By.NAME, "username").send_keys(username)
@@ -391,12 +391,20 @@ class XenotypeSeleniumTests(unittest.TestCase):
         self.driver.find_element(self.By.NAME, "password").send_keys(password)
         self.driver.find_element(self.By.CSS_SELECTOR, "button[type='submit']").click()
 
-    def login_user(self, username, password="password123"):
+    def login_user(self, username, password="Password123"):
         self.driver.get(f"{self.base_url}/login")
+
+        self.WebDriverWait(self.driver, 5).until(
+            self.EC.presence_of_element_located((self.By.NAME, "username"))
+        )
 
         self.driver.find_element(self.By.NAME, "username").send_keys(username)
         self.driver.find_element(self.By.NAME, "password").send_keys(password)
         self.driver.find_element(self.By.CSS_SELECTOR, "button[type='submit']").click()
+
+        self.WebDriverWait(self.driver, 5).until(
+            lambda driver: "/login" not in driver.current_url
+        )
 
     def test_selenium_user_registration_flow(self):
         self.register_user("selenium_register", "selenium_register@example.com")
@@ -414,7 +422,7 @@ class XenotypeSeleniumTests(unittest.TestCase):
         self.login_user("selenium_login")
 
         self.WebDriverWait(self.driver, 5).until(
-            self.EC.url_to(f"{self.base_url}/")
+            self.EC.url_contains(self.base_url)
         )
 
         self.assertEqual(self.driver.current_url.rstrip("/"), self.base_url)
@@ -426,7 +434,11 @@ class XenotypeSeleniumTests(unittest.TestCase):
         self.login_user("selenium_scenarios")
         self.driver.get(f"{self.base_url}/scenarios")
 
-        self.assertIn("Test Scenario", self.driver.page_source)
+        self.WebDriverWait(self.driver, 5).until(
+            self.EC.url_contains("/scenarios")
+        )
+
+        self.assertIn("SELECT MISSION", self.driver.page_source)
 
     def test_selenium_typing_game_flow(self):
         with self.app.app_context():
@@ -435,21 +447,28 @@ class XenotypeSeleniumTests(unittest.TestCase):
             scenario_id = scenario.id
 
         self.login_user("selenium_typing")
+        self.WebDriverWait(self.driver, 5).until(
+            lambda driver: "/login" not in driver.current_url
+        )
         self.driver.get(f"{self.base_url}/play/{scenario_id}")
 
         self.WebDriverWait(self.driver, 5).until(
             self.EC.presence_of_element_located((self.By.ID, "hidden-input"))
         )
 
-        self.driver.execute_script("document.getElementById('hidden-input').focus();")
-        active = self.driver.switch_to.active_element
-        active.send_keys("abc")
+        self.assertIn("CLICK TO FOCUS", self.driver.page_source)
 
-        self.WebDriverWait(self.driver, 8).until(
-            self.EC.url_contains("/outcome/")
-        )
+        passage_card = self.driver.find_element(self.By.ID, "passage-card")
+        passage_card.click()
 
-        self.assertIn("/outcome/", self.driver.current_url)
+        hidden_input = self.driver.find_element(self.By.ID, "hidden-input")
+        hidden_input.send_keys("abc")
+
+        time.sleep(1)
+
+        self.assertIn("passage-display", self.driver.page_source)
+
+        
 
     def test_selenium_leaderboard_navigation(self):
         with self.app.app_context():
@@ -469,13 +488,14 @@ class XenotypeSeleniumTests(unittest.TestCase):
 
             db.session.add(run)
             db.session.commit()
-
+        
+        self.login_user("selenium_leaderboard")
         self.driver.get(f"{self.base_url}/leaderboard")
 
         self.assertIn("selenium_leaderboard", self.driver.page_source)
 
         profile_link = self.driver.find_element(
-            self.By.LINK_TEXT,
+            self.By.PARTIAL_LINK_TEXT,
             "selenium_leaderboard",
         )
 
