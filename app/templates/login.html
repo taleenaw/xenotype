@@ -1,16 +1,49 @@
-{% extends "base.html" %} {% block content %}
-<h1>Login</h1>
-{% with messages = get_flashed_messages() %} {% if messages %} {% for message in
-messages %}
-<p>{{ message }}</p>
-{% endfor %} {% endif %} {% endwith %}
+{% extends "base.html" %}
 
-<form method="POST">
-  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <input type="text" name="username" placeholder="Username" required />
-  <input type="password" name="password" placeholder="Password" required />
-  <button class="btn" type="submit">Login</button>
-</form>
+{% block content %}
+<section class="auth-laptop-shell auth-login-scene">
+  <div class="auth-laptop-lid">
+    <div class="auth-display-bezel">
+      <div class="auth-display">
+        <div class="auth-display-header">
+          <span>XENOTYPE ACCESS WINDOW</span>
+          <span>SESSION: 7A-OLDTECH</span>
+        </div>
 
-<a href="{{ url_for('auth.register') }}">No account? Register</a>
+        <div class="auth-display-grid">
+          <div class="auth-panel">
+            <p class="eyebrow">Agent verification</p>
+            <h1>Login</h1>
+
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="auth-inline-messages">
+                  {% for message in messages %}
+                    <p>{{ message }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <form method="POST" class="auth-form">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <input type="text" name="username" placeholder="Username" required />
+              <input type="password" name="password" placeholder="Password" required />
+              <button class="btn" type="submit">Login</button>
+            </form>
+
+            <a class="auth-switch-link" href="{{ url_for('auth.register') }}">No account? Register</a>
+          </div>
+
+          <aside class="auth-side-note">
+            <pre>// SYSTEM MESSAGE
+Unauthorized agents will be vaporized.
+Probably.</pre>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="auth-laptop-base"></div>
+</section>
 {% endblock %}
