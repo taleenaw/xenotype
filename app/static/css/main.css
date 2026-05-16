@@ -975,8 +975,9 @@ tr:hover td {
 .score-popup-box {
   background: var(--xt-bg2);
   border: 1px solid var(--xt-green3);
-  padding: 28px;
-  max-width: 420px;
+  padding: 32px;
+  width: 560px;
+  max-width: 90vw;
   text-align: center;
   box-shadow: 0 0 30px rgba(0, 255, 65, 0.25);
 }
