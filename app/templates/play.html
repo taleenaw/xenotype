@@ -233,6 +233,11 @@
 <div id="score-popup" class="score-popup" style="display: none">
   <div class="score-popup-box">
     <h2 id="popup-title"></h2>
+    <img
+      id="popup-gif"
+      src=""
+      style="width: 500px; margin: 12px auto; display: block"
+    />
     <p id="popup-message"></p>
     <button class="btn" id="popup-continue" type="button">Continue</button>
   </div>
@@ -507,11 +512,30 @@
     return message[Math.floor(Math.random() * message.length)];
   }
 
+  const popupGifs = {
+    S: "/static/S-popup.png",
+    A: "/static/A-popup.png",
+    B: "/static/B-popup.png",
+    C: "/static/C-popup.png",
+    D: "/static/D-popup.png",
+    F: "/static/F-popup.png",
+  };
+
   function showScorePopup(grade, wpm, accuracy, errors, submitCallback) {
       document.getElementById("popup-title").textContent = "Grade: " + grade;
-      document.getElementById("popup-message").textContent =
-          getRandomPopupMessage(grade) +
-          ` WPM: ${Math.round(wpm)} | Accuracy: ${Math.round(accuracy)}% | Errors: ${errors}`;
+      document.getElementById("popup-gif").src = popupGifs[grade] || popupGifs["F"];
+      document.getElementById("popup-message").innerHTML =
+      `
+      <div style="margin-bottom:16px; font-size:18px; color:var(--xt-green);">
+        ${getRandomPopupMessage(grade)}
+      </div>
+
+      <div style="font-size:16px; line-height:1.8; color:var(--xt-text2);">
+        WPM: ${Math.round(wpm)}<br>
+        Accuracy: ${Math.round(accuracy)}%<br>
+        Errors: ${errors}
+      </div>
+      `;
 
       document.getElementById("score-popup").style.display = "flex";
 
