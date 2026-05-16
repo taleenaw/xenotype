@@ -68,7 +68,24 @@ const confidenceValue = document.getElementById('confidenceValue');
 const csrfToken = "{{ csrf_token() }}";
 const wpmValue = document.getElementById('campaignWpmValue');
 
-let typingStartTime = null;
+let totalCharactersTyped = 0;
+let typingActive = false;
+let typingSessionStart = null;
+let accumulatedTypingTime = 0;
+
+function calculateCampaignWpm(extraText = '') {
+    let activeTypingTime = accumulatedTypingTime;
+
+    if (typingActive && typingSessionStart) {
+        activeTypingTime += Date.now() - typingSessionStart;
+    }
+
+    const elapsedMinutes = Math.max(activeTypingTime / 60000, 0.001);
+    const currentCharacters = totalCharactersTyped + extraText.length;
+    const estimatedWords = currentCharacters / 5;
+
+    return Math.round(estimatedWords / elapsedMinutes);
+}
 
 function scrollChatToBottom() {
     chatLog.scrollTop = chatLog.scrollHeight;
@@ -101,33 +118,13 @@ function updateProgress(progress) {
     confidenceValue.textContent = progress.confidence;
 }
 
-
 messageInput.addEventListener('input', () => {
-    if (!typingStartTime && messageInput.value.length > 0) {
-        typingStartTime = Date.now();
+    if (!typingActive && messageInput.value.length > 0) {
+        typingActive = true;
+        typingSessionStart = Date.now();
     }
 
-    const text = messageInput.value.trim();
-
-    if (!typingStartTime || text.length === 0) {
-        wpmValue.textContent = 0;
-        return;
-    }
-
-    const elapsedMinutes = (Date.now() - typingStartTime) / 60000;
-    const charactersTyped = text.length;
-
-    /*
-    Standard typing metric:
-    5 characters = 1 word
-    */
-
-    const estimatedWords = charactersTyped / 5;
-
-    const currentWpm = elapsedMinutes > 0.005
-        ? Math.round(estimatedWords / elapsedMinutes)
-        : 0;
-            
+    const currentWpm = calculateCampaignWpm(messageInput.value);
     wpmValue.textContent = Number.isFinite(currentWpm) ? currentWpm : 0;
 });
 
@@ -137,17 +134,16 @@ chatForm.addEventListener('submit', async (event) => {
     const message = messageInput.value.trim();
     if (!message) return;
 
-    const elapsedMinutes = typingStartTime
-        ? (Date.now() - typingStartTime) / 60000
-        : 0;
+    const wpm = calculateCampaignWpm(message);
 
-    const charactersTyped = message.length;
+    totalCharactersTyped += message.length;
 
-    const estimatedWords = charactersTyped / 5;
+    if (typingActive && typingSessionStart) {
+        accumulatedTypingTime += Date.now() - typingSessionStart;
+    }
 
-    const wpm = elapsedMinutes > 0.005
-        ? Math.round(estimatedWords / elapsedMinutes)
-        : 0;
+    typingActive = false;
+    typingSessionStart = null;
 
     addMessage({
         speaker: 'You',
@@ -156,8 +152,7 @@ chatForm.addEventListener('submit', async (event) => {
     });
 
     messageInput.value = '';
-    typingStartTime = null;
-    wpmValue.textContent = 0;
+    wpmValue.textContent = calculateCampaignWpm();
 
     const response = await fetch('{{ url_for("campaign.campaign_chat") }}', {
         method: 'POST',
