@@ -246,6 +246,20 @@
   <input type="hidden" name="errors" id="mission-errors-field" />
   <input type="hidden" name="grade" id="mission-grade-field" />
 </form>
+
+<div id="score-popup" class="score-popup" style="display: none">
+  <div class="score-popup-box">
+    <h2 id="popup-title"></h2>
+    <img
+      id="popup-gif"
+      src=""
+      style="width: 500px; margin: 12px auto; display: block"
+    />
+    <p id="popup-message"></p>
+    <button class="btn" id="popup-continue" type="button">Continue</button>
+  </div>
+</div>
+
 {% endblock %} {% block scripts %}
 <style>
   .char-cursor {
@@ -265,284 +279,347 @@
 </style>
 
 <script>
-  const missionStages = {{ mission.stages|tojson }};
-  const missionDifficulty = {{ mission.difficulty | tojson }};
+    const missionStages = {{ mission.stages|tojson }};
+    const missionDifficulty = {{ mission.difficulty | tojson }};
 
-  function calculateTimeLimit(passage, difficulty) {
-    const wordCount = passage.trim().split(/\s+/).length;
+    function calculateTimeLimit(passage, difficulty) {
+      const wordCount = passage.trim().split(/\s+/).length;
 
-    let secondsPerWord;
+      let secondsPerWord;
 
-    if (difficulty === "Easy") {secondsPerWord = 1.8;}
-    else if (difficulty === "Medium") {secondsPerWord = 1.6;}
-    else if (difficulty === "Hard") {secondsPerWord = 1.4;}
-    else {secondsPerWord = 1.5;}
+      if (difficulty === "Easy") {secondsPerWord = 1.8;}
+      else if (difficulty === "Medium") {secondsPerWord = 1.6;}
+      else if (difficulty === "Hard") {secondsPerWord = 1.4;}
+      else {secondsPerWord = 1.5;}
 
-    return Math.max(30, Math.round(wordCount * secondsPerWord));
+      return Math.max(30, Math.round(wordCount * secondsPerWord));
+    }
+
+    let currentStageKey = "start";
+    let passage = "";
+    let currentIndex = 0;
+    let errors = 0;
+    let errorSet = new Set();
+    let started = false;
+    let finished = false;
+    let totalTime;
+    let timeLeft = totalTime;
+    let timer = null;
+    let startTime = null;
+
+    let totalWpm = 0;
+    let totalAccuracy = 0;
+    let totalErrors = 0;
+    let completedStages = 0;
+
+    const display = document.getElementById('passage-display');
+    const hiddenInput = document.getElementById('hidden-input');
+    const liveWpm = document.getElementById('live-wpm');
+    const liveTimer = document.getElementById('live-timer');
+    const liveAcc = document.getElementById('live-acc');
+    const liveErrors = document.getElementById('live-errors');
+    const integrityBar = document.getElementById('integrity-bar');
+    const integrityLabel = document.getElementById('integrity-label');
+    const progressBar = document.getElementById('progress-bar');
+    const progressLabel = document.getElementById('progress-label');
+
+    const resultsBox = document.getElementById("results-box");
+    const choicesBox = document.getElementById("choices-box");
+    const completeBox = document.getElementById("complete-box");
+    const endingText = document.getElementById("ending-text");
+
+    const finalWpm = document.getElementById("final-wpm");
+    const finalAccuracy = document.getElementById("final-accuracy");
+    const finalErrors = document.getElementById("final-errors");
+
+    const choiceA = document.getElementById("choice-a");
+    const choiceB = document.getElementById("choice-b");
+
+    function loadStage(stageKey) {
+        currentStageKey = stageKey;
+        const stage = missionStages[currentStageKey];
+
+        passage = stage.passage;
+        totalTime = calculateTimeLimit(passage, missionDifficulty);
+        timeLeft = totalTime;
+        liveTimer.textContent = totalTime
+        currentIndex = 0;
+        errors = 0;
+        errorSet = new Set();
+        started = false;
+        finished = false;
+
+        startTime = null;
+
+        if (timer) clearInterval(timer);
+
+        liveTimer.textContent = timeLeft;
+        liveWpm.textContent = "0";
+        liveAcc.textContent = "100%";
+        liveErrors.textContent = "0";
+        integrityBar.style.width = "100%";
+        integrityLabel.textContent = "100%";
+        progressBar.style.width = "0%";
+        progressLabel.textContent = "0%";
+
+        resultsBox.style.display = "none";
+        choicesBox.style.display = "none";
+        completeBox.style.display = "none";
+        document.getElementById("passage-card").style.display = "block";
+
+        buildDisplay();
+        hiddenInput.focus();
+    }
+
+    function buildDisplay() {
+        display.innerHTML = '';
+        passage.split('').forEach((char, i) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.id = 'c' + i;
+            span.style.color = 'var(--xt-text3)';
+            display.appendChild(span);
+        });
+        updateCursor();
+    }
+
+    function updateCursor() {
+        document.querySelectorAll('.char-cursor').forEach(el => el.classList.remove('char-cursor'));
+        const cur = document.getElementById('c' + currentIndex);
+        if (cur) cur.classList.add('char-cursor');
+    }
+
+    function updateStats() {
+        const elapsed = started ? (Date.now() - startTime) / 60000 : 0;
+        const correctChars = Math.max(currentIndex - errors, 0);
+        const wpm = elapsed > 0 ? Math.round((correctChars / 5) / elapsed) : 0;
+        const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 100;
+
+        liveWpm.textContent = wpm;
+        liveAcc.textContent = acc + '%';
+        liveErrors.textContent = errors;
+
+        const maxErrors = 10;
+        const integrityPct = Math.max(0, Math.round(((maxErrors - errors) / maxErrors) * 100));
+        integrityBar.style.width = integrityPct + '%';
+        integrityLabel.textContent = integrityPct + '%';
+
+        if (integrityPct > 60) integrityBar.style.background = 'var(--xt-green)';
+        else if (integrityPct > 30) integrityBar.style.background = 'var(--xt-amber)';
+        else integrityBar.style.background = 'var(--xt-red)';
+
+        const progress = Math.round((currentIndex / passage.length) * 100);
+        progressBar.style.width = progress + '%';
+        progressLabel.textContent = progress + '%';
+
+        liveTimer.style.color = timeLeft > 20 ? 'var(--xt-green)' : timeLeft > 10 ? 'var(--xt-amber)' : 'var(--xt-red)';
+    }
+
+    function startTimer() {
+        if (started) return;
+        started = true;
+        startTime = Date.now();
+
+        timer = setInterval(() => {
+            timeLeft--;
+            liveTimer.textContent = timeLeft;
+            updateStats();
+
+            if (timeLeft <= 0) finishStage();
+        }, 1000);
+    }
+
+    function finishStage() {
+        if (finished) return;
+        finished = true;
+        clearInterval(timer);
+        hiddenInput.blur();
+
+        const elapsed = Math.max((totalTime - timeLeft) / 60, 1 / 60);
+        const correctChars = Math.max(currentIndex - errors, 0);
+        const wpm = Math.round((correctChars / 5) / elapsed);
+        const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 0;
+
+        totalWpm += wpm;
+        totalAccuracy += acc;
+        totalErrors += errors;
+        completedStages++;
+
+        finalWpm.textContent = wpm;
+        finalAccuracy.textContent = acc;
+        finalErrors.textContent = errors;
+
+        resultsBox.style.display = "block";
+
+        const stage = missionStages[currentStageKey];
+
+        if (stage.choices.length === 0) {
+            document.getElementById("passage-card").style.display = "none";
+            completeBox.style.display = "block";
+            endingText.textContent = stage.passage;
+
+            const averageWpm = Math.round(totalWpm / completedStages);
+            const averageAccuracy = Math.round(totalAccuracy / completedStages);
+
+            let grade = "F";
+            if (averageWpm>= 80 && averageAccuracy >= 95) grade = 'S';
+            else if (averageWpm >= 60 && averageAccuracy >= 90) grade = "A";
+            else if (averageWpm >= 45 && averageAccuracy >= 90) grade = "B";
+            else if (averageWpm >= 30 && averageAccuracy >= 80) grade = "C";
+            else if (averageWpm >= 20 && averageAccuracy >= 70) grade = "D";
+
+            document.getElementById("mission-wpm-field").value = averageWpm;
+            document.getElementById("mission-accuracy-field").value = averageAccuracy;
+            document.getElementById("mission-errors-field").value = totalErrors;
+            document.getElementById("mission-grade-field").value = grade;
+
+            //setTimeout(() => document.getElementById("mission-result-form").submit(), 1000);
+            showScorePopup(grade, averageWpm, averageAccuracy, totalErrors, () => {
+              document.getElementById("mission-result-form").submit();
+            });
+        } else {
+            choiceA.textContent = stage.choices[0].text;
+            choiceB.textContent = stage.choices[1].text;
+
+            choiceA.onclick = () => loadStage(stage.choices[0].next);
+            choiceB.onclick = () => loadStage(stage.choices[1].next);
+
+            choicesBox.style.display = "block";
+        }
+    }
+
+    hiddenInput.addEventListener('keydown', (e) => {
+        if (finished) return;
+
+        if (e.key === 'Backspace' || e.key === 'Delete') {
+            e.preventDefault();
+
+            if (currentIndex <= 0) {
+                return;
+            }
+
+            currentIndex--;
+
+            const span = document.getElementById('c' + currentIndex);
+
+            if (span) {
+                span.style.color = 'var(--xt-text3)';
+                span.style.background = 'none';
+                span.style.textDecoration = 'none';
+            }
+
+            if (errorSet.has(currentIndex)) {
+                errorSet.delete(currentIndex);
+                errors = Math.max(0, errors - 1);
+            }
+
+            updateCursor();
+            updateStats();
+            return;
+        }
+
+        if (e.key.length !== 1) return;
+
+        if (!started) startTimer();
+
+        const expected = passage[currentIndex];
+        const span = document.getElementById('c' + currentIndex);
+
+        if (!span) return;
+
+        if (e.key === expected) {
+            span.style.color = 'var(--xt-text2)';
+            span.style.background = 'none';
+            span.style.textDecoration = 'none';
+        } else {
+            span.style.color = 'var(--xt-red)';
+            span.style.textDecoration = 'underline';
+            span.style.background = 'rgba(255,34,34,0.1)';
+
+            if (!errorSet.has(currentIndex)) {
+                errorSet.add(currentIndex);
+                errors++;
+            }
+        }
+
+        currentIndex++;
+        updateCursor();
+        updateStats();
+
+        if (currentIndex >= passage.length) finishStage();
+    });
+
+    hiddenInput.addEventListener('focus', () => {
+        document.getElementById('passage-card').style.borderColor = 'var(--xt-green3)';
+    });
+
+    hiddenInput.addEventListener('blur', () => {
+        if (!finished) document.getElementById('passage-card').style.borderColor = 'var(--xt-border)';
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!finished && e.key.length === 1) hiddenInput.focus();
+    });
+
+    const popupMessages = {
+    S: ["S-RANK! The mothership is emotionally overwhelmed."],
+    A: [
+      "Excellent work, space cadet!",
+      "Mission success! The aliens are mildly impressed.",
+      "Clean run. Commander Zyra approves."
+    ],
+    B: [
+      "Pretty good! A few cosmic typos, but nothing exploded.",
+      "Solid typing. The ship only caught fire twice."
+    ],
+    C: [
+      "You survived. That counts.",
+      "Mission complete-ish. The crew is pretending not to panic."
+    ],
+    D: [
+      "Better luck next time!",
+      "The transmission was a bit scrambled, but you made it out alive."
+    ],
+    F: [
+      "Better luck next time!",
+      "Transmission failed. Somewhere, a robot is sighing."
+    ]
+  };
+
+  function getRandomPopupMessage(grade) {
+    const messages = popupMessages[grade] || popupMessages.F;
+    return messages[Math.floor(Math.random() * messages.length)];
   }
 
-  let currentStageKey = "start";
-  let passage = "";
-  let currentIndex = 0;
-  let errors = 0;
-  let errorSet = new Set();
-  let started = false;
-  let finished = false;
-  let totalTime;
-  let timeLeft = totalTime;
-  let timer = null;
-  let startTime = null;
+  const popupGifs = {
+    S: "/static/S-popup.png",
+    A: "/static/A-popup.png",
+    B: "/static/B-popup.png",
+    C: "/static/C-popup.png",
+    D: "/static/D-popup.png",
+    F: "/static/F-popup.png",
+  };
 
-  let totalWpm = 0;
-  let totalAccuracy = 0;
-  let totalErrors = 0;
-  let completedStages = 0;
+  function showScorePopup(grade, wpm, accuracy, errors, submitCallback) {
+    document.getElementById("popup-title").textContent = "Grade: " + grade;
+    document.getElementById("popup-gif").src = popupGifs[grade] || popupGifs.F;
 
-  const display = document.getElementById('passage-display');
-  const hiddenInput = document.getElementById('hidden-input');
-  const liveWpm = document.getElementById('live-wpm');
-  const liveTimer = document.getElementById('live-timer');
-  const liveAcc = document.getElementById('live-acc');
-  const liveErrors = document.getElementById('live-errors');
-  const integrityBar = document.getElementById('integrity-bar');
-  const integrityLabel = document.getElementById('integrity-label');
-  const progressBar = document.getElementById('progress-bar');
-  const progressLabel = document.getElementById('progress-label');
+    document.getElementById("popup-message").innerHTML = `
+      <div style="margin-bottom:16px; font-size:18px; color:var(--xt-green);">
+        ${getRandomPopupMessage(grade)}
+      </div>
 
-  const resultsBox = document.getElementById("results-box");
-  const choicesBox = document.getElementById("choices-box");
-  const completeBox = document.getElementById("complete-box");
-  const endingText = document.getElementById("ending-text");
+      <div style="font-size:16px; line-height:1.8; color:var(--xt-text2);">
+        WPM: ${Math.round(wpm)}<br>
+        Accuracy: ${Math.round(accuracy)}%<br>
+        Errors: ${errors}
+      </div>
+    `;
 
-  const finalWpm = document.getElementById("final-wpm");
-  const finalAccuracy = document.getElementById("final-accuracy");
-  const finalErrors = document.getElementById("final-errors");
-
-  const choiceA = document.getElementById("choice-a");
-  const choiceB = document.getElementById("choice-b");
-
-  function loadStage(stageKey) {
-      currentStageKey = stageKey;
-      const stage = missionStages[currentStageKey];
-
-      passage = stage.passage;
-      totalTime = calculateTimeLimit(passage, missionDifficulty);
-      timeLeft = totalTime;
-      liveTimer.textContent = totalTime
-      currentIndex = 0;
-      errors = 0;
-      errorSet = new Set();
-      started = false;
-      finished = false;
-
-      startTime = null;
-
-      if (timer) clearInterval(timer);
-
-      liveTimer.textContent = timeLeft;
-      liveWpm.textContent = "0";
-      liveAcc.textContent = "100%";
-      liveErrors.textContent = "0";
-      integrityBar.style.width = "100%";
-      integrityLabel.textContent = "100%";
-      progressBar.style.width = "0%";
-      progressLabel.textContent = "0%";
-
-      resultsBox.style.display = "none";
-      choicesBox.style.display = "none";
-      completeBox.style.display = "none";
-      document.getElementById("passage-card").style.display = "block";
-
-      buildDisplay();
-      hiddenInput.focus();
+    document.getElementById("score-popup").style.display = "flex";
+    document.getElementById("popup-continue").onclick = submitCallback;
   }
 
-  function buildDisplay() {
-      display.innerHTML = '';
-      passage.split('').forEach((char, i) => {
-          const span = document.createElement('span');
-          span.textContent = char;
-          span.id = 'c' + i;
-          span.style.color = 'var(--xt-text3)';
-          display.appendChild(span);
-      });
-      updateCursor();
-  }
-
-  function updateCursor() {
-      document.querySelectorAll('.char-cursor').forEach(el => el.classList.remove('char-cursor'));
-      const cur = document.getElementById('c' + currentIndex);
-      if (cur) cur.classList.add('char-cursor');
-  }
-
-  function updateStats() {
-      const elapsed = started ? (Date.now() - startTime) / 60000 : 0;
-      const correctChars = Math.max(currentIndex - errors, 0);
-      const wpm = elapsed > 0 ? Math.round((correctChars / 5) / elapsed) : 0;
-      const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 100;
-
-      liveWpm.textContent = wpm;
-      liveAcc.textContent = acc + '%';
-      liveErrors.textContent = errors;
-
-      const maxErrors = 10;
-      const integrityPct = Math.max(0, Math.round(((maxErrors - errors) / maxErrors) * 100));
-      integrityBar.style.width = integrityPct + '%';
-      integrityLabel.textContent = integrityPct + '%';
-
-      if (integrityPct > 60) integrityBar.style.background = 'var(--xt-green)';
-      else if (integrityPct > 30) integrityBar.style.background = 'var(--xt-amber)';
-      else integrityBar.style.background = 'var(--xt-red)';
-
-      const progress = Math.round((currentIndex / passage.length) * 100);
-      progressBar.style.width = progress + '%';
-      progressLabel.textContent = progress + '%';
-
-      liveTimer.style.color = timeLeft > 20 ? 'var(--xt-green)' : timeLeft > 10 ? 'var(--xt-amber)' : 'var(--xt-red)';
-  }
-
-  function startTimer() {
-      if (started) return;
-      started = true;
-      startTime = Date.now();
-
-      timer = setInterval(() => {
-          timeLeft--;
-          liveTimer.textContent = timeLeft;
-          updateStats();
-
-          if (timeLeft <= 0) finishStage();
-      }, 1000);
-  }
-
-  function finishStage() {
-      if (finished) return;
-      finished = true;
-      clearInterval(timer);
-      hiddenInput.blur();
-
-      const elapsed = Math.max((totalTime - timeLeft) / 60, 1 / 60);
-      const correctChars = Math.max(currentIndex - errors, 0);
-      const wpm = Math.round((correctChars / 5) / elapsed);
-      const acc = currentIndex > 0 ? Math.round((correctChars / currentIndex) * 100) : 0;
-
-      totalWpm += wpm;
-      totalAccuracy += acc;
-      totalErrors += errors;
-      completedStages++;
-
-      finalWpm.textContent = wpm;
-      finalAccuracy.textContent = acc;
-      finalErrors.textContent = errors;
-
-      resultsBox.style.display = "block";
-
-      const stage = missionStages[currentStageKey];
-
-      if (stage.choices.length === 0) {
-          document.getElementById("passage-card").style.display = "none";
-          completeBox.style.display = "block";
-          endingText.textContent = stage.passage;
-
-          const averageWpm = Math.round(totalWpm / completedStages);
-          const averageAccuracy = Math.round(totalAccuracy / completedStages);
-
-          let grade = "F";
-          if (averageWpm >= 60 && averageAccuracy >= 95) grade = "A";
-          else if (averageWpm >= 45 && averageAccuracy >= 90) grade = "B";
-          else if (averageWpm >= 30 && averageAccuracy >= 80) grade = "C";
-          else if (averageWpm >= 20 && averageAccuracy >= 70) grade = "D";
-
-          document.getElementById("mission-wpm-field").value = averageWpm;
-          document.getElementById("mission-accuracy-field").value = averageAccuracy;
-          document.getElementById("mission-errors-field").value = totalErrors;
-          document.getElementById("mission-grade-field").value = grade;
-
-          setTimeout(() => document.getElementById("mission-result-form").submit(), 1000);
-      } else {
-          choiceA.textContent = stage.choices[0].text;
-          choiceB.textContent = stage.choices[1].text;
-
-          choiceA.onclick = () => loadStage(stage.choices[0].next);
-          choiceB.onclick = () => loadStage(stage.choices[1].next);
-
-          choicesBox.style.display = "block";
-      }
-  }
-
-  hiddenInput.addEventListener('keydown', (e) => {
-      if (finished) return;
-
-      if (e.key === 'Backspace' || e.key === 'Delete') {
-          e.preventDefault();
-
-          if (currentIndex <= 0) {
-              return;
-          }
-
-          currentIndex--;
-
-          const span = document.getElementById('c' + currentIndex);
-
-          if (span) {
-              span.style.color = 'var(--xt-text3)';
-              span.style.background = 'none';
-              span.style.textDecoration = 'none';
-          }
-
-          if (errorSet.has(currentIndex)) {
-              errorSet.delete(currentIndex);
-              errors = Math.max(0, errors - 1);
-          }
-
-          updateCursor();
-          updateStats();
-          return;
-      }
-
-      if (e.key.length !== 1) return;
-
-      if (!started) startTimer();
-
-      const expected = passage[currentIndex];
-      const span = document.getElementById('c' + currentIndex);
-
-      if (!span) return;
-
-      if (e.key === expected) {
-          span.style.color = 'var(--xt-text2)';
-          span.style.background = 'none';
-          span.style.textDecoration = 'none';
-      } else {
-          span.style.color = 'var(--xt-red)';
-          span.style.textDecoration = 'underline';
-          span.style.background = 'rgba(255,34,34,0.1)';
-
-          if (!errorSet.has(currentIndex)) {
-              errorSet.add(currentIndex);
-              errors++;
-          }
-      }
-
-      currentIndex++;
-      updateCursor();
-      updateStats();
-
-      if (currentIndex >= passage.length) finishStage();
-  });
-
-  hiddenInput.addEventListener('focus', () => {
-      document.getElementById('passage-card').style.borderColor = 'var(--xt-green3)';
-  });
-
-  hiddenInput.addEventListener('blur', () => {
-      if (!finished) document.getElementById('passage-card').style.borderColor = 'var(--xt-border)';
-  });
-
-  document.addEventListener('keydown', (e) => {
-      if (!finished && e.key.length === 1) hiddenInput.focus();
-  });
-
-  loadStage("start");
+    loadStage("start");
 </script>
 {% endblock %}
