@@ -24,7 +24,7 @@
         >
             <img
                 class="chat-avatar"
-                src="{{ url_for('static', filename=message.user.profile_photo if message.user.profile_photo else 'profile_photos/default-avatar.svg') }}"
+                src="{{ url_for('static', filename=message.user.profile_photo if message.user.profile_photo else 'uploads/profile_photos/default-avatar.svg') }}"
                 alt="{{ message.user.username }}"
             >
 
