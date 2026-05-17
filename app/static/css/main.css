@@ -211,7 +211,8 @@ label {
 .lobby-scene::before,
 .scenarios-scene::before,
 .missions-scene::before,
-.campaign-scene::before {
+.campaign-scene::before,
+.profile-scene::before {
 	content: "";
 	position: fixed;
 	inset: 0;
@@ -227,7 +228,8 @@ label {
 .lobby-scene,
 .scenarios-scene,
 .missions-scene,
-.campaign-scene {
+.campaign-scene,
+.profile-scene {
 	position: relative;
 	z-index: 0;
 }
@@ -235,7 +237,8 @@ label {
 .lobby-scene::after,
 .scenarios-scene::after,
 .missions-scene::after,
-.campaign-scene::after {
+.campaign-scene::after,
+.profile-scene::after {
 	content: "";
 	position: fixed;
 	inset: 0;
@@ -249,7 +252,8 @@ label {
 .lobby-scene > *,
 .scenarios-scene > *,
 .missions-scene > *,
-.campaign-scene > * {
+.campaign-scene > *,
+.profile-scene > * {
 	position: relative;
 	z-index: 1;
 }

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<section class="profile-scene">
 <section class="profile-hero card">
     <div
         class="profile-photo-wrap ranked-avatar rank-{{ rank_tier.key }}"
@@ -111,6 +112,7 @@
     {% else %}
     <p>No runs yet.</p>
     {% endif %}
+</section>
 </section>
 {% endblock %}
 
