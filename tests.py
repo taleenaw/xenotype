@@ -115,6 +115,7 @@ class XenotypeUnitTests(unittest.TestCase):
                 "username": "newuser",
                 "email": "newuser@example.com",
                 "password": "Password123",
+                "confirm_password": "Password123",
             },
             follow_redirects=True,
         )
@@ -136,6 +137,7 @@ class XenotypeUnitTests(unittest.TestCase):
                 "username": "duplicate",
                 "email": "second@example.com",
                 "password": "Password123",
+                "confirm_password": "Password123",
             },
             follow_redirects=True,
         )
@@ -402,6 +404,7 @@ class XenotypeSeleniumTests(unittest.TestCase):
         self.driver.find_element(self.By.NAME, "username").send_keys(username)
         self.driver.find_element(self.By.NAME, "email").send_keys(email)
         self.driver.find_element(self.By.NAME, "password").send_keys(password)
+        self.driver.find_element(self.By.NAME, "confirm_password").send_keys(password)
         self.driver.find_element(self.By.CSS_SELECTOR, "button[type='submit']").click()
 
     def login_user(self, username, password="Password123"):
@@ -523,4 +526,3 @@ class XenotypeSeleniumTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
-
