@@ -4,7 +4,7 @@
 | -------- | --------------- | ----------- |
 | 24228963 | Taleena Watts   | taleenaw    |
 | 24227537 | Ryan Ramaprasad | 24227537    |
-| 24270886 | Aron Zombori    | ChegGH      |
+| 24270886 | Aron Zombori    | CheggGH      |
 | 24218174 | Bansi Patel     | bansi7306   |
 
 ## Application Purpose
