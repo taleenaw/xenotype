@@ -2,71 +2,212 @@
 {% block title %}Xenotype — Mission Control{% endblock %}
 {% block content %}
 
-<div style="display:grid;grid-template-columns:1fr 400px;gap:48px;align-items:center;min-height:70vh;">
+<div class="lobby-scene">
+<section class="lobby-home">
+    <div class="lobby-ambient-dots" aria-hidden="true"></div>
 
-    <div>
-        <p style="font-size:11px;color:var(--xt-text3);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">// MISSION CONTROL — XENOTYPE</p>
+    <div class="lobby-briefing card">
+        <p class="eyebrow">// MISSION CONTROL — XENOTYPE</p>
 
-        <h1 style="font-size:42px;margin-bottom:8px;line-height:1.1;">
+        <h1>
             {% if current_user.is_authenticated %}
-                WELCOME BACK,<br><span style="color:var(--xt-text2);">{{ current_user.username | upper }}</span>
+                WELCOME BACK,<br><span>{{ current_user.username | upper }}</span>
             {% else %}
-                TYPE TO<br><span style="color:var(--xt-text2);">SURVIVE</span>
+                TYPE TO<br><span>SURVIVE</span>
             {% endif %}
         </h1>
 
-        <p style="font-size:13px;color:var(--xt-text3);line-height:1.8;max-width:480px;margin-bottom:32px;">
+        <p class="lobby-copy">
             Xenotype is a narrative typing game set at the edge of known space. Your words are your weapons. Your speed determines your fate. Type fast enough and the mission succeeds. Falter, and the transmission dies with you.
         </p>
 
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;">
+        <div class="lobby-actions">
             {% if current_user.is_authenticated %}
-                <a href="{{ url_for('main.scenarios') }}" class="btn" style="font-size:13px;padding:14px 28px;">BEGIN MISSION</a>
-                <a href="{{ url_for('main.profile', username=current_user.username) }}" class="btn" style="font-size:13px;padding:14px 28px;background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">MY PROFILE</a>
+                <a href="{{ url_for('main.scenarios') }}" class="btn">BEGIN MISSION</a>
+                <a href="{{ url_for('main.profile', username=current_user.username) }}" class="btn btn-secondary">MY PROFILE</a>
             {% else %}
-                <a href="{{ url_for('auth.register') }}" class="btn" style="font-size:13px;padding:14px 28px;">INITIALISE AGENT</a>
-                <a href="{{ url_for('auth.login') }}" class="btn" style="font-size:13px;padding:14px 28px;background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">LOGIN</a>
+                <a href="{{ url_for('auth.register') }}" class="btn">INITIALISE AGENT</a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">LOGIN</a>
             {% endif %}
         </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;max-width:480px;">
-            <div style="border:1px solid var(--xt-border);padding:14px;background:var(--xt-bg2);">
-                <div style="font-family:var(--orb);font-size:18px;color:var(--xt-green);">WPM</div>
-                <div style="font-size:11px;color:var(--xt-text3);margin-top:4px;">Speed tracked live</div>
-            </div>
-            <div style="border:1px solid var(--xt-border);padding:14px;background:var(--xt-bg2);">
-                <div style="font-family:var(--orb);font-size:18px;color:var(--xt-green);">STORY</div>
-                <div style="font-size:11px;color:var(--xt-text3);margin-top:4px;">Endings change by grade</div>
-            </div>
-            <div style="border:1px solid var(--xt-border);padding:14px;background:var(--xt-bg2);">
-                <div style="font-family:var(--orb);font-size:18px;color:var(--xt-green);">RANK</div>
-                <div style="font-size:11px;color:var(--xt-text3);margin-top:4px;">Global leaderboard</div>
-            </div>
-        </div>
     </div>
 
-    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
-        <img src="{{ url_for('static', filename='Xhad.gif') }}"
-            alt="Xhad — Xenotype mascot"
-            style="width:280px;height:280px;object-fit:contain;image-rendering:pixelated;">
-        <div style="text-align:center;">
-            <div style="font-family:var(--orb);font-size:13px;color:var(--xt-green);letter-spacing:2px;">XHAD</div>
-            <div style="font-size:11px;color:var(--xt-text3);margin-top:4px;">Your mission commander.<br>He believes in you. Mostly.</div>
-        </div>
+    <div class="lobby-xhad-comms">
+        <section class="lobby-xhad-card" aria-label="Live transmission: Xhad">
+            <div class="lobby-panel-header">
+                <span><i></i> LIVE TRANSMISSION: XHAD</span>
+                <div class="signal-bars" aria-hidden="true">
+                    <b></b><b></b><b></b><b></b>
+                </div>
+            </div>
+
+            <div class="xhad-monitor">
+                <img
+                    src="{{ url_for('static', filename='Xhad.gif') }}"
+                    alt="Xhad — Xenotype mascot"
+                >
+            </div>
+
+            <div class="xhad-feed-footer">
+                <span>SIGNAL: STABLE</span>
+                <span>PATIENCE: LIMITED</span>
+            </div>
+        </section>
+
+        <section class="lobby-splash-terminal" aria-label="Xhad terminal notice">
+            <div class="terminal-title"><span>XHAD SAYS</span><span>xhad@mission:~</span></div>
+            <p><span>&gt;</span> <output id="xhad-splash-message">TRAINING NOTICE: Do not lick the keyboard. Again.</output><b class="terminal-cursor"></b></p>
+        </section>
     </div>
 
-</div>
+    <div class="lobby-feature-grid" aria-label="Mission features">
+        <div class="lobby-feature-card">
+            <strong>WPM</strong>
+            <span>Speed tracked live</span>
+        </div>
+        <div class="lobby-feature-card">
+            <strong>STORY</strong>
+            <span>Endings change by grade</span>
+        </div>
+        <div class="lobby-feature-card">
+            <strong>RANK</strong>
+            <span>Global leaderboard</span>
+        </div>
+    </div>
+</section>
 
 {% if current_user.is_authenticated %}
-<div style="border-top:1px solid var(--xt-border);padding-top:32px;margin-top:16px;">
-    <p style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">// QUICK ACCESS</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="{{ url_for('main.scenarios') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">Scenarios</a>
-        <a href="{{ url_for('main.leaderboard') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">Leaderboard</a>
-        <a href="{{ url_for('campaign.campaign_home') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">Campaign</a>
-        <a href="{{ url_for('chat.chat_home') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">Player Chat</a>
+<section class="lobby-quick-access card">
+    <p class="eyebrow">// QUICK ACCESS</p>
+    <div>
+        <a href="{{ url_for('main.scenarios') }}" class="btn btn-secondary">Scenarios</a>
+        <a href="{{ url_for('main.leaderboard') }}" class="btn btn-secondary">Leaderboard</a>
+        <a href="{{ url_for('campaign.campaign_home') }}" class="btn btn-secondary">Campaign</a>
+        <a href="{{ url_for('chat.chat_home') }}" class="btn btn-secondary">Player Chat</a>
     </div>
-</div>
+</section>
 {% endif %}
+</div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const xhadMessages = [
+        "TRAINING NOTICE: Do not lick the keyboard. Again.",
+        "XHAD SAYS: Fast typing is cheaper than therapy.",
+        "MISSION TIP: Panic quietly. The microphone is on.",
+        "STATUS: Your fingers are being evaluated.",
+        "REMINDER: The spacebar is not a snack.",
+
+        "XHAD SAYS: Confidence is mandatory. Accuracy is preferred.",
+        "TRAINING NOTICE: Caps Lock is not leadership.",
+        "MISSION TIP: If the stars blink back, keep typing.",
+        "STATUS: Morale detected. Investigating.",
+        "REMINDER: Screaming does not count as input.",
+
+        "XHAD SAYS: Your survival odds are loading.",
+        "TRAINING NOTICE: Do not negotiate with the keyboard.",
+        "MISSION TIP: The backspace key forgives. Xhad does not.",
+        "STATUS: Your WPM has been reported to command.",
+        "REMINDER: The void enjoys hesitation.",
+
+        "XHAD SAYS: I believe in you. Moderately.",
+        "TRAINING NOTICE: Do not feed crumbs to the terminal.",
+        "MISSION TIP: Type first. Regret later.",
+        "STATUS: Your fear response is within acceptable limits.",
+        "REMINDER: The enter key is not a panic button.",
+
+        "XHAD SAYS: Please survive. The paperwork is annoying.",
+        "TRAINING NOTICE: Do not stare directly into the cursor.",
+        "MISSION TIP: Short words are still words. Use them.",
+        "STATUS: Keyboard temperature suspicious.",
+        "REMINDER: Failure is temporary. Embarrassment is archived.",
+
+        "XHAD SAYS: You are doing great by previous standards.",
+        "TRAINING NOTICE: Do not attempt to pet the signal.",
+        "MISSION TIP: Accuracy prevents vaporization. Usually.",
+        "STATUS: Mission control is experiencing you.",
+        "REMINDER: The shift key does not change your fate.",
+
+        "XHAD SAYS: Try not to disappoint the machinery.",
+        "TRAINING NOTICE: Unauthorized blinking detected.",
+        "MISSION TIP: Breathe between transmissions.",
+        "STATUS: Your typing aura is unstable.",
+        "REMINDER: The keyboard can smell doubt.",
+
+        "XHAD SAYS: This is not a drill. Drills are quieter.",
+        "TRAINING NOTICE: Keep all Earth snacks away from ports.",
+        "MISSION TIP: The faster you type, the less time you have to think.",
+        "STATUS: Agent confidence set to decorative.",
+        "REMINDER: Do not challenge the archive to a staring contest.",
+
+        "XHAD SAYS: Your hands are small, but your destiny is loud.",
+        "TRAINING NOTICE: The mouse is not alive. Probably.",
+        "MISSION TIP: If confused, type with purpose.",
+        "STATUS: Coffee levels below command standards.",
+        "REMINDER: Xhad is watching in a supportive way.",
+
+        "XHAD SAYS: I have seen worse. Recently.",
+        "TRAINING NOTICE: No licking, biting, or emotionally bonding with the keyboard.",
+        "MISSION TIP: Your mistakes have excellent timing.",
+        "STATUS: Signal stable. Agent questionable.",
+        "REMINDER: The terminal is not judging you. I am.",
+
+        "XHAD SAYS: You may begin when brave.",
+        "TRAINING NOTICE: Do not press every key at once. Again.",
+        "MISSION TIP: A typo is just a tiny betrayal.",
+        "STATUS: Your oxygen privileges remain active.",
+        "REMINDER: Speed is good. Accuracy is less embarrassing.",
+
+        "XHAD SAYS: Welcome, agent. Try not to leak.",
+        "TRAINING NOTICE: Do not inhale the keyboard dust. It remembers.",
+        "MISSION TIP: The void respects clean inputs.",
+        "STATUS: Threat level: motivational.",
+        "REMINDER: The tab key is not an escape pod.",
+
+        "XHAD SAYS: You type like someone with unfinished business.",
+        "TRAINING NOTICE: Keep fingers inside the mission at all times.",
+        "MISSION TIP: When in doubt, blame gravity.",
+        "STATUS: Your survival file has been created.",
+        "REMINDER: Do not make eye contact with the loading screen.",
+
+        "XHAD SAYS: This mission has almost been approved.",
+        "TRAINING NOTICE: Human keyboards are not dishwasher safe.",
+        "MISSION TIP: Calm agents make fewer crunchy noises.",
+        "STATUS: Finger velocity acceptable.",
+        "REMINDER: The command feed is not a mirror.",
+
+        "XHAD SAYS: You are the chosen typist. By process of elimination.",
+        "TRAINING NOTICE: Do not threaten the semicolon.",
+        "MISSION TIP: Commas are tiny oxygen breaks.",
+        "STATUS: Archive is awake. Act natural.",
+        "REMINDER: Xhad can hear your hesitation.",
+
+        "XHAD SAYS: I have prepared a motivational glare.",
+        "TRAINING NOTICE: The keyboard is not edible technology.",
+        "MISSION TIP: Use words. They frighten the darkness.",
+        "STATUS: Panic level festive.",
+        "REMINDER: Please remain typeable.",
+
+        "XHAD SAYS: Your courage has been rounded up.",
+        "TRAINING NOTICE: Do not spill Boss Juice on the console.",
+        "MISSION TIP: If the screen flickers, compliment it.",
+        "STATUS: Agent vibes: mostly legal.",
+        "REMINDER: The stars are nosy tonight.",
+
+        "XHAD SAYS: I am proud of you. This is classified.",
+        "TRAINING NOTICE: Do not whisper passwords to the void.",
+        "MISSION TIP: Fast hands, quiet screams.",
+        "STATUS: Keyboard morale improving.",
+        "REMINDER: Your errors will be remembered fondly."
+    ];
+
+    const splashMessage = document.getElementById("xhad-splash-message");
+
+    if (splashMessage) {
+        const messageIndex = Math.floor(Math.random() * xhadMessages.length);
+        splashMessage.textContent = xhadMessages[messageIndex];
+    }
+</script>
 {% endblock %}
