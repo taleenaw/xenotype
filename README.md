@@ -122,6 +122,8 @@ http://127.0.0.1:5000
 
 ## Running Tests
 
+To run the automated tests for the application, first make sure you are in the project folder and your virtual environment is activated.
+
 ### 1. Activate the Virtual Environment
 
 #### Windows
