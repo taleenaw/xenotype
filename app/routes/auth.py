@@ -53,6 +53,7 @@ def register():
         username = request.form.get('username')
         email = request.form.get('email')
         password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
 
         is_valid, error_message = is_valid_username(username)
 
@@ -85,6 +86,10 @@ def register():
         email_check = User.query.filter_by(email=email).first()
         if email_check:
             flash('Email already registered.')
+            return redirect(url_for('auth.register'))
+
+        if password != confirm_password:
+            flash('Passwords do not match.')
             return redirect(url_for('auth.register'))
 
         
