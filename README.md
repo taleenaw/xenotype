@@ -122,8 +122,6 @@ http://127.0.0.1:5000
 
 ## Running Tests
 
-To run the automated tests for the application, first make sure you are in the project folder and your virtual environment is activated.
-
 ### 1. Activate the Virtual Environment
 
 #### Windows
@@ -149,5 +147,18 @@ pip install -r requirements.txt
 ```bash
 python tests.py
 ```
+
+### Selenium browser tests
+
+The Selenium tests require a browser to be installed.
+
+Recommended:
+- Google Chrome
+
+Selenium Manager will usually handle the ChromeDriver setup automatically when Selenium is installed.
+
+If Chrome is not installed, the Selenium tests may fail or be skipped.
+
+To run the automated tests for the application, first make sure you are in the project folder and your virtual environment is activated.
 
 This will execute the application’s automated test suite and display the results in the terminal.
