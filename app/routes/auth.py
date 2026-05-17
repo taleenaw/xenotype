@@ -3,6 +3,47 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from app import db
 from app.models import User
+import re
+
+def is_valid_password(password):
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long."
+
+    if not re.search(r"[A-Z]", password):
+        return False, "Password must contain at least one uppercase letter."
+
+    if not re.search(r"\d", password):
+        return False, "Password must contain at least one number."
+
+    return True, ""
+
+def is_valid_username(username):
+    if not username:
+        return False, "Username is required."
+
+    if len(username) < 3:
+        return False, "Username must be at least 3 characters long."
+
+    if len(username) > 20:
+        return False, "Username must be no more than 20 characters long."
+
+    if not re.fullmatch(r"[A-Za-z0-9_]+", username):
+        return False, "Username can only contain letters, numbers, and underscores."
+
+    return True, ""
+
+
+def is_valid_email(email):
+    if not email:
+        return False, "Email is required."
+
+    if len(email) > 120:
+        return False, "Email must be no more than 120 characters long."
+
+    if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email):
+        return False, "Enter a valid email address."
+
+    return True, ""
 
 auth = Blueprint('auth', __name__)
 
@@ -13,6 +54,29 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
 
+        is_valid, error_message = is_valid_username(username)
+
+        if not is_valid:
+
+            flash(error_message)
+
+            return redirect(url_for('auth.register'))
+
+        is_valid, error_message = is_valid_email(email)
+
+        if not is_valid:
+
+            flash(error_message)
+
+            return redirect(url_for('auth.register'))
+        
+        is_valid, error_message = is_valid_password(password)
+
+        if not is_valid:
+            flash(error_message)
+            
+            return redirect(url_for('auth.register'))
+
         user = User.query.filter_by(username=username).first()
         if user:
             flash('Username already exists.')
@@ -22,6 +86,8 @@ def register():
         if email_check:
             flash('Email already registered.')
             return redirect(url_for('auth.register'))
+
+        
 
         new_user = User(
             username=username,
