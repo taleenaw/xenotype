@@ -2,71 +2,108 @@
 {% block title %}Xenotype — Mission Control{% endblock %}
 {% block content %}
 
-<div style="display:grid;grid-template-columns:1fr 400px;gap:48px;align-items:center;min-height:70vh;">
+<section class="lobby-home">
+    <div class="lobby-ambient-dots" aria-hidden="true"></div>
 
-    <div>
-        <p style="font-size:11px;color:var(--xt-text3);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">// MISSION CONTROL — XENOTYPE</p>
+    <div class="lobby-briefing card">
+        <p class="eyebrow">// MISSION CONTROL — XENOTYPE</p>
 
-        <h1 style="font-size:42px;margin-bottom:8px;line-height:1.1;">
+        <h1>
             {% if current_user.is_authenticated %}
-                WELCOME BACK,<br><span style="color:var(--xt-text2);">{{ current_user.username | upper }}</span>
+                WELCOME BACK,<br><span>{{ current_user.username | upper }}</span>
             {% else %}
-                TYPE TO<br><span style="color:var(--xt-text2);">SURVIVE</span>
+                TYPE TO<br><span>SURVIVE</span>
             {% endif %}
         </h1>
 
-        <p style="font-size:13px;color:var(--xt-text3);line-height:1.8;max-width:480px;margin-bottom:32px;">
+        <p class="lobby-copy">
             Xenotype is a narrative typing game set at the edge of known space. Your words are your weapons. Your speed determines your fate. Type fast enough and the mission succeeds. Falter, and the transmission dies with you.
         </p>
 
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;">
+        <div class="lobby-actions">
             {% if current_user.is_authenticated %}
-                <a href="{{ url_for('main.scenarios') }}" class="btn" style="font-size:13px;padding:14px 28px;">BEGIN MISSION</a>
-                <a href="{{ url_for('main.profile', username=current_user.username) }}" class="btn" style="font-size:13px;padding:14px 28px;background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">MY PROFILE</a>
+                <a href="{{ url_for('main.scenarios') }}" class="btn">BEGIN MISSION</a>
+                <a href="{{ url_for('main.profile', username=current_user.username) }}" class="btn btn-secondary">MY PROFILE</a>
             {% else %}
-                <a href="{{ url_for('auth.register') }}" class="btn" style="font-size:13px;padding:14px 28px;">INITIALISE AGENT</a>
-                <a href="{{ url_for('auth.login') }}" class="btn" style="font-size:13px;padding:14px 28px;background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">LOGIN</a>
+                <a href="{{ url_for('auth.register') }}" class="btn">INITIALISE AGENT</a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">LOGIN</a>
             {% endif %}
         </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;max-width:480px;">
-            <div style="border:1px solid var(--xt-border);padding:14px;background:var(--xt-bg2);">
-                <div style="font-family:var(--orb);font-size:18px;color:var(--xt-green);">WPM</div>
-                <div style="font-size:11px;color:var(--xt-text3);margin-top:4px;">Speed tracked live</div>
-            </div>
-            <div style="border:1px solid var(--xt-border);padding:14px;background:var(--xt-bg2);">
-                <div style="font-family:var(--orb);font-size:18px;color:var(--xt-green);">STORY</div>
-                <div style="font-size:11px;color:var(--xt-text3);margin-top:4px;">Endings change by grade</div>
-            </div>
-            <div style="border:1px solid var(--xt-border);padding:14px;background:var(--xt-bg2);">
-                <div style="font-family:var(--orb);font-size:18px;color:var(--xt-green);">RANK</div>
-                <div style="font-size:11px;color:var(--xt-text3);margin-top:4px;">Global leaderboard</div>
-            </div>
-        </div>
     </div>
 
-    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
-        <img src="{{ url_for('static', filename='Xhad.gif') }}"
-            alt="Xhad — Xenotype mascot"
-            style="width:280px;height:280px;object-fit:contain;image-rendering:pixelated;">
-        <div style="text-align:center;">
-            <div style="font-family:var(--orb);font-size:13px;color:var(--xt-green);letter-spacing:2px;">XHAD</div>
-            <div style="font-size:11px;color:var(--xt-text3);margin-top:4px;">Your mission commander.<br>He believes in you. Mostly.</div>
-        </div>
+    <div class="lobby-xhad-comms">
+        <section class="lobby-xhad-card" aria-label="Live transmission: Xhad">
+            <div class="lobby-panel-header">
+                <span><i></i> LIVE TRANSMISSION: XHAD</span>
+                <div class="signal-bars" aria-hidden="true">
+                    <b></b><b></b><b></b><b></b>
+                </div>
+            </div>
+
+            <div class="xhad-monitor">
+                <img
+                    src="{{ url_for('static', filename='Xhad.gif') }}"
+                    alt="Xhad — Xenotype mascot"
+                >
+            </div>
+
+            <div class="xhad-feed-footer">
+                <span>SIGNAL: STABLE</span>
+                <span>PATIENCE: LIMITED</span>
+            </div>
+        </section>
+
+        <section class="lobby-splash-terminal" aria-label="Xhad terminal notice">
+            <div class="terminal-title"><span>XHAD SAYS</span><span>xhad@mission:~</span></div>
+            <p><span>&gt;</span> <output id="xhad-splash-message">TRAINING NOTICE: Do not lick the keyboard. Again.</output><b class="terminal-cursor"></b></p>
+        </section>
     </div>
 
-</div>
+    <div class="lobby-feature-grid" aria-label="Mission features">
+        <div class="lobby-feature-card">
+            <strong>WPM</strong>
+            <span>Speed tracked live</span>
+        </div>
+        <div class="lobby-feature-card">
+            <strong>STORY</strong>
+            <span>Endings change by grade</span>
+        </div>
+        <div class="lobby-feature-card">
+            <strong>RANK</strong>
+            <span>Global leaderboard</span>
+        </div>
+    </div>
+</section>
 
 {% if current_user.is_authenticated %}
-<div style="border-top:1px solid var(--xt-border);padding-top:32px;margin-top:16px;">
-    <p style="font-size:10px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">// QUICK ACCESS</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="{{ url_for('main.scenarios') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">Scenarios</a>
-        <a href="{{ url_for('main.leaderboard') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">Leaderboard</a>
-        <a href="{{ url_for('campaign.campaign_home') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">Campaign</a>
-        <a href="{{ url_for('chat.chat_home') }}" class="btn" style="background:transparent;border-color:var(--xt-border);color:var(--xt-text3);">Player Chat</a>
+<section class="lobby-quick-access card">
+    <p class="eyebrow">// QUICK ACCESS</p>
+    <div>
+        <a href="{{ url_for('main.scenarios') }}" class="btn btn-secondary">Scenarios</a>
+        <a href="{{ url_for('main.leaderboard') }}" class="btn btn-secondary">Leaderboard</a>
+        <a href="{{ url_for('campaign.campaign_home') }}" class="btn btn-secondary">Campaign</a>
+        <a href="{{ url_for('chat.chat_home') }}" class="btn btn-secondary">Player Chat</a>
     </div>
-</div>
+</section>
 {% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const xhadMessages = [
+        "TRAINING NOTICE: Do not lick the keyboard. Again.",
+        "XHAD SAYS: Fast typing is cheaper than therapy.",
+        "MISSION TIP: Panic quietly. The microphone is on.",
+        "STATUS: Your fingers are being evaluated.",
+        "REMINDER: The spacebar is not a snack."
+    ];
+
+    const splashMessage = document.getElementById("xhad-splash-message");
+
+    if (splashMessage) {
+        const messageIndex = Math.floor(Math.random() * xhadMessages.length);
+        splashMessage.textContent = xhadMessages[messageIndex];
+    }
+</script>
 {% endblock %}
