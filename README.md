@@ -49,7 +49,11 @@ At the end of scenarios and missions, players receive animated score popups disp
 
 ### Xeno Assistant
 
+The Xeno Assistant is a Xenotype curated bot, sourced from our own flavour of local code to make your experience a bit easier. Is it the most advanced agent to speak to? No. But it's got heart, it uses some basic NLP to curate an undeniably delicious response with certain fallback phrases that it may revert to when a real thinker is put upon it. Don't worry there is no awkward pause, the assistant would never do that to you. A simple response from a young agent building itself through the conversation. Its learning. Kind of...
+
 ### Campaigns
+
+Campaigns are generated text based games that rely on wpm to move on to the next move, this is done using a bot like structure to create a simple yet engaging gam play. If invalid commands are typed it will say so and you can track your progress with the status command. This has no bearing on your scores because this is more like a learning ground to bring up your WPM.
 
 ### Player Chat
 
