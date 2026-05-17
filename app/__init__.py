@@ -55,6 +55,13 @@ def create_app(test_config=None):
         exist_ok=True
     )
 
+    from flask import flash, redirect, request, url_for
+
+    @app.errorhandler(413)
+    def too_large(e):
+        flash('File too large. Maximum size is 2 MB. Please choose a smaller image.')
+        return redirect(request.referrer or url_for('main.lobby'))
+
     return app
 
 
