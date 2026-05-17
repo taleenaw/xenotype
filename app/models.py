@@ -10,7 +10,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
-    profile_photo = db.Column(db.String(255), nullable=True, default='profile_photos/default-avatar.svg')
+    profile_photo = db.Column(db.String(255), nullable=True, default='uploads/profile_photos/default-avatar.svg')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     runs = db.relationship('Run', backref='user', lazy=True)
@@ -307,7 +307,7 @@ class ChatMessage(db.Model):
             'room': self.room.name if self.room else None,
             'user_id': self.user_id,
             'username': self.user.username if self.user else 'Unknown',
-            'profile_photo': self.user.profile_photo if self.user else 'profile_photos/default-avatar.svg',
+            'profile_photo': self.user.profile_photo if self.user else 'uploads/profile_photos/default-avatar.svg',
             'profile_url': url_for('main.profile', username=self.user.username) if self.user else '#',
             'body': self.body,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
