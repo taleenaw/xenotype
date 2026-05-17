@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<section class="leaderboard-scene">
 <h1>Leaderboard</h1>
 
 {% if top_entries %}
@@ -57,5 +58,6 @@
 {% else %}
 <p>No runs yet.</p>
 {% endif %}
+</section>
 
 {% endblock %}
