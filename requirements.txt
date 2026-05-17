@@ -42,6 +42,7 @@ rich==15.0.0
 scikit-learn==1.8.0
 scipy==1.17.1
 setuptools==82.0.1
+selenium==4.43.0
 shellingham==1.5.4
 smart_open==7.6.1
 spacy==3.8.14
