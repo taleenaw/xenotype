@@ -91,10 +91,16 @@ class XenotypeUnitTests(unittest.TestCase):
             db.drop_all()
             db.create_all()
 
+            
+    
     def tearDown(self):
         with self.app.app_context():
             db.session.remove()
             db.drop_all()
+            db.engine.dispose()
+
+        if hasattr(self, "db_file"):
+            self.db_file.close()
 
         if os.path.exists(self.db_file.name):
             os.unlink(self.db_file.name)
@@ -373,12 +379,19 @@ class XenotypeSeleniumTests(unittest.TestCase):
         with cls.app.app_context():
             db.session.remove()
             db.drop_all()
+            db.engine.dispose()
+
+        if hasattr(cls, "db_file"):
+            cls.db_file.close()
 
         if os.path.exists(cls.db_file.name):
             os.unlink(cls.db_file.name)
 
         if hasattr(cls.app, "test_upload_dir") and os.path.exists(cls.app.test_upload_dir):
             shutil.rmtree(cls.app.test_upload_dir)
+
+        if hasattr(cls, "chrome_user_data_dir") and os.path.exists(cls.chrome_user_data_dir):
+            shutil.rmtree(cls.chrome_user_data_dir)
 
     def setUp(self):
         self.driver.delete_all_cookies()
@@ -510,3 +523,4 @@ class XenotypeSeleniumTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
