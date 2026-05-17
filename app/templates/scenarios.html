@@ -3,6 +3,7 @@
 {% block title %}Scenarios — Xenotype{% endblock %}
 
 {% block content %}
+<section class="scenarios-scene">
 <div style="margin-bottom:28px;">
     <p style="font-size:11px;color:var(--xt-text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">// SCENARIO DATABASE</p>
     <h1>SELECT MISSION</h1>
@@ -71,6 +72,7 @@
     <a href="{{ url_for('scenario.generate_scenario') }}" class="btn">Generate First Scenario</a>
 </div>
 {% endif %}
+</section>
 
 {% endblock %}
 
