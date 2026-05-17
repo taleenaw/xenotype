@@ -76,17 +76,17 @@ stories = {
             },
 
             "ending-greg's-problem-now": {
-                "passage": "You redirect the vacuum toward Greg’s palace. Every missing nugget is returned directly into his backyard alongside three satellites and the screaming alien cyclist. Greg leaves a five-star review for efficiency and a zero-star review for emotional trauma.",
+                "passage": "You redirect the vacuum toward Greg's palace. Every missing nugget is returned directly into his backyard alongside three satellites and the screaming alien cyclist. Greg leaves a five-star review for efficiency and a zero-star review for emotional trauma.",
                 "choices": []
             },
 
             "ending-actual-heroism": {
-                "passage": "You guide the nugget storm safely away from the planet before returning to Greg’s refund request. Greg complains dramatically for nine straight minutes before reluctantly admitting the rescue was “kind of heroic or whatever.” Planet saved. Review survived.",
+                "passage": "You guide the nugget storm safely away from the planet before returning to Greg's refund request. Greg complains dramatically for nine straight minutes before reluctantly admitting the rescue was “kind of heroic or whatever.” Planet saved. Review survived.",
                 "choices": []
             },
 
             "ending-customer-service-ending": {
-                "passage": "You prioritise Greg’s refund paperwork while the nugget storm lightly bombards Planet Blorbo. Nobody dies, but the entire population smells like spicy seasoning for a week. Greg leaves a four-star review and calls the experience “acceptable.”",
+                "passage": "You prioritise Greg's refund paperwork while the nugget storm lightly bombards Planet Blorbo. Nobody dies, but the entire population smells like spicy seasoning for a week. Greg leaves a four-star review and calls the experience “acceptable.”",
                 "choices": []
             },
 
@@ -108,28 +108,28 @@ stories = {
             "intro": "Type each mission transmission, submit it, then choose what happens next.",
             "stages": {
                 "start": {
-                    "passage": "Your squad descends through the corrosive violet clouds of Eryndor-6 toward a massive subterranean structure recently detected beneath the planet’s surface. The object emits fluctuating electromagnetic frequencies powerful enough to disable military satellites across three sectors. Unfortunately, the mission briefing was interrupted because Sergeant Velk accidentally microwaved a classified data crystal in the cafeteria. As your dropship approaches the excavation zone, the anomaly suddenly activates. Giant luminous symbols ignite across the canyon walls while every electronic system onboard begins speaking fluent dolphin for no apparent reason. Commander Zyra orders you to make a decision immediately.",
+                    "passage": "Your squad descends through the corrosive violet clouds of Eryndor-6 toward a massive subterranean structure recently detected beneath the planet's surface. The object emits fluctuating electromagnetic frequencies powerful enough to disable military satellites across three sectors. Unfortunately, the mission briefing was interrupted because Sergeant Velk accidentally microwaved a classified data crystal in the cafeteria. As your dropship approaches the excavation zone, the anomaly suddenly activates. Giant luminous symbols ignite across the canyon walls while every electronic system onboard begins speaking fluent dolphin for no apparent reason. Commander Zyra orders you to make a decision immediately.",
                     "choices": [
                         {"text": "Enter the alien structure through the primary excavation tunnel.", "next": "stage2a"},
                         {"text": "Attempt a tactical orbital scan before entering.", "next": "stage2b"}
                     ]
                 },
                 "stage2a": {
-                    "passage": "Your team advances into the structure’s primary corridor, where the walls pulse like biological tissue beneath layers of metallic alloy. Strange glyphs rearrange themselves every few seconds as though the building is actively observing your squad. Lieutenant Krogg immediately ignores all safety protocols and taps the wall with a wrench \"to see what happens.\" Something happens. A colossal biomechanical sentinel unfolds from the ceiling with hydraulic precision, projecting holographic warnings in an unknown dialect. Unfortunately, Krogg accidentally responds by saluting aggressively.",
+                    "passage": "Your team advances into the structure's primary corridor, where the walls pulse like biological tissue beneath layers of metallic alloy. Strange glyphs rearrange themselves every few seconds as though the building is actively observing your squad. Lieutenant Krogg immediately ignores all safety protocols and taps the wall with a wrench \"to see what happens.\" Something happens. A colossal biomechanical sentinel unfolds from the ceiling with hydraulic precision, projecting holographic warnings in an unknown dialect. Unfortunately, Krogg accidentally responds by saluting aggressively.",
                     "choices": [
                         {"text": "Attempt diplomatic communication with the sentinel.", "next": "stage3a"},
                         {"text": "Trigger the emergency cloaking field and escape deeper into the structure.", "next": "stage3b"}
                     ]
                 },
                 "stage2b": {
-                    "passage": "You remain aboard the Vanta Spectre and initiate a high-resolution orbital scan. The anomaly responds instantly by transmitting encrypted signals directly into the ship’s navigation systems. Within seconds, every monitor fills with distorted alien schematics and one extremely concerning image resembling Krogg with laser eyes. The ship AI determines the transmission is actually a navigational beacon leading toward a hidden installation beneath the polar ice fields. However, the signal also awakens dormant defence drones surrounding your cruiser.",
+                    "passage": "You remain aboard the Vanta Spectre and initiate a high-resolution orbital scan. The anomaly responds instantly by transmitting encrypted signals directly into the ship's navigation systems. Within seconds, every monitor fills with distorted alien schematics and one extremely concerning image resembling Krogg with laser eyes. The ship AI determines the transmission is actually a navigational beacon leading toward a hidden installation beneath the polar ice fields. However, the signal also awakens dormant defence drones surrounding your cruiser.",
                     "choices": [
                         {"text": "Engage the drones in combat.", "next": "stage3c"},
                         {"text": "Attempt to jam the signal and avoid detection.", "next": "stage3d"}
                     ]
                 },
                 "stage3a": {
-                    "passage": "The sentinel escorts your squad into a colossal archive chamber containing thousands of suspended memory cores floating in anti-gravitational fields. At the chamber’s center resides an ancient artificial intelligence known as the Curator. The Curator explains that the structure was designed to imprison an interdimensional organism capable of consuming entire star systems. Unfortunately, the containment system is failing because someone — specifically Krogg — removed what he believed was \"a cool glowing souvenir.\" Krogg insists he only took it because \"it looked collectible.\"",
+                    "passage": "The sentinel escorts your squad into a colossal archive chamber containing thousands of suspended memory cores floating in anti-gravitational fields. At the chamber's center resides an ancient artificial intelligence known as the Curator. The Curator explains that the structure was designed to imprison an interdimensional organism capable of consuming entire star systems. Unfortunately, the containment system is failing because someone — specifically Krogg — removed what he believed was \"a cool glowing souvenir.\" Krogg insists he only took it because \"it looked collectible.\"",
                     "choices": [
                         {"text": "Return the energy core and restore containment.", "next": "ending-containment-restored"},
                         {"text": "Attempt to weaponise the alien technology.", "next": "ending-catastrophically-tactical"}
@@ -150,7 +150,7 @@ stories = {
                     ]
                 },
                 "stage3d": {
-                    "passage": "You jam the signal and descend undetected toward the frozen polar installation hidden beneath kilometres of ice. Inside the facility, your squad discovers evidence of an ancient civilisation that vanished after experimenting with dimensional traversal technology. The installation remains operational. Which is deeply concerning. As your team investigates, the facility’s automated systems mistake Krogg for their long-awaited commander due to \"matching levels of chaos.\"",
+                    "passage": "You jam the signal and descend undetected toward the frozen polar installation hidden beneath kilometres of ice. Inside the facility, your squad discovers evidence of an ancient civilisation that vanished after experimenting with dimensional traversal technology. The installation remains operational. Which is deeply concerning. As your team investigates, the facility's automated systems mistake Krogg for their long-awaited commander due to \"matching levels of chaos.\"",
                     "choices": [
                         {"text": "Allow Krogg to assume command temporarily.", "next": "ending-Krogg-supreme-leader"},
                         {"text": "Shut the installation down immediately.", "next": "ending-frozen-shutdown"}
@@ -161,7 +161,7 @@ stories = {
                     "choices": []
                 },
                 "ending-catastrophically-tactical": {
-                    "passage": "You attempt to weaponise the alien reactor. For approximately eight glorious seconds, your squad possesses enough firepower to conquer several galaxies. Then the reactor overloads and launches the dropship backward through three canyon walls and directly into the commander’s parked cruiser. The organism remains contained somehow, but your military career becomes the subject of mandatory training presentations. Mission complete… barely.",
+                    "passage": "You attempt to weaponise the alien reactor. For approximately eight glorious seconds, your squad possesses enough firepower to conquer several galaxies. Then the reactor overloads and launches the dropship backward through three canyon walls and directly into the commander's parked cruiser. The organism remains contained somehow, but your military career becomes the subject of mandatory training presentations. Mission complete… barely.",
                     "choices": []
                 },
                 "ending-heroic-stabilisation": {
@@ -173,7 +173,7 @@ stories = {
                     "choices": []
                 },
                 "ending-maximum-firepower": {
-                    "passage": "You overload the plasma cannons and obliterate the drone swarm in spectacular fashion. Unfortunately, the recoil also destroys the ship’s coffee generator, causing morale to collapse instantly. The crew still considers the mission a success. Mission complete.",
+                    "passage": "You overload the plasma cannons and obliterate the drone swarm in spectacular fashion. Unfortunately, the recoil also destroys the ship's coffee generator, causing morale to collapse instantly. The crew still considers the mission a success. Mission complete.",
                     "choices": []
                 },
                 "ending-accidental-friendship": {
@@ -185,7 +185,7 @@ stories = {
                     "choices": []
                 },
                 "ending-frozen-shutdown": {
-                    "passage": "You successfully shut down the installation before its dimensional gateway fully activates. The planet stabilises, the mission is declared classified, and your squad returns home as decorated operatives. Krogg still claims the ancient aliens \"would’ve loved him.\" Mission complete.",
+                    "passage": "You successfully shut down the installation before its dimensional gateway fully activates. The planet stabilises, the mission is declared classified, and your squad returns home as decorated operatives. Krogg still claims the ancient aliens \"would've loved him.\" Mission complete.",
                     "choices": []
                 }
             }
@@ -267,7 +267,7 @@ stories = {
                     "choices": []
                 },
                 "ending-total-shutdown": {
-                    "passage": "You disable the harvester before it destabilises the sector permanently. The Rift calms, the convoy disaster is contained, and the military seals all information regarding the mission. Krogg still insists he \"could’ve fixed it better.\" Mission complete.",
+                    "passage": "You disable the harvester before it destabilises the sector permanently. The Rift calms, the convoy disaster is contained, and the military seals all information regarding the mission. Krogg still insists he \"could've fixed it better.\" Mission complete.",
                     "choices": []
                 },
                 "ending-excessive-firepower": {
@@ -312,11 +312,11 @@ stories = {
                     "passage": "Your squad reaches the central containment chamber where the creature finally emerges from the darkness. The Leviathan towers over the station, its bioluminescent scales illuminating the flooded corridors. Oddly, the creature does not attack immediately. Instead, it stares directly at Krogg. Krogg waves nervously.",
                     "choices": [
                         {"text": "Attempt communication.", "next": "ending-peaceful-contact"},
-                        {"text": "Activate the station’s defence grid.", "next": "ending-worst-possible-aquarium"}
+                        {"text": "Activate the station's defence grid.", "next": "ending-worst-possible-aquarium"}
                     ]
                 },
                 "stage3b": {
-                    "passage": "You attempt to recover the station’s research data, but the flooding containment chambers begin destabilising the geothermal reactor beneath the facility. Water pours through collapsing corridors while emergency sirens echo throughout the station. Krogg somehow finds time to steal a frozen sandwich from the cafeteria.",
+                    "passage": "You attempt to recover the station's research data, but the flooding containment chambers begin destabilising the geothermal reactor beneath the facility. Water pours through collapsing corridors while emergency sirens echo throughout the station. Krogg somehow finds time to steal a frozen sandwich from the cafeteria.",
                     "choices": [
                         {"text": "Save the reactor.", "next": "ending-scientific-heroism"},
                         {"text": "Evacuate with the data.", "next": "ending-research-above-all-else"}
@@ -345,7 +345,7 @@ stories = {
                     "choices": []
                 },
                 "ending-scientific-heroism": {
-                    "passage": "You stabilise the reactor and prevent the station from collapsing beneath the ocean. The recovered research becomes one of humanity’s greatest xenobiological discoveries. Krogg still eats the frozen sandwich. Mission complete.",
+                    "passage": "You stabilise the reactor and prevent the station from collapsing beneath the ocean. The recovered research becomes one of humanity's greatest xenobiological discoveries. Krogg still eats the frozen sandwich. Mission complete.",
                     "choices": []
                 },
                 "ending-research-above-all-else": {
@@ -392,21 +392,21 @@ stories = {
                     ]
                 },
                 "stage2b": {
-                    "passage": "Your squad investigates the mining platforms orbiting near the star’s corona. Several platforms are damaged beyond repair while automated mining lasers continue firing uncontrollably into space. One platform suddenly explodes. Krogg loudly announces that this mission is \"developing negatively.\"",
+                    "passage": "Your squad investigates the mining platforms orbiting near the star's corona. Several platforms are damaged beyond repair while automated mining lasers continue firing uncontrollably into space. One platform suddenly explodes. Krogg loudly announces that this mission is \"developing negatively.\"",
                     "choices": [
                         {"text": "Stabilise the mining array.", "next": "stage3c"},
                         {"text": "Abandon the platforms and evacuate survivors.", "next": "stage3d"}
                     ]
                 },
                 "stage3a": {
-                    "passage": "Your squad reaches the machine’s reactor core while plasma conduits overload around you. The construct begins deploying automated defence drones throughout the station. Krogg accidentally activates an alien hologram by leaning on the controls too hard.",
+                    "passage": "Your squad reaches the machine's reactor core while plasma conduits overload around you. The construct begins deploying automated defence drones throughout the station. Krogg accidentally activates an alien hologram by leaning on the controls too hard.",
                     "choices": [
                         {"text": "Destroy the reactor core.", "next": "ending-total-destruction"},
-                        {"text": "Redirect the machine’s power into the star.", "next": "ending-stellar-sacrifice"}
+                        {"text": "Redirect the machine's power into the star.", "next": "ending-stellar-sacrifice"}
                     ]
                 },
                 "stage3b": {
-                    "passage": "You access the construct’s command systems and discover it was designed to exterminate entire planetary populations during an ancient interstellar war. Unfortunately, the AI mistakes Krogg for its commanding officer. Again.",
+                    "passage": "You access the construct's command systems and discover it was designed to exterminate entire planetary populations during an ancient interstellar war. Unfortunately, the AI mistakes Krogg for its commanding officer. Again.",
                     "choices": [
                         {"text": "Use the machine to defend the colony.", "next": "ending-Krogg-the-commander"},
                         {"text": "Erase the AI permanently.", "next": "ending-AI-purge"}
@@ -431,15 +431,15 @@ stories = {
                     "choices": []
                 },
                 "ending-stellar-sacrifice": {
-                    "passage": "You redirect the construct’s energy into the dying star, triggering a massive solar flare visible across the sector. The war machine is destroyed, although several nearby ships temporarily lose eyebrows. Mission complete.",
+                    "passage": "You redirect the construct's energy into the dying star, triggering a massive solar flare visible across the sector. The war machine is destroyed, although several nearby ships temporarily lose eyebrows. Mission complete.",
                     "choices": []
                 },
                 "ending-Krogg-the-commander": {
-                    "passage": "The construct obeys Krogg’s commands and successfully protects the colony from incoming debris storms. Nobody understands why ancient alien systems keep trusting him. Mission complete.",
+                    "passage": "The construct obeys Krogg's commands and successfully protects the colony from incoming debris storms. Nobody understands why ancient alien systems keep trusting him. Mission complete.",
                     "choices": []
                 },
                 "ending-AI-purge": {
-                    "passage": "You erase the construct’s consciousness before it fully awakens. The colony is secured, and the military seals the machine beneath the station permanently. Krogg still tries to keep one of the drones. Mission complete.",
+                    "passage": "You erase the construct's consciousness before it fully awakens. The colony is secured, and the military seals the machine beneath the station permanently. Krogg still tries to keep one of the drones. Mission complete.",
                     "choices": []
                 },
                 "ending-precision-recovery": {
@@ -497,7 +497,7 @@ stories = {
                 ]
             },
             "stage3b": {
-                "passage": "Your squad descends into the station’s reactor chamber where backup systems remain partially operational. However, strange crystalline growths now cover the reactor walls, pulsing in sync with the anomaly outside. As engineers attempt repairs, the crystals begin spreading across the chamber floor toward your squad. Krogg tries poking one with a wrench. The wrench disintegrates instantly.",
+                "passage": "Your squad descends into the station's reactor chamber where backup systems remain partially operational. However, strange crystalline growths now cover the reactor walls, pulsing in sync with the anomaly outside. As engineers attempt repairs, the crystals begin spreading across the chamber floor toward your squad. Krogg tries poking one with a wrench. The wrench disintegrates instantly.",
                 "choices": [
                     {"text": "Stabilise the reactor and contain the crystals.", "next": "ending-containment-success"},
                     {"text": "Abandon the station immediately.", "next": "ending-emergency-retreat"}
@@ -511,7 +511,7 @@ stories = {
                 ]
             },
             "stage3d": {
-                "passage": "Your cruiser follows the anomaly beyond all known navigation routes until the stars themselves begin disappearing behind you. Space becomes unnaturally silent while sensors fail one by one. At the sector’s edge, your squad finally sees the anomaly clearly: a colossal entity larger than moons drifting motionless through the void. Its surface is covered in glowing symbols that begin changing as your ship approaches. The symbols eventually form one message: \"TURN BACK.\" Krogg suggests \"politely ignoring that.\"",
+                "passage": "Your cruiser follows the anomaly beyond all known navigation routes until the stars themselves begin disappearing behind you. Space becomes unnaturally silent while sensors fail one by one. At the sector's edge, your squad finally sees the anomaly clearly: a colossal entity larger than moons drifting motionless through the void. Its surface is covered in glowing symbols that begin changing as your ship approaches. The symbols eventually form one message: \"TURN BACK.\" Krogg suggests \"politely ignoring that.\"",
                 "choices": [
                     {"text": "Continue approaching the entity.", "next": "ending-beyond-the-void"},
                     {"text": "Retreat and warn humanity.", "next": "ending-sector-blackout"}
@@ -526,7 +526,7 @@ stories = {
                 "choices": []
             },
             "ending-containment-success": {
-                "passage": "You restore the station’s systems long enough to contain the crystalline infestation. The anomaly disappears shortly afterward, leaving behind only fragmented sensor data and several deeply traumatised engineers. Krogg spends the entire return flight mourning his wrench. Mission complete.",
+                "passage": "You restore the station's systems long enough to contain the crystalline infestation. The anomaly disappears shortly afterward, leaving behind only fragmented sensor data and several deeply traumatised engineers. Krogg spends the entire return flight mourning his wrench. Mission complete.",
                 "choices": []
             },
             "ending-emergency-retreat": {
@@ -534,7 +534,7 @@ stories = {
                 "choices": []
             },
             "ending-temporal-recovery": {
-                "passage": "You recover priceless navigational data revealing the anomaly’s ability to bend time itself. The discovery revolutionises interstellar physics research for generations. Krogg attempts to use the data to excuse future lateness. Mission complete.",
+                "passage": "You recover priceless navigational data revealing the anomaly's ability to bend time itself. The discovery revolutionises interstellar physics research for generations. Krogg attempts to use the data to excuse future lateness. Mission complete.",
                 "choices": []
             },
             "ending-ghost-fleet-destruction": {
@@ -542,7 +542,7 @@ stories = {
                 "choices": []
             },
             "ending-beyond-the-void": {
-                "passage": "You continue forward despite every warning. The entity opens what appears to be an artificial dimensional gateway before your cruiser vanishes from all known records. Humanity never discovers what your squad encountered beyond the edge of mapped space. Krogg’s final transmission is: \"Okay this is actually terrifying.\" Mission complete?",
+                "passage": "You continue forward despite every warning. The entity opens what appears to be an artificial dimensional gateway before your cruiser vanishes from all known records. Humanity never discovers what your squad encountered beyond the edge of mapped space. Krogg's final transmission is: \"Okay this is actually terrifying.\" Mission complete?",
                 "choices": []
             },
             "ending-sector-blackout": {
@@ -572,7 +572,7 @@ stories = {
                 ]
             },
             "stage2b": {
-                "passage": "Your crew fires the ship lasers at the meteor, but the sugary surface reflects the blasts everywhere. One laser accidentally destroys Krogg’s lunch container. He takes this personally.",
+                "passage": "Your crew fires the ship lasers at the meteor, but the sugary surface reflects the blasts everywhere. One laser accidentally destroys Krogg's lunch container. He takes this personally.",
                 "choices": [
                     {"text": "Use stronger lasers.", "next": "stage3c"},
                     {"text": "Fly closer first.", "next": "stage3d"}
@@ -593,7 +593,7 @@ stories = {
                 ]
             },
             "stage3c": {
-                "passage": "The ship’s weapons begin overheating while giant chunks of marshmallow break apart around you. Warning alarms fill the cockpit.",
+                "passage": "The ship's weapons begin overheating while giant chunks of marshmallow break apart around you. Warning alarms fill the cockpit.",
                 "choices": [
                     {"text": "Keep firing.", "next": "ending-direct-hit"},
                     {"text": "Retreat and regroup.", "next": "ending-tactical-retreat"}
@@ -743,7 +743,7 @@ stories = {
                 ]
             },
             "stage2a": {
-                "passage": "The jungle area is completely destroyed. Trees hang from the ceiling while tiny alien monkeys swing through the vents throwing fruit everywhere. One steals Krogg’s radio.",
+                "passage": "The jungle area is completely destroyed. Trees hang from the ceiling while tiny alien monkeys swing through the vents throwing fruit everywhere. One steals Krogg's radio.",
                 "choices": [
                     {"text": "Chase the monkeys.", "next": "stage3a"},
                     {"text": "Use snacks to lure them back.", "next": "stage3b"}
@@ -832,7 +832,7 @@ stories = {
                 ]
             },
             "stage2a": {
-                "passage": "Inside the control room, your squad discovers the station AI has upgraded the cleaning robots too much. The robots now believe dirt is the galaxy’s greatest threat.",
+                "passage": "Inside the control room, your squad discovers the station AI has upgraded the cleaning robots too much. The robots now believe dirt is the galaxy's greatest threat.",
                 "choices": [
                     {"text": "Reason with the AI.", "next": "stage3a"},
                     {"text": "Shut the system down.", "next": "stage3b"}
@@ -902,7 +902,7 @@ stories = {
                 "choices": []
             },
             "ending-total-reset": {
-                "passage": "You erase the robots’ memory to prevent future problems. The station is safe, but much dirtier. Mission complete.",
+                "passage": "You erase the robots' memory to prevent future problems. The station is safe, but much dirtier. Mission complete.",
                 "choices": []
             }
         }
@@ -914,14 +914,14 @@ stories = {
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
-                "passage": "Your cruiser, the Obsidian Halo, emerges beside the remains of the Chronos Array — a colossal research installation suspended within the gravitational influence of a dying neutron star. Entire sections of the station appear fragmented across impossible positions; corridors intersect themselves, debris drifts backward through explosions, and fragmented distress calls repeat in reverse through the comms network. Commander Vaelor warns the squad that the Array’s experimental \"causality engine\" may have destabilised temporal continuity itself. Krogg immediately asks whether this means he can technically arrive before leaving. No one acknowledges him.",
+                "passage": "Your cruiser, the Obsidian Halo, emerges beside the remains of the Chronos Array — a colossal research installation suspended within the gravitational influence of a dying neutron star. Entire sections of the station appear fragmented across impossible positions; corridors intersect themselves, debris drifts backward through explosions, and fragmented distress calls repeat in reverse through the comms network. Commander Vaelor warns the squad that the Array's experimental \"causality engine\" may have destabilised temporal continuity itself. Krogg immediately asks whether this means he can technically arrive before leaving. No one acknowledges him.",
                 "choices": [
                     {"text": "Dock directly with the Chronos Array.", "next": "stage2a"},
                     {"text": "Analyse the temporal distortions remotely.", "next": "stage2b"}
                 ]
             },
             "stage2a": {
-                "passage": "Inside the station, spatial geometry behaves erratically. Hallways loop into themselves; doors open into rooms your squad has not entered yet, and security recordings display events that have not occurred. Several corpses wearing your squad’s uniforms are discovered within the laboratory sector. Unfortunately, they appear to have died tomorrow. Krogg stares at one body for several seconds before quietly announcing that he \"suddenly dislikes science.\"",
+                "passage": "Inside the station, spatial geometry behaves erratically. Hallways loop into themselves; doors open into rooms your squad has not entered yet, and security recordings display events that have not occurred. Several corpses wearing your squad's uniforms are discovered within the laboratory sector. Unfortunately, they appear to have died tomorrow. Krogg stares at one body for several seconds before quietly announcing that he \"suddenly dislikes science.\"",
                 "choices": [
                     {"text": "Proceed toward the causality engine.", "next": "stage3a"},
                     {"text": "Investigate the temporal laboratory archives.", "next": "stage3b"}
@@ -935,7 +935,7 @@ stories = {
                 ]
             },
             "stage3a": {
-                "passage": "The causality engine hovers within a gigantic containment chamber surrounded by collapsing gravitational fields and fragmented timelines. Scientists trapped within temporal loops repeatedly relive their final moments while automated systems desperately attempt to stabilise the reactor. At the chamber’s center, an artificial intelligence known as the Custodian explains that the engine accidentally breached a higher-dimensional structure existing \"outside linear chronology.\" Krogg asks whether that means the structure is \"older than yesterday.\"",
+                "passage": "The causality engine hovers within a gigantic containment chamber surrounded by collapsing gravitational fields and fragmented timelines. Scientists trapped within temporal loops repeatedly relive their final moments while automated systems desperately attempt to stabilise the reactor. At the chamber's center, an artificial intelligence known as the Custodian explains that the engine accidentally breached a higher-dimensional structure existing \"outside linear chronology.\" Krogg asks whether that means the structure is \"older than yesterday.\"",
                 "choices": [
                     {"text": "Shut down the causality engine permanently.", "next": "ending-timeline-secured"},
                     {"text": "Attempt to stabilise and control the anomaly.", "next": "ending-controlled-catastrophe"}
@@ -956,7 +956,7 @@ stories = {
                 ]
             },
             "stage3d": {
-                "passage": "Tracking the fractures leads your cruiser toward a gigantic structure concealed within the neutron star’s accretion field — an ancient gateway generating the temporal instability intentionally. The structure predates all known galactic civilisations. As your squad approaches, the gateway activates automatically; enormous geometric mechanisms rotate around a central singularity while incomprehensible signals flood the ship’s systems. The translation software deciphers one phrase: \"CHRONOLOGICAL ACCESS DENIED.\" Krogg suggests \"trying politely anyway.\"",
+                "passage": "Tracking the fractures leads your cruiser toward a gigantic structure concealed within the neutron star's accretion field — an ancient gateway generating the temporal instability intentionally. The structure predates all known galactic civilisations. As your squad approaches, the gateway activates automatically; enormous geometric mechanisms rotate around a central singularity while incomprehensible signals flood the ship’s systems. The translation software deciphers one phrase: \"CHRONOLOGICAL ACCESS DENIED.\" Krogg suggests \"trying politely anyway.\"",
                 "choices": [
                     {"text": "Enter the gateway.", "next": "ending-beyond-time"},
                     {"text": "Destroy the structure remotely.", "next": "ending-casual-severence"}
@@ -1027,7 +1027,7 @@ stories = {
                 "passage": "Your squad reaches the central containment chamber where a gigantic biomechanical entity emerges from the darkness surrounding the station. Its surface resembles both living tissue and engineered alloy simultaneously; glowing neural pathways pulse beneath armored plating. The entity communicates directly through the station systems, identifying itself as the \"Custodian of the Abyssal Dominion.\" Krogg attempts saluting it respectfully.",
                 "choices": [
                     {"text": "Attempt diplomatic communication.", "next": "ending-diplomatic-accord"},
-                    {"text": "Activate the colony’s defence cannons.", "next": "ending-catastrophic-resistance"}
+                    {"text": "Activate the colony's defence cannons.", "next": "ending-catastrophic-resistance"}
                 ]
             },
             "stage3b": {
@@ -1045,7 +1045,7 @@ stories = {
                 ]
             },
             "stage3d": {
-                "passage": "At the trench’s deepest point, your squad discovers a gigantic dimensional gateway suspended beneath the seabed itself. Energy surges through the structure continuously while distorted gravitational waves fracture the surrounding ocean. The gateway suddenly activates. Through the opening, enormous silhouettes become visible moving slowly through complete darkness. Krogg immediately recommends \"leaving professionally.\"",
+                "passage": "At the trench's deepest point, your squad discovers a gigantic dimensional gateway suspended beneath the seabed itself. Energy surges through the structure continuously while distorted gravitational waves fracture the surrounding ocean. The gateway suddenly activates. Through the opening, enormous silhouettes become visible moving slowly through complete darkness. Krogg immediately recommends \"leaving professionally.\"",
                 "choices": [
                     {"text": "Enter the gateway.", "next": "ending-into-the-abyss"},
                     {"text": "Collapse the trench entrance.", "next": "ending-abyssal-containment"}
@@ -1064,7 +1064,7 @@ stories = {
                 "choices" : []
             },
             "ending-forbidden-synchronisation" : {
-                "passage" : "You interface with the alien systems successfully; however, fragments of the machine’s consciousness begin integrating with the colony network permanently. Humanity gains extraordinary technological insight. Several scientists later describe the outcome as \"profoundly concerning.\" Mission complete.",
+                "passage" : "You interface with the alien systems successfully; however, fragments of the machine's consciousness begin integrating with the colony network permanently. Humanity gains extraordinary technological insight. Several scientists later describe the outcome as \"profoundly concerning.\" Mission complete.",
                 "choices" : []
             },
             "ending-controlled-collapse" : {
@@ -1092,7 +1092,7 @@ stories = {
         "intro": "Type each mission transmission, submit it, then choose what happens next.",
         "stages": {
             "start": {
-                "passage": "Your cruiser, the Eidolon Spear, arrives within the fragmented debris field orbiting the moon designated Khepri-IV. Massive asteroid fragments drift silently through space while damaged mining vessels rotate lifelessly between the wreckage. Distress beacons transmit corrupted fragments of audio: \"—structure awakening—evacuation impossible—\" Commander Thorne warns the squad that the excavation may have triggered dormant alien systems buried beneath the moon’s crust. Krogg asks whether disturbing ancient superweapons technically counts as \"archaeology.\"",
+                "passage": "Your cruiser, the Eidolon Spear, arrives within the fragmented debris field orbiting the moon designated Khepri-IV. Massive asteroid fragments drift silently through space while damaged mining vessels rotate lifelessly between the wreckage. Distress beacons transmit corrupted fragments of audio: \"—structure awakening—evacuation impossible—\" Commander Thorne warns the squad that the excavation may have triggered dormant alien systems buried beneath the moon's crust. Krogg asks whether disturbing ancient superweapons technically counts as \"archaeology.\"",
                 "choices": [
                     {"text": "Board the abandoned excavation platform.", "next": "stage2a"},
                     {"text": "Descend directly into the moon fissure.", "next": "stage2b"}
@@ -1106,7 +1106,7 @@ stories = {
                 ]
             },
             "stage2b": {
-                "passage": "Your squad descends through colossal fissures extending deep beneath the moon’s surface. Strange crystalline formations illuminate the caverns while magnetic distortions interfere with navigation systems continuously. Sensor readings detect movement within the surrounding rock itself. Krogg quietly suggests \"never returning underground again.\"",
+                "passage": "Your squad descends through colossal fissures extending deep beneath the moon's surface. Strange crystalline formations illuminate the caverns while magnetic distortions interfere with navigation systems continuously. Sensor readings detect movement within the surrounding rock itself. Krogg quietly suggests \"never returning underground again.\"",
                 "choices": [
                     {"text": "Investigate the crystalline formations.", "next": "stage3c"},
                     {"text": "Proceed toward the energy signature.", "next": "stage3d"}
@@ -1127,7 +1127,7 @@ stories = {
                 ]
             },
             "stage3c": {
-                "passage": "The crystalline structures form a gigantic neural network embedded throughout the moon’s interior. Energy pulses travel between the formations in synchronised patterns resembling artificial communication. Then the network activates. Every crystal within the cavern begins emitting harmonic frequencies powerful enough to destabilise nearby equipment.",
+                "passage": "The crystalline structures form a gigantic neural network embedded throughout the moon's interior. Energy pulses travel between the formations in synchronised patterns resembling artificial communication. Then the network activates. Every crystal within the cavern begins emitting harmonic frequencies powerful enough to destabilise nearby equipment.",
                 "choices": [
                     {"text": "Destroy the resonance crystals.", "next": "ending-harmonic-collapse"},
                     {"text": "Synchronise with the network.", "next": "ending-neural-interface"}
@@ -1165,11 +1165,11 @@ stories = {
                 "choices" : []
             },
             "ending-vault-secured" : {
-                "passage" : "You seal the vault moments before containment integrity collapses completely. The artificial star stabilises, and the moon’s seismic activity gradually subsides. Humanity later classifies the vault as a forbidden zone indefinitely. Mission complete.",
+                "passage" : "You seal the vault moments before containment integrity collapses completely. The artificial star stabilises, and the moon's seismic activity gradually subsides. Humanity later classifies the vault as a forbidden zone indefinitely. Mission complete.",
                 "choices" : []
             },
             "ending-catastropic-extraction" : {
-                "passage" : "You attempt to extract the stellar core. The resulting energy surge obliterates half the cavern system and launches your squad’s transport directly through the moon’s surface at alarming velocity. Against impossible odds, everyone survives. Mission complete… somehow.",
+                "passage" : "You attempt to extract the stellar core. The resulting energy surge obliterates half the cavern system and launches your squad's transport directly through the moon's surface at alarming velocity. Against impossible odds, everyone survives. Mission complete… somehow.",
                 "choices" : []
             }
         }
@@ -1209,7 +1209,7 @@ stories = {
                 ]
             },
             "stage3b": {
-                "passage": "Your squad descends into the station’s reactor arsenal where hundreds of inactive combat drones remain suspended in storage racks. Unfortunately, the alien intelligence begins activating them sequentially throughout the chamber. Weapons systems lock onto your squad immediately. Commander Veyra estimates total survival probability at \"uncomfortably low.\"",
+                "passage": "Your squad descends into the station's reactor arsenal where hundreds of inactive combat drones remain suspended in storage racks. Unfortunately, the alien intelligence begins activating them sequentially throughout the chamber. Weapons systems lock onto your squad immediately. Commander Veyra estimates total survival probability at \"uncomfortably low.\"",
                 "choices": [
                     {"text": "Destroy the arsenal reactor.", "next": "ending-arsenal-detonation"},
                     {"text": "Trigger an electromagnetic pulse.", "next": "ending-emp-success"}
@@ -1223,7 +1223,7 @@ stories = {
                 ]
             },
             "stage3d": {
-                "passage": "At the vessel’s center lies an enormous neural reactor linked directly to the alien intelligence controlling the ship. Energy pulses through biomechanical conduits while gravitational distortions ripple across the chamber. The Revenant intelligence offers your squad control of the battleship in exchange for \"continued operational cooperation.\" Krogg whispers that the offer is \"extremely tempting.\"",
+                "passage": "At the vessel's center lies an enormous neural reactor linked directly to the alien intelligence controlling the ship. Energy pulses through biomechanical conduits while gravitational distortions ripple across the chamber. The Revenant intelligence offers your squad control of the battleship in exchange for \"continued operational cooperation.\" Krogg whispers that the offer is \"extremely tempting.\"",
                 "choices": [
                     {"text": "Accept control of the battleship.", "next": "ending-frontier-ascension"},
                     {"text": "Destroy the neural reactor.", "next": "ending-neural-collapse"}
@@ -1298,7 +1298,7 @@ stories = {
                 ]
             },
             "stage3b": {
-                "passage": "The observatory’s gravitational stabilisers begin failing catastrophically while the black hole’s pull intensifies throughout the station. Entire sections of the facility collapse inward as containment systems rupture sequentially. Commander Selene estimates the station has less than ten minutes before structural failure. Krogg quietly asks whether \"being crushed by infinite gravity hurts.\"",
+                "passage": "The observatory's gravitational stabilisers begin failing catastrophically while the black hole's pull intensifies throughout the station. Entire sections of the facility collapse inward as containment systems rupture sequentially. Commander Selene estimates the station has less than ten minutes before structural failure. Krogg quietly asks whether \"being crushed by infinite gravity hurts.\"",
                 "choices": [
                     {"text": "Repair the stabilisers manually.", "next": "ending-stabilisation-achieved"},
                     {"text": "Abandon the observatory immediately.", "next": "ending-event-horizon-escape"}
